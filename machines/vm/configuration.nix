@@ -3,16 +3,19 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
+let
+  sshkey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKBB/PjWusmMRRWdhSIMmrA/6s6hESBKVdvo6S26LUh1";
+in
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      ../../conf/localization.nix
       ./hardware-configuration.nix
     ];
 
   boot = {
     initrd = {
-	checkJournalingFS = false;
+      checkJournalingFS = false;
     };
     loader = {
       systemd-boot.enable = true;
@@ -33,13 +36,6 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-  # console = {
-  #   font = "Lat2-Terminus16";
-  #   keyMap = "us";
-  # };
 
   # Set your time zone.
   time.timeZone = "Europe/Brussels";
@@ -62,9 +58,13 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  services.openssh.enable = true;
-  services.openssh.permitRootLogin = "prohibit-password";
-  users.users.root.openssh.authorizedKeys.keys =  [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKBB/PjWusmMRRWdhSIMmrA/6s6hESBKVdvo6S26LUh1" ];
+  services.openssh = {
+	enable = true;
+  	permitRootLogin = "prohibit-password";
+	passwordAuthentication = false;
+	challengeResponseAuthentication = false;
+  };
+  users.users.root.openssh.authorizedKeys.keys = [ sshkey ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -95,7 +95,7 @@
   users.users.rien = {
     isNormalUser = true;
     extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
-    openssh.authorizedKeys.keys =  [ "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKBB/PjWusmMRRWdhSIMmrA/6s6hESBKVdvo6S26LUh1" ];
+    openssh.authorizedKeys.keys =  [ sshkey ];
   };
 
   
