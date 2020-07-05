@@ -8,6 +8,7 @@
     [
       ../../conf/defaults.nix
       ../../services/sshd.nix
+      ../../services/nextcloud.nix
       ./hardware-configuration.nix
     ];
 
