@@ -6,6 +6,5 @@
     ./localization.nix
     ./packages.nix
     ./users.nix
-    ./sshd.nix
   ];
 }

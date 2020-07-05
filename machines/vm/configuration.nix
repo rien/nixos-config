@@ -7,6 +7,7 @@
   imports =
     [
       ../../conf/defaults.nix
+      ../../services/sshd.nix
       ./hardware-configuration.nix
     ];
 
