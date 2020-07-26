@@ -9,6 +9,7 @@
       ../../conf/defaults.nix
       ../../services/sshd.nix
       ../../services/nextcloud.nix
+      ../../services/transmission.nix
       ./hardware-configuration.nix
     ];
 
