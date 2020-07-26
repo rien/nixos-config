@@ -2,6 +2,10 @@
 {
   services.transmission = {
     enable = true;
+    settings = {
+      rpc-url = "/";
+      rpc-host-whitelist-enabled = false;
+    };
   };
 
   services.nginx.virtualHosts."transmission.vm" = {
@@ -16,7 +20,7 @@
     proxy_http_version 1.1;
     proxy_set_header Connection \"\";
     proxy_pass_header X-Transmission-Session-Id;
-    #add_header   Front-End-Https   on;
+    add_header   Front-End-Https   on;
     ";
 
     locations."/" = {
@@ -35,7 +39,7 @@
       proxyPass = "http://127.0.0.1:9091";
     };
 
-    locations."/web/style/" = {
+    /*locations."/web/style/" = {
       alias = "/usr/share/transmission/web/style/";
     };
 
@@ -45,6 +49,6 @@
 
     locations."/web/images/" = {
       alias = "/usr/share/transmission/web/images/";
-    };
+    };*/
   };
 }
