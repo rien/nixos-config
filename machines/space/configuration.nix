@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ../../conf/defaults.nix
       ../../services/sshd.nix
+      ./motd.nix
       ./hardware-configuration.nix
     ];
 
