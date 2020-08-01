@@ -8,6 +8,8 @@
     };
   };
 
+  systemd.services.transmission.serviceConfig.Environment="http_proxy=socks5://10.64.0.1";
+
   services.nginx.virtualHosts."transmission.rxn.be" = {
 
     enableACME = true;
