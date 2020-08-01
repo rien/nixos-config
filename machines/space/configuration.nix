@@ -6,6 +6,7 @@
       ../../services/sshd.nix
       ../../services/nginx.nix
       ../../services/transmission.nix
+      ../../services/wireguard.nix
       ./static-sites.nix
       ./motd.nix
       ./hardware-configuration.nix
