@@ -5,6 +5,7 @@
       ../../conf/defaults.nix
       ../../services/sshd.nix
       ../../services/nginx.nix
+      ../../services/transmission.nix
       ./static-sites.nix
       ./motd.nix
       ./hardware-configuration.nix

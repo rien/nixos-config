@@ -8,7 +8,10 @@
     };
   };
 
-  services.nginx.virtualHosts."transmission.vm" = {
+  services.nginx.virtualHosts."transmission.rxn.be" = {
+
+    enableACME = true;
+    forceSSL = true;
 
     basicAuthFile = /etc/nixos/services/transmission/basicAuth.secret;
 
