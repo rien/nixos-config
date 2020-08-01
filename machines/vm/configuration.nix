@@ -8,8 +8,10 @@
     [
       ../../conf/defaults.nix
       ../../services/sshd.nix
+      ../../services/nginx.nix
       ../../services/nextcloud.nix
       ../../services/transmission.nix
+      ../../services/postfix.nix
       ./hardware-configuration.nix
     ];
 
@@ -32,5 +34,6 @@
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.enp0s3.useDHCP = true;
+  networking.interfaces.enp0s8.useDHCP = true;
 }
 
