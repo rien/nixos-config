@@ -12,15 +12,5 @@ in
 
   services.nginx = {
     enable = true;
-
-    virtualHosts = {
-      "rien.maertens.io" = {
-        #enableACME = true;
-        #forceSSL = true;
-        locations."/" = {
-          root = "/srv/http/rien.maertens.io";
-        };
-      };
-    };
   };
 }
