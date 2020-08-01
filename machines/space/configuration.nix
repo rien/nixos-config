@@ -7,7 +7,7 @@
 {
   imports =
     [ # Include the results of the hardware scan.
-      ../conf/defaults.nix
+      ../../conf/defaults.nix
       ../../services/sshd.nix
       ./hardware-configuration.nix
     ];

@@ -5,9 +5,6 @@ if [ ! -d "./machines/$host" ]; then
     exit 1
 fi
 
-if [ -s "$(git status --porcelain)" ]; then
-    echo "Commit your changes."
-    git status
-fi
+rsync -vrA --exclude=".git/" --exclude=".git-crypt/" --filter=":- .gitignore" . "root@$host:/etc/nixos/"
 
-ssh "root@$host" "cd /etc/nixos; git pull; nixos-rebuild switch"
+ssh "root@$host" nixos-rebuild switch
