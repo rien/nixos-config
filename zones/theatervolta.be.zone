@@ -1,0 +1,6 @@
+$ORIGIN theatervolta.be. ; designates the start of this zone file in the namespace
+$TTL 5m                  ; default expiration time of all resource records without their own TTL value
+@   IN  SOA space.rxn.be. rien\.maertens.posteo.be. ( 2020080301 1d 6h 4w 5m )
+@   IN  NS  space.rxn.be.       ; ns.example.com is a nameserver for example.com
+@   IN  MX  10 space.rxn.be.    ; mail.example.com is the mailserver for example.com
+@   IN  A   49.12.7.126         ; IPv4 address for example.com
