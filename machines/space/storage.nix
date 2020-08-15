@@ -8,6 +8,7 @@
       options = [
         "transform_symlinks"
         "_netdev"
+        "reconnect"
         "identityfile=/etc/nixos/machines/space/storage/ssh_key.secret"
         "idmap=user"
       ];
@@ -20,6 +21,7 @@
         "nofail"
         "multithreaded"
         "x-systemd.after=data.mount"
+        "x-systemd.requires=data.mount"
         "force-user=rien"
       ];
     };
