@@ -1,7 +1,7 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib.strings) concatStringsSep;
-
+  loginFile = "/etc/nixos/services/postfix/sasl.secret";
   host = "space.rxn.be";
   aliases = import ./postfix/aliases.secret.nix;
   domains = [ host ] ++ aliases.virtualDomains;
@@ -12,8 +12,33 @@ in
 
   services.opendkim = {
     enable = true;
+    group = "postfix";
     domains = concatStringsSep "," domains;
     selector = "opendkim";
+  };
+
+  environment.etc = {
+    "sasl2/smtpd.conf" = {
+      text = ''
+      pwcheck_method: auxprop
+      auxprop_plugin: sasldb
+      mech_list: PLAIN LOGIN
+      '';
+    };
+  };
+
+  system.activationScripts = {
+    sasldb = {
+      deps = [];
+      text = ''
+      export PATH=${pkgs.stdenv}/bin:${pkgs.gnused}/bin:${pkgs.cyrus_sasl}/bin:$PATH
+      username="$(cat ${loginFile} | sed 's/\(\w*\) \(\w*\)/\1/')"
+      password="$(cat ${loginFile} | sed 's/\(\w*\) \(\w*\)/\2/')"
+      rm /etc/sasldb2
+      echo "$password" | saslpasswd2 -p -c -u "${host}" "$username"
+      chown root:postfix /etc/sasldb2
+      '';
+    };
   };
 
   security.dhparams.enable = true;
@@ -43,7 +68,7 @@ in
     virtual = aliases.virtual;
 
     extraConfig = ''
-    virtual_alias_domains = ${concatStringsSep ", " domains}
+    virtual_alias_domains = ${concatStringsSep ", " aliases.virtualDomains}
 
     # DKIM (and other milters)
     milter_default_action = accept
