@@ -10,8 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-  # NixOS wants to enable GRUB by default
-  boot.loader.grub.enable = false;
+  sound.enable = true;
 
   networking.hostName = "living"; # Define your hostname.
 }

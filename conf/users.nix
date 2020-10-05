@@ -4,10 +4,11 @@ let
 in
 {
   users.users.root.openssh.authorizedKeys.keys = [ personal.pcKey ];
+  users.users.root.extraGroups = [ "audio" ];
   users.users.rien = {
     isNormalUser = true;
     createHome = true;
-    extraGroups = [ "wheel" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "audio" ];
     openssh.authorizedKeys.keys = [ personal.pcKey personal.mobileKey ];
   };
 }
