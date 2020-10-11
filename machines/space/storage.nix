@@ -18,7 +18,6 @@
       device = "/data/rien/";
       fsType = "fuse.bindfs";
       options = [
-        "nofail"
         "multithreaded"
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
