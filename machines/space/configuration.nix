@@ -1,4 +1,7 @@
 { config, pkgs, ... }:
+let
+  felix = import ./felix.secret.nix;
+in
 {
   imports =
     [
@@ -13,6 +16,12 @@
       ./motd.nix
       ./hardware-configuration.nix
     ];
+
+  users.users.felix = {
+    isNormalUser = true;
+    createHome = true;
+    openssh.authorizedKeys.keys = [ felix.key ];
+  };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
