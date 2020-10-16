@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  felix = import ./felix.secret.nix;
+  df-keys = import ./df-keys.secret.nix;
 in
 {
   imports =
@@ -17,11 +17,19 @@ in
       ./hardware-configuration.nix
     ];
 
-  users.users.felix = {
-    isNormalUser = true;
-    createHome = true;
-    openssh.authorizedKeys.keys = [ felix.key ];
-  };
+    nixpkgs.config.allowUnfree = true;
+    users.users.df = {
+      isNormalUser = true;
+      createHome = true;
+      openssh.authorizedKeys.keys = df-keys.keys;
+      shell =
+        let
+          abduco = "${pkgs.abduco}/bin/abduco";
+          df = "${pkgs.dwarf-fortress.override { enableSound = false; enableTextMode = true; }}/bin/dwarf-fortress";
+          df-shell = pkgs.writeShellScriptBin "df-shell" "${abduco} -lA df ${df}";
+        in
+        df-shell.overrideAttrs (old: { passthru = { shellPath = "/bin/df-shell"; }; });
+    };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
