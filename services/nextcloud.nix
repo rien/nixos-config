@@ -10,7 +10,7 @@
       dbuser = "nextcloud";
       dbhost = "/run/postgresql"; # nextcloud will add /.s.PGSQL.5432 by itself
       dbname = "nextcloud";
-      adminpassFile = "/etc/nixos/services/nextcloud/adminpass.secret";
+      adminpassFile = "/etc/nixos/secrets/nextcloud-adminpass";
       adminuser = "root";
     };
   };

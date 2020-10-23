@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 let
   inherit (lib.strings) concatStringsSep;
-  loginFile = "/etc/nixos/services/postfix/sasl.secret";
+  loginFile = "/etc/nixos/secrets/postfix/sasl";
   host = "space.rxn.be";
-  aliases = import ./postfix/aliases.secret.nix;
+  aliases = import ./postfix-aliases.secret.nix;
   domains = [ host ] ++ aliases.virtualDomains;
 in
 {

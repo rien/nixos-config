@@ -15,7 +15,7 @@
     enableACME = true;
     forceSSL = true;
 
-    basicAuthFile = /etc/nixos/services/transmission/basicAuth.secret;
+    basicAuthFile = /etc/nixos/secrets/transmission-basic-auth;
 
     extraConfig = "
     proxy_set_header X-Real-IP $remote_addr;

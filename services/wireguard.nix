@@ -1,5 +1,5 @@
 let
-  wgConfig = import ./wireguard/config.secret.nix;
+  wgConfig = import ./wireguard-config.secret.nix;
 in
 {
     # Enable Wireguard
@@ -14,7 +14,7 @@ in
       # Note: The private key can also be included inline via the privateKey option,
       # but this makes the private key world-readable; thus, using privateKeyFile is
       # recommended.
-      privateKeyFile = "/etc/nixos/services/wireguard/privkey.secret";
+      privateKeyFile = "/etc/nixos/secrets/wireguard/space.privkey";
 
       peers = [
         # For a client configuration, one peer entry for the server will suffice.
