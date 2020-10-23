@@ -9,9 +9,9 @@ in
       ../../services/sshd.nix
       ../../services/nginx.nix
       ../../services/transmission.nix
-      ../../services/wireguard.nix
       ../../services/postfix.nix
       ../../services/dwarffortress.nix
+      ./wireguard.secret.nix
       ./storage.nix
       ./static-sites.nix
       ./motd.nix
