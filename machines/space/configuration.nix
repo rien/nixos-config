@@ -11,25 +11,12 @@ in
       ../../services/transmission.nix
       ../../services/wireguard.nix
       ../../services/postfix.nix
+      ../../services/dwarffortress.nix
       ./storage.nix
       ./static-sites.nix
       ./motd.nix
       ./hardware-configuration.nix
     ];
-
-    nixpkgs.config.allowUnfree = true;
-    users.users.df = {
-      isNormalUser = true;
-      createHome = true;
-      openssh.authorizedKeys.keys = df-keys.keys;
-      shell =
-        let
-          abduco = "${pkgs.abduco}/bin/abduco";
-          df = "${pkgs.dwarf-fortress.override { enableSound = false; enableTextMode = true; }}/bin/dwarf-fortress";
-          df-shell = pkgs.writeShellScriptBin "df-shell" "${abduco} -lA df ${df}";
-        in
-        df-shell.overrideAttrs (old: { passthru = { shellPath = "/bin/df-shell"; }; });
-    };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
