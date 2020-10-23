@@ -8,6 +8,6 @@ fi
 # Ensure (confident) files are only accessible by owner
 chmod g-rwx,o-rwx ./secrets/
 
-rsync -vrA --delete --exclude=".git/" --exclude "configuration.nix" --exclude=".git-crypt/" --filter=":- .gitignore" . "root@$host:/etc/nixos/"
+rsync -vrA --delete --exclude=".git/" --exclude=".git-crypt/" --filter=":- .gitignore" . "root@$host:/etc/nixos/"
 
 ssh "root@$host" nixos-rebuild switch --show-trace
