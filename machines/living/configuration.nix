@@ -5,10 +5,13 @@
       ../../conf/defaults.nix
       ../../conf/home-network.secret.nix
       ../../services/sshd.nix
-      #../../services/kodi.nix
       ./motd.nix
       ./hardware-configuration.nix
     ];
+
+  environment.systemPackages = with pkgs; [
+     ncspot
+  ];
 
   sound.enable = true;
 
