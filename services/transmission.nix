@@ -1,4 +1,7 @@
-{ ... }:
+{ pkgs, ... }:
+let
+  staticFiles = "${pkgs.transmission}/share/transmission/web/";
+in
 {
   services.transmission = {
     enable = true;
@@ -44,16 +47,16 @@
       proxyPass = "http://127.0.0.1:9091";
     };
 
-    /*locations."/web/style/" = {
-      alias = "/usr/share/transmission/web/style/";
+    locations."/web/style/" = {
+      alias = "${staticFiles}/style/";
     };
 
     locations."/web/javascript/" = {
-      alias = "/usr/share/transmission/web/javascript/";
+      alias = "${staticFiles}/javascript/";
     };
 
     locations."/web/images/" = {
-      alias = "/usr/share/transmission/web/images/";
-    };*/
+      alias = "${staticFiles}/images/";
+    };
   };
 }
