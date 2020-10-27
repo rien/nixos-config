@@ -23,6 +23,11 @@
       fsType = "vfat";
     };
 
+  fileSystems."/data" = {
+    device = "/dev/disk/by-uuid/ec8d7a93-c791-49d9-bfc6-971ed3d18569";
+    fsType = "ext4";
+  };
+
   swapDevices = [ ];
 
   nix.maxJobs = lib.mkDefault 2;
