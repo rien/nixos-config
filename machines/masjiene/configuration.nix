@@ -18,6 +18,8 @@
 
   custom.transmission = {
     domain = "transmission.masjiene.rxn.be";
+    download-dir = "/data/transmission/downloads/";
+    incomplete-dir = "/data/transmission/incomplete/";
   };
 
   # Use the systemd-boot EFI boot loader.

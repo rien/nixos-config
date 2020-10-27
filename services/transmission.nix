@@ -1,6 +1,7 @@
 { lib, pkgs, config, ... }:
 with lib;
 let
+  isAbsolute = path: builtins.substring 0 1 path == "/";
   cfg = config.custom.transmission;
   staticFiles = "${pkgs.transmission}/share/transmission/web/";
 in
@@ -9,13 +10,35 @@ in
     domain = mkOption {
       type = types.str;
     };
+    download-dir = mkOption {
+      type = types.str;
+      default = "Downloads/";
+    };
+    incomplete-dir = mkOption {
+      type = types.str;
+      default = ".incomplete";
+    };
   };
 
-  config = {
+  config = let
+    transmissionMkdirs = builtins.map
+      (path: "mkdir -p ${path} && chown transmission:transmission ${path}")
+      (builtins.filter isAbsolute [ cfg.download-dir cfg.incomplete-dir ]);
+  in
+    {
+
+    system.activationScripts = mkIf (length transmissionMkdirs > 0) {
+      transmissionDataDir = {
+        text = lib.strings.concatStringsSep "; " transmissionMkdirs;
+        deps = [];
+      };
+    };
 
     services.transmission = {
       enable = true;
       settings = {
+        download-dir = cfg.download-dir;
+        incomplete-dir = cfg.download-dir;
         encryption = 1;
         rpc-url = "/";
         rpc-host-whitelist-enabled = false;
