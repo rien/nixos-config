@@ -1,7 +1,6 @@
 { lib, pkgs, config, ... }:
 with lib;
 let
-  isAbsolute = path: builtins.substring 0 1 path == "/";
   cfg = config.custom.transmission;
   staticFiles = "${pkgs.transmission}/share/transmission/web/";
 in
@@ -12,40 +11,47 @@ in
     };
     download-dir = mkOption {
       type = types.str;
-      default = "Downloads/";
     };
     incomplete-dir = mkOption {
       type = types.str;
-      default = ".incomplete";
+    };
+    port = mkOption {
+      type = types.int;
+      default = 51413;
+    };
+    netns = mkOption {
+      type = types.str;
+    };
+    rpc-whitelist = mkOption {
+      type = types.str;
+      default = "127.0.0.1";
+    };
+    rpc-bind-address = mkOption {
+      type = types.str;
+      default = "127.0.0.1";
     };
   };
 
-  config = let
-    transmissionMkdirs = builtins.map
-      (path: "mkdir -p ${path} && chown transmission:transmission ${path}")
-      (builtins.filter isAbsolute [ cfg.download-dir cfg.incomplete-dir ]);
-  in
-    {
+  config = {
 
-    system.activationScripts = mkIf (length transmissionMkdirs > 0) {
-      transmissionDataDir = {
-        text = lib.strings.concatStringsSep "; " transmissionMkdirs;
-        deps = [];
-      };
-    };
+    networking.firewall.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.allowedUDPPorts = [ cfg.port ];
 
     services.transmission = {
       enable = true;
       settings = {
+        peer-port = cfg.port;
         download-dir = cfg.download-dir;
-        incomplete-dir = cfg.download-dir;
-        encryption = 1;
+        incomplete-dir = cfg.incomplete-dir;
+        encryption = 2;
         rpc-url = "/";
+        rpc-bind-address = cfg.rpc-bind-address;
         rpc-host-whitelist-enabled = false;
+        rpc-whitelist = cfg.rpc-whitelist;
       };
     };
 
-    systemd.services.transmission.serviceConfig.Environment="http_proxy=socks5://10.64.0.1";
+    systemd.services.transmission.serviceConfig.NetworkNamespacePath= mkIf (cfg.netns != null) "/var/run/netns/${cfg.netns}";
 
     services.nginx.virtualHosts."${cfg.domain}" = {
 
@@ -70,15 +76,15 @@ in
       };
 
       locations."/rpc" = {
-        proxyPass = "http://127.0.0.1:9091";
+        proxyPass = "http://${cfg.rpc-bind-address}:9091";
       };
 
       locations."/web/" = {
-        proxyPass = "http://127.0.0.1:9091";
+        proxyPass = "http://${cfg.rpc-bind-address}:9091";
       };
 
       locations."/upload" = {
-        proxyPass = "http://127.0.0.1:9091";
+        proxyPass = "http://${cfg.rpc-bind-address}:9091";
       };
 
       locations."/web/style/" = {

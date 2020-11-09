@@ -1,5 +1,6 @@
 { config, pkgs, ... }:
 let
+  secret = import ./secret.nix;
   df-keys = import ./df-keys.secret.nix;
 in
 {
@@ -17,6 +18,16 @@ in
       ./motd.nix
       ./hardware-configuration.nix
     ];
+
+  custom.transmission = {
+    domain = "transmission.rxn.be";
+    download-dir = "/var/lib/transmission/data/downloaded";
+    incomplete-dir = "/var/lib/transmission/data/incomplete";
+    port = secret.transmission.port;
+    netns = secret.transmission.netns;
+    rpc-bind-address = secret.transmission.rpc-bind-address;
+    rpc-whitelist = secret.transmission.rpc-whitelist;
+  };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;

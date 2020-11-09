@@ -24,6 +24,19 @@
         "force-user=rien"
       ];
     };
+
+    "/var/lib/transmission/data/" = {
+      device = "/data/transmission/";
+      fsType = "fuse.bindfs";
+      options = [
+        "nonempty"
+        "multithreaded"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=transmission.service"
+        "x-systemd.required-by=transmission.service"
+        "force-user=transmission"
+      ];
+    };
   };
 
 
