@@ -6,6 +6,7 @@
       device = "u239266@u239266.your-storagebox.de:/";
       fsType = "fuse.sshfs";
       options = [
+        "umask=0077"
         "transform_symlinks"
         "_netdev"
         "reconnect"

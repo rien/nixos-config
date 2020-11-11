@@ -12,7 +12,6 @@ in
       ../../services/transmission.nix
       ../../services/postfix.nix
       ../../services/dwarffortress.nix
-      ./wireguard.secret.nix
       ./storage.nix
       ./static-sites.nix
       ./motd.nix
@@ -21,7 +20,7 @@ in
 
   custom.transmission = {
     domain = "transmission.rxn.be";
-    download-dir = "/var/lib/transmission/data/downloaded";
+    download-dir = "/var/lib/transmission/data/complete";
     incomplete-dir = "/var/lib/transmission/data/incomplete";
     port = secret.transmission.port;
   };
