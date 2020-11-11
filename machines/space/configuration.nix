@@ -24,9 +24,6 @@ in
     download-dir = "/var/lib/transmission/data/downloaded";
     incomplete-dir = "/var/lib/transmission/data/incomplete";
     port = secret.transmission.port;
-    netns = secret.transmission.netns;
-    rpc-bind-address = secret.transmission.rpc-bind-address;
-    rpc-whitelist = secret.transmission.rpc-whitelist;
   };
 
   # Use the GRUB 2 boot loader.

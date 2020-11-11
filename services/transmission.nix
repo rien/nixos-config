@@ -16,11 +16,12 @@ in
       type = types.str;
     };
     port = mkOption {
-      type = types.int;
+      type = types.port;
       default = 51413;
     };
-    netns = mkOption {
-      type = types.str;
+    namespace = mkOption {
+      type = types.nullOr types.str;
+      default = null;
     };
     rpc-whitelist = mkOption {
       type = types.str;
@@ -51,7 +52,7 @@ in
       };
     };
 
-    systemd.services.transmission.serviceConfig.NetworkNamespacePath= mkIf (cfg.netns != null) "/var/run/netns/${cfg.netns}";
+    systemd.services.transmission.serviceConfig.NetworkNamespacePath= mkIf (cfg.namespace != null) "/var/run/netns/${cfg.namespace}";
 
     services.nginx.virtualHosts."${cfg.domain}" = {
 

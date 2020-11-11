@@ -3,24 +3,38 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, pkgs, ... }:
-
+let
+  secret = import ./secret.nix;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
       ../../conf/defaults.nix
       ../../services/sshd.nix
       ../../services/nginx.nix
+      #../../services/radarr.nix
       ../../services/transmission.nix
-      ./wireguard.secret.nix
+      ../../services/wireguard.nix
+      #./wireguard.secret.nix
       ./motd.nix
       ./hardware-configuration.nix
     ];
 
+  custom.wireguard = secret.wireguard;
+
   custom.transmission = {
     domain = "transmission.masjiene.rxn.be";
-    download-dir = "/data/transmission/downloads/";
+    download-dir = "/data/transmission/complete/";
     incomplete-dir = "/data/transmission/incomplete/";
+    port = secret.transmission.port;
+    namespace = secret.wireguard.namespace;
+    rpc-bind-address = "10.10.10.2";
+    rpc-whitelist = "10.10.10.1";
   };
+
+  #custom.radarr = {
+  #  domain = "radarr.masjiene.rxn.be";
+  #};
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
