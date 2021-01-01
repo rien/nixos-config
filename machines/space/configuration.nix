@@ -37,5 +37,25 @@ in
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.ens3.useDHCP = true;
+
+  # Don't change this.
+  # See https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
+  system.stateVersion = "20.03";
+
+  system.autoUpgrade.enable = true;
+  system.autoUpgrade.allowReboot = false;
+  system.autoUpgrade.channel = https://nixos.org/channels/nixos-20.09;
+
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 7d";
+    };
+    optimise = {
+      automatic = true;
+      dates = [ "daily" ];
+    };
+  };
 }
 
