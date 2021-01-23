@@ -11,7 +11,7 @@ in
       ../../services/nginx.nix
       ../../services/transmission.nix
       ../../services/postfix.nix
-      ../../services/dwarffortress.nix
+      #../../services/dwarffortress.nix
       ./storage.nix
       ./static-sites.nix
       ./motd.nix

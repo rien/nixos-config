@@ -4,7 +4,7 @@
     isNormalUser = true;
     createHome = true;
     home = /srv/webhost;
-    openssh.authorizedKeys.keys = [ (import ../../conf/personal.secret.nix).pcKey ];
+    openssh.authorizedKeys.keys = (import ../../conf/personal.secret.nix).pcKeys;
   };
 
   services.nginx = {
