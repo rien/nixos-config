@@ -31,6 +31,9 @@
             # Ruby dependencies in source tree
             "/vendor/bundle"
             "**/*.patch"
+            # IntelliJ
+            ".idea/*"
+            "*.iml"
           ];
           signing = {
             key = personal.email;

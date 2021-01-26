@@ -16,7 +16,11 @@
     extraPackages = with pkgs; [
       firefox
       spotify-tui
+      jetbrains.idea-ultimate
+      jdk
     ];
+
+    allowUnfree = with pkgs; [ jetbrains.idea-ultimate ];
 
     wireless = {
       enable = true;

@@ -1,7 +1,9 @@
 import XMonad
+import XMonad.Hooks.EwmhDesktops (ewmh)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Util.Run
 import Data.Monoid
 import System.Exit
@@ -48,7 +50,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
     --, ((modm,               xK_m     ), windows W.focusMaster  )
 
       -- Swap the focused window and the master window
-    , ((modm .|. shiftMask, xK_Return), windows W.swapMaster)
+    , ((modm .|. shiftMask, xK_Return), dwmpromote)
 
       -- Swap the focused window with the next window
     --, ((modm .|. shiftMask, xK_j     ), windows W.swapDown  )
@@ -103,7 +105,7 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
 main = do
   xmproc <- spawnPipe "@xmobar@"
-  xmonad $ docks def
+  xmonad $ ewmh $ docks def
     { modMask    = mod4Mask
     , terminal   = "@kitty@/bin/kitty"
     , keys       = myKeys

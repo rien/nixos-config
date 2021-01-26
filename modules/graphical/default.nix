@@ -9,6 +9,8 @@
 
   config = lib.mkIf config.custom.graphical.enable {
 
+    custom.allowUnfree = [ pkgs.symbola ];
+
     # Enable X11 and fix touchpad
     services.xserver = {
       enable = true;
@@ -21,8 +23,8 @@
         # Three fingers -> middle mouse button
         buttonsMap = [ 1 3 2 ];
 
-        maxSpeed = "1.5";
-        minSpeed = "1.5";
+        maxSpeed = "1.25";
+        minSpeed = "1.25";
       };
     };
 

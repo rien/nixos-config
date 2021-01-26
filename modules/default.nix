@@ -24,6 +24,11 @@ in {
       default = [];
       example = [ pkgs.spotify-tui ];
     };
+
+    allowUnfree = lib.mkOption {
+      default = [];
+      example = [ pkgs.jetbrains.idea-ultimate ];
+    };
   };
 
   config = let
@@ -69,9 +74,10 @@ in {
       '';
     };
 
-    nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-      "symbola"
-    ];
+    nixpkgs.config.allowUnfreePredicate = pkg:
+    let
+      allowed = builtins.map lib.getName cfg.allowUnfree;
+    in builtins.elem (lib.getName pkg) allowed;
   };
 
 }
