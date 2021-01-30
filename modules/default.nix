@@ -74,6 +74,15 @@ in {
       extraOptions = ''
         experimental-features = nix-command flakes
       '';
+      gc = {
+        automatic = true;
+        dates = "daily";
+        options = "--delete-older-than 7d";
+      };
+      optimise = {
+        automatic = true;
+        dates = [ "daily" ];
+      };
     };
 
     nixpkgs.config.allowUnfreePredicate = pkg:
