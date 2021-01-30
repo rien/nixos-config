@@ -1,15 +1,4 @@
-{ config, lib, pkgs, ... }:
-let
-  # Kitty's terminfo is usually not present on host machines, this fixes that
-  sshWrapper = pkgs.writeScriptBin "ssh" ''
-    export TERM=xterm-256-color
-    ${pkgs.openssh}/bin/ssh $@
-  '';
-  ssh = pkgs.symlinkJoin {
-    name = "ssh";
-    paths = [ pkgs.openssh sshWrapper ];
-  };
-in {
+{ config, lib, pkgs, ... }: {
   options.custom.kitty = {
     enable = lib.mkOption {
       default = false;
@@ -19,7 +8,6 @@ in {
 
   config = lib.mkIf config.custom.kitty.enable {
     home-manager.users.rien = { pkgs, ... }: {
-      home.packages = [ ssh ];
       programs.kitty = {
         enable = true;
         settings = {
