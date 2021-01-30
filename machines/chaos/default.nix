@@ -3,6 +3,8 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
+  age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+
   custom = {
     bash.enable = true;
     git.enable = true;
@@ -12,6 +14,8 @@
     neovim.enable = true;
     pass.enable = true;
     ssh.enable = true;
+    mounts.enable = true;
+    vpnc.enable = true;
 
     extraPackages = with pkgs; [
       firefox

@@ -20,6 +20,7 @@ let
         set nocompatible
         filetype off	
 
+        autocmd FileType age call Nix()
         autocmd FileType mail call Text()
         autocmd FileType markdown call Text()
         autocmd FileType tex call Text()
@@ -31,6 +32,10 @@ let
         "set formatoptions+=a " Automatic wrapping & unwrapping
         set formatoptions+=n " Keep list alignment
         set formatoptions+=1 " Prefer to wrap before single character words
+        endfunction
+
+        function Nix()
+        set filetype=nix
         endfunction
 
         noremap J <C-d>

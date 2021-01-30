@@ -13,6 +13,8 @@ in {
     ./pass.nix
     ./ssh
     ./wireless
+    ./mounts
+    ./vpnc
   ];
 
   options.custom = {

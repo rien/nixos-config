@@ -8,9 +8,14 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix = {
+      url = "github:ryantm/agenix/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -19,6 +24,9 @@
       mkSystem = system: hostname: nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
+          # Secrets management
+          agenix.nixosModules.age
+          { environment.systemPackages = [ agenix.defaultPackage.${system} ]; }
 
           # Enable home-manager
           home-manager.nixosModules.home-manager
