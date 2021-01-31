@@ -5,6 +5,8 @@
 
   age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   custom = {
     bash.enable = true;
     git.enable = true;
