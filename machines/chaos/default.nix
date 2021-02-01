@@ -16,17 +16,21 @@
     neovim.enable = true;
     pass.enable = true;
     ssh.enable = true;
-    mounts.enable = true;
+    #mounts.enable = true;
     vpnc.enable = true;
 
     extraPackages = with pkgs; [
+      gimp
       firefox
       spotify-tui
       jetbrains.idea-ultimate
       jdk
+      mpv
+      ffmpeg-full
+      teams
     ];
 
-    allowUnfree = with pkgs; [ jetbrains.idea-ultimate ];
+    allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams ];
 
     wireless = {
       enable = true;

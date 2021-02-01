@@ -41,8 +41,10 @@
 
   swapDevices = [ ];
   hardware = {
+    cpu.intel.updateMicrocode = true;
     enableRedistributableFirmware = true;
   };
+  services.fstrim.enable = true;
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
