@@ -11,6 +11,19 @@
 
     custom.allowUnfree = [ pkgs.symbola ];
 
+    environment.systemPackages = [ pkgs.pulseaudio ];
+
+    sound.enable = true;
+    security.rtkit.enable = true;
+    services.pipewire = {
+      enable = true;
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      #jack.enable = true;
+      pulse.enable = true;
+    };
+
+
     # Enable X11 and fix touchpad
     services.xserver = {
       enable = true;
@@ -50,6 +63,7 @@
 
     # Configure X session with Xmonad and Xmobar
     home-manager.users.rien = { pkgs, ... }: {
+      home.packages = [ pkgs.pavucontrol pkgs.patchage ];
       home.file.".xinitrc".text = "source ~/.xsession";
       home.keyboard = {
         layout = "us";
