@@ -3,13 +3,13 @@
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:rien/nixpkgs/master";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
-      url = "github:ryantm/agenix/master";
+      url = "github:rien/agenix/master";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -67,6 +67,7 @@
         }) // {
       nixosConfigurations = {
         chaos = mkSystem "x86_64-linux" "chaos";
+        living = mkSystem "aarch64-linux" "living";
       };
     };
 }
