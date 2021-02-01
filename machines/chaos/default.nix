@@ -28,6 +28,7 @@
       mpv
       ffmpeg-full
       teams
+      zathura
     ];
 
     allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams ];

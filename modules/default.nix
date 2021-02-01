@@ -9,12 +9,13 @@ in {
     ./gnupg.nix
     ./graphical
     ./kitty.nix
+    ./minidlna.nix
+    ./mounts
     ./neovim.nix
     ./pass.nix
     ./ssh
-    ./wireless
-    ./mounts
     ./vpnc
+    ./wireless
   ];
 
   options.custom = {
@@ -50,6 +51,8 @@ in {
       strace
       wget
       zip
+      unzip
+      nix-tree
     ] ++ cfg.extraPackages;
 
     # Don't wait for dhcpd when booting
@@ -59,14 +62,14 @@ in {
     time.timeZone = "Europe/Brussels";
 
     users.users.root = {
-      openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn ];
+      openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn chaos ];
     };
 
     users.users.rien = {
       isNormalUser = true;
       createHome = true;
       extraGroups = [ "wheel" ] ++ lib.optionals cfg.graphical.enable [ "input" "video" "graphical" ];
-      openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone ];
+      openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos ];
     };
 
     nix = {

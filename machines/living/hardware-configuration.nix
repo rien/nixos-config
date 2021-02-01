@@ -30,7 +30,7 @@
   hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
   environment.systemPackages = with pkgs; [
-    raspberrypi-tools
+    libraspberrypi
   ];
 
   hardware.enableRedistributableFirmware = true;

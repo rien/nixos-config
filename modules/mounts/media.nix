@@ -1,39 +1,40 @@
 { pkgs, config, lib, ... }:
 with lib;
 let
-  secret = ./secret.nix;
+  secret = import ./secret.nix;
   cfg = config.custom.mounts.media;
 in {
-  options.custom.mounts.storage = {
+  options.custom.mounts.media = {
     enable = mkOption {
       default = false;
       example = true;
     };
 
     mountPoint = mkOption {
-      default = "/media/"
+      default = "/media";
     };
 
     identityFile = mkOption {
-      type = t.path;
+      type = types.path;
     };
   };
 
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ sshfs ];
     fileSystems = {
-      "${mountPoint}" = {
+      "${cfg.mountPoint}" = {
         device = secret.mediaDevice;
         fsType = "fuse.sshfs";
         options = [
-          "ro",
+          "ro"
           "transform_symlinks"
           "_netdev"
           "reconnect"
-          "allow_other",
+          "allow_other"
           "identityfile=${cfg.identityFile}"
-          "uid=${cfg.user}",
+          #"uid=${cfg.user}",
         ];
       };
+    };
   };
-};
+}
