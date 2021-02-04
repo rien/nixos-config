@@ -9,6 +9,7 @@
 
   custom = {
     bash.enable = true;
+    docker.enable = true;
     git.enable = true;
     gnupg.enable = true;
     graphical.enable = true;
@@ -16,6 +17,7 @@
     neovim.enable = true;
     pass.enable = true;
     ssh.enable = true;
+    zeroad.enable = true;
     #mounts.enable = true;
     vpnc.enable = true;
 
@@ -29,6 +31,8 @@
       ffmpeg-full
       teams
       zathura
+      imagemagick7
+      mumble
     ];
 
     allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams ];

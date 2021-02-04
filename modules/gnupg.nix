@@ -17,6 +17,7 @@ in
         enable = true;
         enableSshSupport = config.custom.ssh.enable;
         defaultCacheTtl = 7200;
+        defaultCacheTtlSsh = 7200;
         maxCacheTtl = 99999;
         pinentryFlavor = "qt";
       };

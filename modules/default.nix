@@ -5,6 +5,7 @@ in {
 
   imports = [
     ./bash.nix
+    ./docker.nix
     ./git.nix
     ./gnupg.nix
     ./graphical
@@ -16,6 +17,7 @@ in {
     ./ssh
     ./vpnc
     ./wireless
+    ./zeroad.nix
   ];
 
   options.custom = {
@@ -53,6 +55,9 @@ in {
       zip
       unzip
       nix-tree
+      curlie
+      httpie
+      lsof
     ] ++ cfg.extraPackages;
 
     # Don't wait for dhcpd when booting
@@ -70,6 +75,23 @@ in {
       createHome = true;
       extraGroups = [ "wheel" ] ++ lib.optionals cfg.graphical.enable [ "input" "video" "graphical" ];
       openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos ];
+    };
+
+    home-manager.users.rien = { pkgs, ... }: {
+      home.packages = with pkgs; [ xdg-user-dirs ];
+      xdg = {
+        enable = true;
+        userDirs = {
+          desktop = "\$HOME/desktop";
+          documents = "\$HOME/documents";
+          download = "\$HOME/downloads";
+          music = "\$HOME/music";
+          pictures = "\$HOME/pictures";
+          publicShare = "\$HOME/desktop";
+          templates = "\$HOME/templates";
+          videos = "\$HOME/videos";
+        };
+      };
     };
 
     nix = {
