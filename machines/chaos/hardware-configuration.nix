@@ -12,26 +12,12 @@
   boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPatches = [{ name = "Latest ath drivers"; patch = ./ath.patch; }];
-  boot.kernelPackages = let
-    custom_linux_pkg = { fetchurl, buildLinux, ... } @ args:
-
-    buildLinux (args // rec {
-      version = "5.11.0-rc5-wt-ath";
-      modDirVersion = version;
-
-      src = fetchurl {
-        url = "https://git.kernel.org/pub/scm/linux/kernel/git/kvalo/ath.git/snapshot/ath-202101280720.tar.gz";
-        sha256 = "b4bf8915602c6ab36e713016f1520d2602a9d82c1045c5e39df080d7fb65e734";
-      };
-      kernelPatches = [];
-
-      extraMeta.branch = "5.11";
-    } // (args.argsOverride or {}));
-    custom_linux = pkgs.callPackage custom_linux_pkg{};
-  in
-  pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor custom_linux);
+  boot.extraModprobeConfig = ''
+     options snd-intel-dspcfg dsp_driver=1
+  '';
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.blacklistedKernelModules = [ "psmouse" ];
+  services.fwupd.enable = true;
 
   fileSystems."/" =
     { device = "pool/local/root";
@@ -60,8 +46,23 @@
 
   swapDevices = [ ];
   hardware = {
+    opengl = {
+      enable = true;
+      extraPackages = with pkgs; [
+        vaapiIntel
+        intel-media-driver
+        libva
+        libvdpau-va-gl
+        vaapiVdpau
+      ];
+    };
     cpu.intel.updateMicrocode = true;
     enableRedistributableFirmware = true;
+  };
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override {
+      enableHybridCodec = true;
+    };
   };
   services.fstrim.enable = true;
 
