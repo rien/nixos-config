@@ -1,5 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, modulesPath, ... }:
 {
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
   # NixOS wants to enable GRUB by default
   boot.loader.grub.enable = false;
@@ -7,36 +10,32 @@
   # Enables the generation of /boot/extlinux/extlinux.conf
   boot.loader.generic-extlinux-compatible.enable = true;
 
-  boot.initrd.kernelModules = [ "vc4" "bcm2835_dma" "i2c_bcm2835" "snd-bcm2835"];
+  #boot.initrd.kernelModules = [ "vc4" "bcm2835_dma" "i2c_bcm2835" "snd-bcm2835"];
 
-  boot.kernelPackages = pkgs.linuxPackages_4_19;
-  boot.kernelParams = ["cma=256M"];
-  boot.loader.raspberryPi.enable = true;
-  boot.loader.raspberryPi.version = 3;
-  boot.loader.raspberryPi.uboot.enable = true;
-  boot.loader.raspberryPi.firmwareConfig = ''
-    disable_overscan=1
-    config_hdmi_boost=7
-    dtoverlay=vc4-fkms-v3d
-    dtparam=audio=on
-    dtparam=i2c_arm=on
-    dtparam=spi=on
-    gpu_mem=256
-    hdmi_drive=2
-    hdmi_force_hotplug=1
-  '';
+  #boot.initrd.includeDefaultModules = false;
+  #boot.kernelPackages = pkgs.linuxPackages_rpi3;
+  #boot.kernelParams = [];
 
+  boot.loader.raspberryPi = {
+    enable = true;
+    version = 3;
+  };
+
+  sound.enable = true;
   hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.package = pkgs.pulseaudioFull;
+  hardware.pulseaudio.tcp.enable = true;
+  hardware.pulseaudio.tcp.anonymousClients.allowedIpRanges = [ "127.0.0.1" "10.0.0.0/24" ];
+  networking.firewall.allowedTCPPorts = [ 4713 ];
 
   environment.systemPackages = with pkgs; [
     libraspberrypi
+    raspberrypifw
   ];
 
   hardware.enableRedistributableFirmware = true;
 
   fileSystems."/" = {
-    device = "/dev/disk/by-label/NIXOS_SD";
+    device = "/dev/disk/by-uuid/44444444-4444-4444-8888-888888888888";
     fsType = "ext4";
   };
 
@@ -47,6 +46,7 @@
     }
   ];
 
+  powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
 
-  nix.maxJobs = lib.mkDefault 2;
+  nix.maxJobs = lib.mkDefault 1;
 }
