@@ -12,6 +12,7 @@ in {
     ./kitty.nix
     ./minidlna.nix
     ./mounts
+    ./mail.nix
     ./neovim.nix
     ./pass.nix
     ./ssh

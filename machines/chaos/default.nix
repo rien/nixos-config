@@ -19,6 +19,7 @@
     ssh.enable = true;
     zeroad.enable = true;
     #mounts.enable = true;
+    mail.enable = true;
     vpnc.enable = true;
 
     extraPackages = with pkgs; [
@@ -33,6 +34,7 @@
       zathura
       imagemagick7
       mumble
+      signal-desktop
     ];
 
     allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams ];
