@@ -42,6 +42,7 @@ in {
   in {
 
     environment.systemPackages = with pkgs; [
+      jq
       acpi
       fd
       htop

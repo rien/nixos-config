@@ -4,7 +4,7 @@ let
   passwordScript = pkgs.writeShellScript "get_mail_password" ''
     ${pkgs.pass}/bin/pass show "$@" | head -n1 | tr -d "\n"
   '';
-  personal = import ./personal.secret.nix;
+  personal = import ../personal.secret.nix;
   cfg = config.custom.mail;
   makeAccount = {
     name, address, host ? "", imapHost ? host, smtpHost ? host,
@@ -96,24 +96,24 @@ in {
           enable = true;
           settings = {
             initial_command = "search tag:inbox";
-            hooksfile = ./alothook.py
+            #hooksfile = ./alothook.py;
           };
           bindings = {
-            "0" = "taglist";
-            "1" = "search tag:inbox";
-            "2" = "search tag:sent";
-            "3" = "search tag:sent";
-            "r" = "refresh";
+            #"0" = "taglist";
+            #"1" = "search tag:inbox";
+            #"2" = "search tag:sent";
+            #"3" = "search tag:sent";
+            #"r" = "refresh";
             search = {
               "x" = "toggletags killed";
             };
             thread = {
-              "a" = "toggletags inbox"
-              "A" = "untag inbox ; bclose ; refresh"
-              "n" = "move next"
-              "N" = "move previous"
-              "r" = "reply --all"
-              "R" = "reply"
+              "a" = "toggletags inbox";
+              "A" = "untag inbox ; bclose ; refresh";
+              "n" = "move next";
+              "N" = "move previous";
+              "r" = "reply --all";
+              "R" = "reply";
               "u" = "pipeto --background ${selecturl}";
             };
           };
