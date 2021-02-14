@@ -48,6 +48,8 @@
   hardware = {
     opengl = {
       enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
       extraPackages = with pkgs; [
         vaapiIntel
         intel-media-driver
@@ -55,6 +57,7 @@
         libvdpau-va-gl
         vaapiVdpau
       ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
     };
     cpu.intel.updateMicrocode = true;
     enableRedistributableFirmware = true;

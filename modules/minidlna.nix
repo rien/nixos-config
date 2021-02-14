@@ -22,7 +22,6 @@ in {
       enable = true;
       mediaDirs = cfg.dirs;
       announceInterval = 30;
-      friendlyName = "Earth Terminal";
     };
   };
 }

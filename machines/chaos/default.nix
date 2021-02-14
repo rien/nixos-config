@@ -4,8 +4,13 @@
   imports = [ ./hardware-configuration.nix ];
 
   age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  age.secrets."media-key".file = ./chaos_key.age;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
+  networking.firewall.allowedTCPPorts = [ 10999 ];
+
+  programs.steam.enable = true;
 
   custom = {
     bash.enable = true;
@@ -22,7 +27,27 @@
     mail.enable = true;
     vpnc.enable = true;
 
+    minidlna = {
+      enable = true;
+      dirs = [ "/data/music/" ];
+    };
+
+    mounts.media = {
+      enable = true;
+      mountPoint = "/mnt/media";
+      identityFile = "/run/secrets/media-key";
+    };
+
     extraPackages = with pkgs; [
+      lutris
+      discord
+      okular
+      steam-run
+      protontricks
+      teeworlds
+      libqalculate
+      youtube-dl
+      sent
       gimp
       firefox
       spotify-tui
@@ -35,9 +60,10 @@
       imagemagick7
       mumble
       signal-desktop
+      audacity
     ];
 
-    allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams ];
+    allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams steam "steam-original" "steam-runtime" discord ];
 
     wireless = {
       enable = true;
