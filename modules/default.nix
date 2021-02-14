@@ -12,7 +12,7 @@ in {
     ./kitty.nix
     ./minidlna.nix
     ./mounts
-    ./mail.nix
+    ./mail
     ./neovim.nix
     ./pass.nix
     ./ssh
@@ -74,7 +74,7 @@ in {
     users.users.rien = {
       isNormalUser = true;
       createHome = true;
-      extraGroups = [ "wheel" ] ++ lib.optionals cfg.graphical.enable [ "input" "video" "graphical" ];
+      extraGroups = [ "wheel" "audio" "input" "video" "graphical" ];
       openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos ];
     };
 
