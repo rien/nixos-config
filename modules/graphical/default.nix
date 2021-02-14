@@ -16,6 +16,7 @@
     sound.enable = true;
     security.rtkit.enable = true;
     hardware.pulseaudio.enable = true;
+    hardware.pulseaudio.support32Bit = true;
     hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
     # Enable X11 and fix touchpad
@@ -57,7 +58,7 @@
 
     # Configure X session with Xmonad and Xmobar
     home-manager.users.rien = { pkgs, ... }: {
-      home.packages = [ pkgs.pavucontrol pkgs.patchage ];
+      home.packages = with pkgs; [ pavucontrol patchage ];
       home.file.".xinitrc".text = "source ~/.xsession";
       home.keyboard = {
         layout = "us";

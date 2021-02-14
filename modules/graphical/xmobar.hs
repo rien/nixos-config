@@ -57,21 +57,35 @@ netinfo device rate callback = do
             dt  = toNanoSecs $ ctime - ptime
             rx  = (drx * 1_000_000_000) `div` dt
             tx  = (dtx * 1_000_000_000) `div` dt
-            str = printf "rx: %d tx: %d" rx tx
+            str = formatRxTx rx tx
         callback str
         tenthSeconds rate
         loop state'
 
+formatRxTx :: Integer -> Integer -> String
+formatRxTx rx tx = printf "%s %s" symbol troughput
+  where
+    sum = rx + tx
+    troughput = humanReadableBytes sum
+    rx' = fromInteger rx :: Double
+    tx' = fromInteger tx :: Double
+    ratio = tx' / rx'
+    symbol
+      | ratio > 10.0 = "⬆"
+      | ratio < 0.10 = "⬇"
+      | otherwise    = "⬍"
+
+
 humanReadableBytes :: Integer -> String
-humanReadableBytes size
-  | abs size < 1024 = printf "%dB" size
-  | null pairs      = printf "%.0fZiB" (size'/1024^7)
-  | otherwise       = printf "%.1f%sB" n unit
-    where
-      (n, unit) = head pairs
-      pairs = zip (iterate (/1024) size') units
-      size' = fromIntegral size :: Double
-      units = ["","Ki","Mi","Gi","Ti","Pi","Ei","Zi"]
+humanReadableBytes size = uncurry (printf "%.1f%sB") $ fit pairs
+  where
+    units = ["","Ki","Mi","Gi","Ti","Pi","Ei","Zi"]
+    size' = fromIntegral size :: Double
+    pairs = zip (iterate (/1024) size') units
+    fit ((n, unit):xs)
+      | null xs   = (n, unit)
+      | n < 1000  = (n, unit)
+      | otherwise = fit xs
 
 config :: Config
 config = defaultConfig
@@ -82,12 +96,12 @@ config = defaultConfig
       600
       , Run $ Date "%a %d %b %H:%M" "date" 100
       , Run $ StdinReader
-      , Run $ Wireless "wlp114s0" [] 100
-      --, Run $ NetInfo "wlp" "wlan" 50
+      --, Run $ Wireless "wlp114s0" [] 100
+      , Run $ NetInfo "wlp114s0" "wlan" 50
     ]
   , sepChar = "%"
   , alignSep = "}{"
-  , template = "%StdinReader% }{ %wlp114s0wi% | %battery% | %date% "
+  , template = "%StdinReader% }{ WiFi: %wlan% | %battery% | %date% "
   }
 
 main :: IO ()
