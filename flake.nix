@@ -3,7 +3,7 @@
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,6 +67,7 @@
         }) // {
       nixosConfigurations = {
         chaos = mkSystem "x86_64-linux" "chaos";
+        space = mkSystem "x86_64-linux" "space";
         living = mkSystem "aarch64-linux" "living";
       };
     };

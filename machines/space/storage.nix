@@ -2,7 +2,7 @@
 {
   environment.systemPackages = with pkgs; [ sshfs bindfs ];
   fileSystems = {
-    "/data/" = {
+    "/data" = {
       device = "u239266@u239266.your-storagebox.de:/";
       fsType = "fuse.sshfs";
       options = [
@@ -15,7 +15,7 @@
       ];
     };
 
-    "/home/rien/data/" = {
+    "/home/rien/data" = {
       device = "/data/rien/";
       fsType = "fuse.bindfs";
       options = [
@@ -26,7 +26,7 @@
       ];
     };
 
-    "/var/lib/transmission/data/" = {
+    "/var/lib/transmission/data" = {
       device = "/data/transmission/";
       fsType = "fuse.bindfs";
       options = [

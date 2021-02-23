@@ -14,8 +14,13 @@ in {
     ./mounts
     ./mail
     ./neovim.nix
+    ./nginx.nix
     ./pass.nix
+    ./postfix
     ./ssh
+    ./sshd.nix
+    ./tor.nix
+    ./transmission.nix
     ./vpnc
     ./wireless
     ./zeroad.nix
@@ -41,7 +46,12 @@ in {
     personal = import ./personal.secret.nix;
   in {
 
+    security.doas = {
+      enable = true;
+    };
+
     environment.systemPackages = with pkgs; [
+      pv
       jq
       acpi
       fd

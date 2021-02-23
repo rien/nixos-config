@@ -1,28 +1,39 @@
 { config, pkgs, ... }:
 let
   secret = import ./secret.nix;
-  df-keys = import ./df-keys.secret.nix;
 in
 {
   imports =
     [
-      ../../conf/defaults.nix
-      ../../services/sshd.nix
-      ../../services/nginx.nix
-      ../../services/transmission.nix
-      ../../services/postfix.nix
-      #../../services/dwarffortress.nix
       ./storage.nix
       ./static-sites.nix
       ./motd.nix
       ./hardware-configuration.nix
     ];
 
-  custom.transmission = {
-    domain = "transmission.rxn.be";
-    download-dir = "/var/lib/transmission/data/complete";
-    incomplete-dir = "/var/lib/transmission/data/incomplete";
-    port = secret.transmission.port;
+  age.secrets."transmission-auth" = {
+    owner = "nginx";
+    file = ./transmission-auth.age;
+  };
+  age.secrets."postfix-sasl".file = ./postfix-sasl.age;
+
+  custom = {
+    bash.enable = true;
+    neovim.enable = true;
+    sshd.enable = true;
+    nginx.enable = true;
+    transmission = {
+      enable = true;
+      domain = "transmission.rxn.be";
+      download-dir = "/var/lib/transmission/data/complete";
+      incomplete-dir = "/var/lib/transmission/data/incomplete";
+      basicAuthFile = "/run/secrets/transmission-auth";
+      port = secret.transmission.port;
+    };
+    postfix = {
+      enable = true;
+      loginFile = "/run/secrets/postfix-sasl";
+    };
   };
 
   # Use the GRUB 2 boot loader.
@@ -41,10 +52,6 @@ in
   # Don't change this.
   # See https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
   system.stateVersion = "20.03";
-
-  system.autoUpgrade.enable = true;
-  system.autoUpgrade.allowReboot = false;
-  system.autoUpgrade.channel = https://nixos.org/channels/nixos-20.09;
 
   nix = {
     gc = {

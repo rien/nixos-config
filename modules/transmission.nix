@@ -6,6 +6,10 @@ let
 in
 {
   options.custom.transmission = {
+    enable = mkOption {
+      default = false;
+      example = true;
+    };
     domain = mkOption {
       type = types.str;
     };
@@ -18,6 +22,10 @@ in
     port = mkOption {
       type = types.port;
       default = 51413;
+    };
+    basicAuthFile = mkOption {
+      type = types.str;
+      example = "/run/secrets/transmission-auth";
     };
     namespace = mkOption {
       type = types.nullOr types.str;
@@ -33,7 +41,7 @@ in
     };
   };
 
-  config = {
+  config = mkIf cfg.enable {
 
     networking.firewall.allowedTCPPorts = [ cfg.port ];
     networking.firewall.allowedUDPPorts = [ cfg.port ];
@@ -59,7 +67,7 @@ in
       enableACME = true;
       forceSSL = true;
 
-      basicAuthFile = /etc/nixos/secrets/transmission-basic-auth;
+      basicAuthFile = cfg.basicAuthFile;
 
       extraConfig = "
       proxy_set_header X-Real-IP $remote_addr;

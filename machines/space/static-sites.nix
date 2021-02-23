@@ -1,10 +1,18 @@
 { ... }:
-{
+let
+  webdir = "/srv/webhost";
+in {
   users.users.webhost = {
     isNormalUser = true;
     createHome = true;
-    home = /srv/webhost;
-    openssh.authorizedKeys.keys = (import ../../conf/personal.secret.nix).pcKeys;
+    home = webdir;
+    openssh.authorizedKeys.keys = with (import ../../modules/personal.secret.nix).sshKeys; [ chaos octothorn ];
+  };
+
+  system.activationScripts.make-webdir-world-readable = {
+    text = ''
+      chmod a+rx ${webdir}
+    '';
   };
 
   services.nginx = {
@@ -39,10 +47,4 @@
       };
     };
   };
-
-
-  #security.acme.certs."theatervolta.be" = {
-  #  dnsProvider = "hetzner";
-  #  credentialsFile = "/etc/nixos/secrets/acme-credentials";
-  #};
 }
