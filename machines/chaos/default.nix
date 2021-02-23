@@ -9,10 +9,12 @@
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking.firewall.allowedTCPPorts = [ 10999 ];
+  networking.firewall.allowedUDPPorts = [ 10999 ];
 
   programs.steam.enable = true;
 
   custom = {
+    sshd.enable = true;
     bash.enable = true;
     docker.enable = true;
     git.enable = true;
@@ -26,6 +28,7 @@
     #mounts.enable = true;
     mail.enable = true;
     vpnc.enable = true;
+    tor.enable = true;
 
     minidlna = {
       enable = true;
@@ -39,6 +42,8 @@
     };
 
     extraPackages = with pkgs; [
+      qview
+      remmina
       lutris
       discord
       okular

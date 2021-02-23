@@ -51,25 +51,28 @@ in {
     };
 
     environment.systemPackages = with pkgs; [
-      pv
-      jq
       acpi
+      curlie
+      exiftool
       fd
+      file
       htop
+      httpie
+      jq
+      libqalculate
+      lsof
+      ncdu
       nix-index
+      nix-tree
       pciutils
+      pv
       ranger
       ripgrep
       screen
-      ncdu
       strace
+      unzip
       wget
       zip
-      unzip
-      nix-tree
-      curlie
-      httpie
-      lsof
     ] ++ cfg.extraPackages;
 
     # Don't wait for dhcpd when booting
@@ -104,6 +107,11 @@ in {
           videos = "\$HOME/videos";
         };
       };
+      programs.direnv = {
+        enable = true;
+        enableBashIntegration = true;
+        enableNixDirenvIntegration = true;
+      };
     };
 
     nix = {
@@ -121,6 +129,8 @@ in {
         dates = [ "daily" ];
       };
     };
+
+    boot.tmpOnTmpfs = true;
 
     nixpkgs.config.allowUnfreePredicate = pkg:
     let

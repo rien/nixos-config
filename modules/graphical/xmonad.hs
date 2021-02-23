@@ -7,6 +7,7 @@ import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Util.Run
 import Data.Monoid
 import System.Exit
+import Graphics.X11.ExtraTypes.XF86
 
 import qualified XMonad.StackSet        as W
 import qualified Data.Map               as M
@@ -27,6 +28,9 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
     -- launch firefox
     , ((modm,               xK_f     ), spawn "@firefox@/bin/firefox")
+
+    -- make screemshot
+    , ((modm,               xK_s     ), spawn "@screenshot@/bin/screenshot")
 
       -- close focused window
     , ((modm .|. shiftMask, xK_c     ), kill)
@@ -99,6 +103,15 @@ myKeys conf@(XConfig {XMonad.modMask = modm}) = M.fromList $
 
       -- Recompile xmonad
     , ((modm              , xK_q     ), spawn "xmonad --recompile; xmonad --restart")
+
+      -- Lock screen
+    , ((modm .|. shiftMask, xK_l     ), spawn "@slockWrapped@/bin/slock")
+
+    , ((0, xF86XK_AudioLowerVolume), spawn "@volumectl@/bin/volumectl change -5%")
+    , ((0, xF86XK_AudioRaiseVolume), spawn "@volumectl@/bin/volumectl change +5%")
+    , ((0, xF86XK_AudioMute), spawn "@volumectl@/bin/volumectl mute")
+    , ((0, xF86XK_MonBrightnessUp), spawn "@brightness@/bin/brightness 10%+")
+    , ((0, xF86XK_MonBrightnessDown), spawn "@brightness@/bin/brightness 10%-")
 
     ] ++
 
