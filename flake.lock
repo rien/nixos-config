@@ -47,15 +47,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1613535568,
-        "narHash": "sha256-JeTRN/ee6QTP/IlR89dz1LHMi8ag0kW/Kf8hT6d12sY=",
-        "owner": "nix-community",
+        "lastModified": 1614167338,
+        "narHash": "sha256-AVLNi0P7esq4d0y6vd6ZPKre+KfXi2WGaN4I/t6C7OY=",
+        "owner": "rien",
         "repo": "home-manager",
-        "rev": "2e795f3efd6265e3d538d4ee78bba773e1044340",
+        "rev": "ef804c78202b824c2d0ac5082115fbd9bc19fe9d",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "rien",
         "ref": "master",
         "repo": "home-manager",
         "type": "github"
@@ -63,16 +63,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1613495094,
-        "narHash": "sha256-nCM0DOMzxObrXkpGBBTFUCfKOQbdm908z2rv9julGO8=",
-        "owner": "NixOS",
+        "lastModified": 1614183752,
+        "narHash": "sha256-zavKglwYAxT+xHJU2ZRF3vTSdo1KzR3nAf9sptfr7Ps=",
+        "owner": "rien",
         "repo": "nixpkgs",
-        "rev": "64b4617883844efe0cc20163e007ee636462eb18",
+        "rev": "02ff6e0b4e714907904d763ed8e588bd96ce0606",
         "type": "github"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
+        "owner": "rien",
+        "ref": "unstable-with-zeroad-24",
         "repo": "nixpkgs",
         "type": "github"
       }

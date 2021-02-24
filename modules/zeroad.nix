@@ -1,6 +1,23 @@
-{ config, lib, pkgs, ... }:
-
-{
+{ config, lib, pkgs, stdenv, ... }:
+let
+  spidermonkey_78_6 = (pkgs.spidermonkey_78.overrideAttrs (oldAttrs: rec {
+    version = "78.6.0";
+    src = pkgs.fetchurl {
+      url = "mirror://mozilla/firefox/releases/${version}esr/source/firefox-${version}esr.source.tar.xz";
+      sha256 = "0lyg65v380j8i2lrylwz8a5ya80822l8vcnlx3dfqpd3s6zzjsay";
+      postPatch = ''
+        # This patch is a manually applied fix of
+        #   https://bugzilla.mozilla.org/show_bug.cgi?id=1644600
+        # Once that bug is fixed, this can be removed.
+        # This is needed in, for example, `zeroad`.
+        substituteInPlace js/public/StructuredClone.h \
+             --replace "class SharedArrayRawBufferRefs {" \
+                       "class JS_PUBLIC_API SharedArrayRawBufferRefs {"
+      '';
+    };
+  }));
+  spidermonkeyStdenv = stdenv // { spidermonkey_78 = spidermonkey_78_6; };
+in {
   options = {
     custom.zeroad = {
       enable = lib.mkOption {
@@ -15,12 +32,11 @@
   };
 
   config = lib.mkIf config.custom.zeroad.enable {
-    #custom.zfs.homeLinks = [
-    #  { path = ".config/0ad"; type = "cache"; }
-    #];
 
-    nixpkgs.config.permittedInsecurePackages = [
-      "spidermonkey-38.8.0"
+    nixpkgs.overlays = [
+      (self: super: {
+        zeroadPackages = (super.zeroadPackages.override { newScope = (extra: self.newScope ({ stdenv = spidermonkeyStdenv; } // extra)); });
+      })
     ];
 
     hardware.opengl.enable = true;
