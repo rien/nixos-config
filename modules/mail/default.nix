@@ -9,7 +9,7 @@ let
   makeAccount = {
     name, address, host ? "", imapHost ? host, smtpHost ? host,
     useStartTls ? false, passFile, extraConfig ? { }, primary ? false,
-    userName ? address, signature ? personal.defaultSignature
+    userName ? address, signature ? personal.defaultSignature, mbsync ? true
   }: (
     lib.recursiveUpdate
     {
@@ -31,7 +31,7 @@ let
       #  onNotifyPost = "${notifyScript name}";
       #};
       mbsync = {
-        enable = true;
+        enable = mbsync;
         create = "both";
         expunge = "both";
         flatten = ".";
@@ -39,10 +39,7 @@ let
         extraConfig.account.AuthMechs = "LOGIN";
       };
       msmtp.enable = true;
-      #neomutt = {
-      #  enable = true;
-      #  sendMailCommand = "msmtpq --read-envelope-from --read-recipients --account ${name}";
-      #};
+      alot.sendMailCommand = "${pkgs.msmtp}/bin/msmtp --read-recipients --read-envelope-from --account ${name}";
       passwordCommand = "${passwordScript} ${passFile}";
       realName = personal.fullName;
       signature = {
