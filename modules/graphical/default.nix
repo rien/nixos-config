@@ -55,19 +55,43 @@ in {
       default = false;
       example = true;
     };
+
+    soundsystem = mkOption {
+      default = "pipewire";
+      example = "pulseaudio";
+    };
   };
 
   config = mkIf cfg.enable {
+
+    assertions = [
+      {
+        assertion = (cfg.soundsystem == "pipewire" || cfg.soundsystem == "pulseaudio");
+        message = "soundsystem should be either pipewire or pulseaudio";
+      }
+    ];
+
+    sound.enable = true;
+
+    services.pipewire = mkIf (cfg.soundsystem == "pipewire") {
+      enable = true;
+      alsa.enable = true;
+      jack.enable = true;
+      pulse.enable = true;
+    };
+
+    hardware.pulseaudio = mkIf (cfg.soundsystem == "pulseaudio") {
+      enable = true;
+      support32Bit = true;
+      package = pkgs.pulseaudioFull;
+    };
 
     custom.allowUnfree = [ pkgs.symbola ];
 
     environment.systemPackages = with pkgs; [ sof-firmware ];
 
-    sound.enable = true;
+
     security.rtkit.enable = true;
-    hardware.pulseaudio.enable = true;
-    hardware.pulseaudio.support32Bit = true;
-    hardware.pulseaudio.package = pkgs.pulseaudioFull;
 
     # Enable X11 and fix touchpad
     services.xserver = {
