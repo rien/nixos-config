@@ -25,7 +25,6 @@
     pass.enable = true;
     ssh.enable = true;
     zeroad.enable = true;
-    #mounts.enable = true;
     mail.enable = true;
     vpnc.enable = true;
     tor.enable = true;
@@ -35,6 +34,7 @@
       dirs = [ "/data/music/" ];
     };
 
+    mounts.ugent.enable = true;
     mounts.media = {
       enable = true;
       mountPoint = "/mnt/media";

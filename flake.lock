@@ -63,16 +63,32 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1614183752,
-        "narHash": "sha256-zavKglwYAxT+xHJU2ZRF3vTSdo1KzR3nAf9sptfr7Ps=",
-        "owner": "rien",
+        "lastModified": 1614191423,
+        "narHash": "sha256-As8TFDUW6CMCN5zlw5dVnZiwakO1cRKYPk64rsr32uU=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "02ff6e0b4e714907904d763ed8e588bd96ce0606",
+        "rev": "f6b5bfdb470d60a876992749d0d708ed7b6b56ca",
         "type": "github"
       },
       "original": {
-        "owner": "rien",
-        "ref": "unstable-with-zeroad-24",
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgsFor0AD": {
+      "locked": {
+        "lastModified": 1614186703,
+        "narHash": "sha256-eVWRScBdmsdgMv6UHrntBxAxKylXBYzzeFahf9RFEuE=",
+        "owner": "charvp",
+        "repo": "nixpkgs",
+        "rev": "e9f0809cc1c48707f4a95a845bcb0e98d98ede36",
+        "type": "github"
+      },
+      "original": {
+        "owner": "charvp",
+        "ref": "0ad0.24",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -82,7 +98,8 @@
         "agenix": "agenix",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs"
+        "nixpkgs": "nixpkgs",
+        "nixpkgsFor0AD": "nixpkgsFor0AD"
       }
     }
   },
