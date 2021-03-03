@@ -77,18 +77,18 @@
         "type": "github"
       }
     },
-    "nixpkgsFor0AD": {
+    "nixpkgs-custom": {
       "locked": {
-        "lastModified": 1614186703,
-        "narHash": "sha256-eVWRScBdmsdgMv6UHrntBxAxKylXBYzzeFahf9RFEuE=",
-        "owner": "charvp",
+        "lastModified": 1614773457,
+        "narHash": "sha256-sn7Alh5tTJVChdMJOpszhFkgo7703neiziTwsNM06U8=",
+        "owner": "rien",
         "repo": "nixpkgs",
-        "rev": "e9f0809cc1c48707f4a95a845bcb0e98d98ede36",
+        "rev": "fa4cb161e9cc42e6e42163a795168842857ecf14",
         "type": "github"
       },
       "original": {
-        "owner": "charvp",
-        "ref": "0ad0.24",
+        "owner": "rien",
+        "ref": "unstable-with-zeroad-24",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -99,7 +99,7 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nixpkgs": "nixpkgs",
-        "nixpkgsFor0AD": "nixpkgsFor0AD"
+        "nixpkgs-custom": "nixpkgs-custom"
       }
     }
   },

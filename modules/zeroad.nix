@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stdenv, pkgsFor0AD, ... }: {
+{ config, lib, pkgs, stdenv, custompkgs, ... }: {
   options = {
     custom.zeroad = {
       enable = lib.mkOption {
@@ -16,7 +16,7 @@
 
     hardware.opengl.enable = true;
     home-manager.users.rien = { pkgs, ... }: {
-      home.packages = [ pkgsFor0AD.zeroad ];
+      home.packages = [ custompkgs.zeroad ];
     };
     networking.firewall = lib.mkIf config.custom.zeroad.asServer {
       allowedTCPPorts = [ 20595 ];
