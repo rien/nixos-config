@@ -41,7 +41,7 @@
       identityFile = "/run/secrets/media-key";
     };
 
-    extraPackages = with pkgs; [
+    extraHomePackages = with pkgs; [
       qview
       remmina
       lutris
@@ -66,6 +66,8 @@
       mumble
       signal-desktop
       audacity
+      obs-studio
+      obs-v4l2sink
     ];
 
     allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams steam "steam-original" "steam-runtime" discord ];

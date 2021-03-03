@@ -34,6 +34,7 @@ in
       enable = true;
       loginFile = "/run/secrets/postfix-sasl";
     };
+    #mail.fetcher.enable = true;
   };
 
   # Use the GRUB 2 boot loader.

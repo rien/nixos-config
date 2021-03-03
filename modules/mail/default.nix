@@ -59,6 +59,9 @@ let
   );
   
 in {
+
+  imports = [ ./fetcher.nix ];
+
   options.custom.mail.enable = mkOption {
     example = true;
     default = false;

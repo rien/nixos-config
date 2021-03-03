@@ -30,7 +30,6 @@ in {
           "transform_symlinks"
           "_netdev"
           "reconnect"
-          "allow_other"
           "identityfile=${cfg.identityFile}"
           #"uid=${cfg.user}",
         ];

@@ -31,7 +31,12 @@ in {
       type = lib.types.str;
     };
 
-    extraPackages = lib.mkOption {
+    extraSystemPackages = lib.mkOption {
+      default = [];
+      example = [ pkgs.unzip ];
+    };
+
+    extraHomePackages = lib.mkOption {
       default = [];
       example = [ pkgs.spotify-tui ];
     };
@@ -52,28 +57,17 @@ in {
 
     environment.systemPackages = with pkgs; [
       acpi
-      curlie
-      exiftool
       fd
       file
-      htop
-      httpie
       jq
-      libqalculate
       lsof
-      ncdu
-      nix-index
-      nix-tree
       pciutils
-      pv
-      ranger
       ripgrep
-      screen
       strace
       unzip
       wget
       zip
-    ] ++ cfg.extraPackages;
+    ] ++ cfg.extraSystemPackages;
 
     # Don't wait for dhcpd when booting
     networking.dhcpcd.wait = "background";
@@ -93,7 +87,21 @@ in {
     };
 
     home-manager.users.rien = { pkgs, ... }: {
-      home.packages = with pkgs; [ xdg-user-dirs ];
+      home.packages = with pkgs; [
+        xdg-user-dirs
+        curlie
+        exiftool
+        htop
+        httpie
+        libqalculate
+        ncdu
+        nix-index
+        nix-tree
+        pv
+        ranger
+        screen
+      ] ++ cfg.extraHomePackages;
+
       xdg = {
         enable = true;
         userDirs = {
