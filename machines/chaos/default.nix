@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, custompkgs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -24,10 +24,11 @@
     neovim.enable = true;
     pass.enable = true;
     ssh.enable = true;
-    zeroad.enable = true;
+    #zeroad.enable = true;
     mail.enable = true;
     vpnc.enable = true;
     tor.enable = true;
+    intellij.enable = true;
 
     minidlna = {
       enable = true;
@@ -42,35 +43,34 @@
     };
 
     extraHomePackages = with pkgs; [
-      qview
-      remmina
-      lutris
-      discord
-      okular
-      steam-run
-      protontricks
-      teeworlds
-      libqalculate
-      youtube-dl
-      sent
-      gimp
-      firefox
-      spotify-tui
-      jetbrains.idea-ultimate
-      jdk
-      mpv
-      ffmpeg-full
-      teams
-      zathura
-      imagemagick7
-      mumble
-      signal-desktop
       audacity
+      discord
+      ffmpeg-full
+      firefox
+      gimp
+      imagemagick7
+      libqalculate
+      lutris
+      minecraft
+      mpv
+      mumble
       obs-studio
       obs-v4l2sink
+      okular
+      protontricks
+      qview
+      remmina
+      sent
+      signal-desktop
+      spotify-tui
+      steam-run
+      teams
+      teeworlds
+      youtube-dl
+      zathura
     ];
 
-    allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams steam "steam-original" "steam-runtime" discord ];
+    allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams steam "steam-original" "steam-runtime" discord minecraft "minecraft-launcher" "minecraft"];
 
     wireless = {
       enable = true;

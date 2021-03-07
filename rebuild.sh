@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
 host="$1"
 if [ -z "$host" ]; then
-    sudo nixos-rebuild switch --flake '.#' "$@"
+    sudo nixos-rebuild switch -v --flake '.#' "$@"
 else
     shift
-    nixos-rebuild --flake ".#$host" --target-host "root@$host" --build-host localhost switch "$@"
+    nixos-rebuild -v --flake ".#$host" --target-host "root@$host" --build-host localhost switch "$@"
 fi

@@ -10,18 +10,19 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    config.custom.allowUnfree = with pkgs; [ jetbrains.idea-ultimate ];
+    custom.allowUnfree = [ pkgs.jetbrains.idea-ultimate ];
     home-manager.users.rien = let
-      paths = with pkgs; [
-        jdk python3 nodejs yarn
-      ];
-      intellij = writeScriptBin "intellij" ''
-        ${pkgs.jetbrains.idea-ultimate}
+      path = with pkgs; [ jdk python3 nodejs yarn nodePackages."@vue/cli" ];
+      intellij = pkgs.runCommand "intellij" 
+        { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+        ''
+          mkdir -p $out/bin
+          makeWrapper ${pkgs.jetbrains.idea-ultimate}/bin/idea-ultimate \
+            $out/bin/intellij \
+            --prefix PATH : ${lib.makeBinPath path}
         '';
-    in { pkgs, ... }: {
-      home.packages = with pkgs; [
-        jetbrains.idea-ultimate
-      ];
+    in { ... }: {
+      home.packages = [ intellij ];
     };
   };
 }

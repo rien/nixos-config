@@ -9,6 +9,7 @@ in {
     ./git.nix
     ./gnupg.nix
     ./graphical
+    ./intellij.nix
     ./kitty.nix
     ./minidlna.nix
     ./mounts
@@ -140,10 +141,11 @@ in {
 
     boot.tmpOnTmpfs = true;
 
-    nixpkgs.config.allowUnfreePredicate = pkg:
-    let
-      allowed = builtins.map lib.getName cfg.allowUnfree;
-    in builtins.elem (lib.getName pkg) allowed;
+    nixpkgs.config.allowUnfree = true;
+    #nixpkgs.config.allowUnfreePredicate = pkg:
+    #let
+    #  allowed = builtins.map lib.getName cfg.allowUnfree;
+    #in builtins.elem (lib.getName pkg) allowed;
   };
 
 }
