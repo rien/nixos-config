@@ -26,12 +26,17 @@ in {
         device = secret.mediaDevice;
         fsType = "fuse.sshfs";
         options = [
+          "x-systemd.automount"
+          "noauto,x-systemd.idle-timeout=10"
+          "x-systemd.device-timeout=5s"
+          "x-systemd.mount-timeout=5s"
           "ro"
           "transform_symlinks"
           "_netdev"
           "reconnect"
           "identityfile=${cfg.identityFile}"
-          #"uid=${cfg.user}",
+          "uid=${config.custom.user}"
+          "gid=users"
         ];
       };
     };

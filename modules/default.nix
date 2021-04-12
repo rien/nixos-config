@@ -22,12 +22,17 @@ in {
     ./sshd.nix
     ./tor.nix
     ./transmission.nix
-    ./vpnc
+    ./ugent-vpn.nix
     ./wireless
     ./zeroad.nix
   ];
 
   options.custom = {
+    user = lib.mkOption {
+      example = "rien";
+      default = "rien";
+    };
+
     hostname = lib.mkOption {
       type = lib.types.str;
     };
@@ -68,7 +73,12 @@ in {
       unzip
       wget
       zip
+      dnsutils
     ] ++ cfg.extraSystemPackages;
+
+    systemd.extraConfig = ''
+      DefaultTimeoutStopSec=5s
+    '';
 
     # Don't wait for dhcpd when booting
     networking.dhcpcd.wait = "background";
@@ -80,14 +90,14 @@ in {
       openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn chaos ];
     };
 
-    users.users.rien = {
+    users.users.${config.custom.user} = {
       isNormalUser = true;
       createHome = true;
-      extraGroups = [ "wheel" "audio" "input" "video" "graphical" ];
+      extraGroups = [ "wheel" "audio" "input" "video" "graphical" "vboxusers"];
       openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos ];
     };
 
-    home-manager.users.rien = { pkgs, ... }: {
+    home-manager.users.${config.custom.user} = { pkgs, ... }: {
       home.packages = with pkgs; [
         xdg-user-dirs
         curlie
@@ -114,6 +124,24 @@ in {
           publicShare = "\$HOME/desktop";
           templates = "\$HOME/templates";
           videos = "\$HOME/videos";
+        };
+        configFile."mimeapps.list".force = true;
+        mimeApps = {
+          enable = true;
+          defaultApplications = {
+            "image/png" = [ "org.kde.okular.desktop" ];
+            "image/jpg" = [ "org.kde.okular.desktop" ];
+            "image/jpeg" = [ "org.kde.okular.desktop" ];
+            "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+
+            "text/html" = [ "firefox.desktop" ];
+            "x-scheme-handler/about" = [ "firefox.desktop" ];
+            "x-scheme-handler/http" = [ "firefox.desktop" ];
+            "x-scheme-handler/https" = [ "firefox.desktop" ];
+            "x-scheme-handler/unknown" = [ "firefox.desktop" ];
+
+            "x-scheme-handler/msteams" = [ "teams.desktop" ];
+          };
         };
       };
       programs.direnv = {

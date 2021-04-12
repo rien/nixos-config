@@ -26,11 +26,11 @@
     },
     "flake-utils": {
       "locked": {
-        "lastModified": 1610051610,
-        "narHash": "sha256-U9rPz/usA1/Aohhk7Cmc2gBrEEKRzcW4nwPWMPwja4Y=",
+        "lastModified": 1617631617,
+        "narHash": "sha256-PARRCz55qN3gy07VJZIlFeOX420d0nGF0RzGI/9hVlw=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "3982c9903e93927c2164caa727cd3f6a0e6d14cc",
+        "rev": "b2c27d1a81b0dc266270fa8aeecebbd1807fc610",
         "type": "github"
       },
       "original": {
@@ -47,11 +47,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1614167338,
+        "lastModified": 1614167483,
         "narHash": "sha256-AVLNi0P7esq4d0y6vd6ZPKre+KfXi2WGaN4I/t6C7OY=",
         "owner": "rien",
         "repo": "home-manager",
-        "rev": "ef804c78202b824c2d0ac5082115fbd9bc19fe9d",
+        "rev": "57b344d78cac2cae85692a1db5a56ad9e33994b9",
         "type": "github"
       },
       "original": {
@@ -63,11 +63,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1614777162,
-        "narHash": "sha256-k1TbDEcgqwEs4e/HAOsYZ8uVc+4RDhipw99PV0S8mBI=",
+        "lastModified": 1618121939,
+        "narHash": "sha256-BpxcmTHJdRzFFy4rDU61/sbbjYzQ//gVjoxHwoMslzY=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "e061350a361df9667490c5914fb72a58dd927bca",
+        "rev": "764448055551a4c664a1b0e2cecfc61731b32c5d",
         "type": "github"
       },
       "original": {
@@ -79,16 +79,16 @@
     },
     "nixpkgs-custom": {
       "locked": {
-        "lastModified": 1614711578,
-        "narHash": "sha256-/QfYrX+4tN2nhqyXAV7Zucd//Y3/7aoLz6uslAcEq6Q=",
-        "owner": "chvp",
+        "lastModified": 1618157058,
+        "narHash": "sha256-JGK0TA15Ag5MGcZjuihgjMYbSl02ncs7f/2r8jaL+u4=",
+        "owner": "rien",
         "repo": "nixpkgs",
-        "rev": "f5b5d34365faf9e775108e702c50bc3d2a8fc2f5",
+        "rev": "d017a0114e52f00bd5dfa0959728f09e100d0bbf",
         "type": "github"
       },
       "original": {
-        "owner": "chvp",
-        "ref": "0ad0.24",
+        "owner": "rien",
+        "ref": "master",
         "repo": "nixpkgs",
         "type": "github"
       }

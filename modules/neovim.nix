@@ -125,7 +125,7 @@ in
   };
 
   config = lib.mkIf config.custom.neovim.enable {
-    home-manager.users.rien = { ... }: (base "/home/rien");
+    home-manager.users.${config.custom.user} = { ... }: (base "/home/${config.custom.user}");
     home-manager.users.root = { ... }: (base "/root");
   };
 }

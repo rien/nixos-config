@@ -10,6 +10,6 @@ in {
 
   config = mkIf cfg.enable {
     virtualisation.docker.enable = true;
-    users.users.rien.extraGroups = [ "docker" ];
+    users.users.${config.custom.user}.extraGroups = [ "docker" ];
   };
 }

@@ -137,8 +137,14 @@ in {
       noPass = true;
     }];
 
+    # Ignore power key and lid events
+    services.logind.extraConfig = ''
+      HandlePowerKey=ignore
+      HandleLidSwitch=ignore
+    '';
+
     # Configure X session with Xmonad and Xmobar
-    home-manager.users.rien = { pkgs, ... }: {
+    home-manager.users.${config.custom.user} = { pkgs, ... }: {
       home.packages = with pkgs; [ pavucontrol patchage dunst volumectl brightnessctl brightness slockWrapped screenshot ];
       home.file.".xinitrc".text = "source ~/.xsession";
       home.keyboard = {
@@ -236,6 +242,43 @@ in {
               firefox
               pass
               ;
+          };
+        };
+      };
+
+      programs.bash.initExtra = ''
+        if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+          startx
+          exit
+        fi
+      '';
+
+
+      programs.autorandr = {
+        enable = true;
+        profiles = {
+          "home" = {
+            config = {
+              eDP-1 = {
+                enable = true;
+                crtc = 0;
+                primary = true;
+                rate = "59.95";
+                mode = "1920x1200";
+                position = "0x1080";
+              };
+              DP-3 = {
+                enable = true;
+                crtc = 1;
+                rate = "60.00";
+                mode = "1920x1080";
+                position = "0x0";
+              };
+            };
+            fingerprint = {
+              DP-3 = "00ffffffffffff004c2d0e1036395743181e010380351e782a6595a854519c25105054bfef80714f81c0810081809500a9c0b3000101023a801871382d40582c45000f282100001e000000fd00324b1e5512000a202020202020000000fc00533234523335780a2020202020000000ff004834544e3630303238330a20200179020313b14690041f13120367030c0010000024011d00bc52d01e20b82855400f282100001e8c0ad090204031200c4055000f28210000188c0ad08a20e02d10103e96000f28210000182a4480a070382740302035000f282100001a0000000000000000000000000000000000000000000000000000000000000000000000007a";
+              eDP-1 = "00ffffffffffff004d10f91400000000151e0104a51d12780ede50a3544c99260f505400000001010101010101010101010101010101283c80a070b023403020360020b410000018203080a070b023403020360020b410000018000000fe0056564b3859804c513133344e31000000000002410332001200000a010a20200080";
+            };
           };
         };
       };

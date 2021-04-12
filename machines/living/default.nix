@@ -22,7 +22,7 @@
       identityFile = "/run/secrets/media-key";
     };
 
-    extraPackages = with pkgs; [
+    extraSystemPackages = with pkgs; [
       mpv
       ffmpeg
     ];

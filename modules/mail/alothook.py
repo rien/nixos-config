@@ -7,22 +7,22 @@ def timestamp_format(d):
     >>> now = datetime.now()
     >>> now.strftime('%c')
     'Sat 31 Mar 2012 14:47:26 '
-    >>> timestamp_format(now)
-    u'just now'
-    >>> timestamp_format(now - timedelta(minutes=1))
-    u'1min ago'
-    >>> timestamp_format(now - timedelta(hours=5))
-    u'5h ago'
-    >>> timestamp_format(now - timedelta(hours=12))
-    u'02:54'
-    >>> timestamp_format(now - timedelta(days=1))
-    u'yest 14h'
-    >>> timestamp_format(now - timedelta(days=2))
-    u'Thu 14h'
-    >>> timestamp_format(now - timedelta(days=7))
-    u'24 Mar'
-    >>> timestamp_format(now - timedelta(days=356))
-    u'Apr 2011'
+    >>> pretty_datetime(now)
+    'just now'
+    >>> pretty_datetime(now - timedelta(minutes=1))
+    '1min ago'
+    >>> pretty_datetime(now - timedelta(hours=5))
+    '5h ago'
+    >>> pretty_datetime(now - timedelta(hours=12))
+    '02:54am'
+    >>> pretty_datetime(now - timedelta(days=1))
+    'yest 02pm'
+    >>> pretty_datetime(now - timedelta(days=2))
+    'Thu 02pm'
+    >>> pretty_datetime(now - timedelta(days=7))
+    'Mar 24'
+    >>> pretty_datetime(now - timedelta(days=356))
+    'Apr 2011'
     """
     hourfmt = '%Hh'
     hourminfmt = '%H:%M'
@@ -46,5 +46,5 @@ def timestamp_format(d):
     elif d.year != today.year:
         string = d.strftime('%b %Y')
     else:
-        string = d.strftime
+        string = d.strftime('%b %d')
     return string

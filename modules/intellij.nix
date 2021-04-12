@@ -11,7 +11,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     custom.allowUnfree = [ pkgs.jetbrains.idea-ultimate ];
-    home-manager.users.rien = let
+    home-manager.users.${config.custom.user} = let
       path = with pkgs; [ jdk python3 nodejs yarn nodePackages."@vue/cli" ];
       intellij = pkgs.runCommand "intellij" 
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }

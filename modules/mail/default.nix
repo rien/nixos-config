@@ -9,7 +9,8 @@ let
   makeAccount = {
     name, address, host ? "", imapHost ? host, smtpHost ? host,
     useStartTls ? false, passFile, extraConfig ? { }, primary ? false,
-    userName ? address, signature ? personal.defaultSignature, mbsync ? true
+    userName ? address, signature ? personal.defaultSignature, mbsync ? true,
+    folders ? null
   }: (
     lib.recursiveUpdate
     {
@@ -30,12 +31,14 @@ let
       #  onNotify = "${pkgs.isync}/bin/mbsync ${name}:INBOX";
       #  onNotifyPost = "${notifyScript name}";
       #};
+      folders = mkIf (folders != null) folders;
       mbsync = {
         enable = mbsync;
         create = "both";
         expunge = "both";
         flatten = ".";
         remove = "both";
+        patterns = mkIf (folders != null) (lib.attrsets.attrValues folders);
         extraConfig.account.AuthMechs = "LOGIN";
       };
       msmtp.enable = true;
@@ -57,7 +60,6 @@ let
     }
     extraConfig
   );
-  
 in {
 
   imports = [ ./fetcher.nix ];
@@ -68,9 +70,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home-manager.users.rien = { ... }: {
+    home-manager.users.${config.custom.user} = { ... }: {
       accounts.email = {
-        maildirBasePath = "/home/rien/mail";
+        maildirBasePath = "/home/${config.custom.user}/mail";
         accounts = builtins.listToAttrs (
           builtins.map
             (account: {
@@ -96,14 +98,15 @@ in {
           enable = true;
           settings = {
             initial_command = "search tag:inbox";
-            #hooksfile = ./alothook.py;
           };
           bindings = {
-            #"0" = "taglist";
-            #"1" = "search tag:inbox";
-            #"2" = "search tag:sent";
-            #"3" = "search tag:sent";
-            #"r" = "refresh";
+            global = {
+              "0" = "taglist";
+              "1" = "search tag:inbox";
+              "2" = "search tag:sent";
+              "3" = "search tag:sent";
+              "r" = "refresh";
+            };
             search = {
               "x" = "toggletags killed";
             };
@@ -117,6 +120,7 @@ in {
               "u" = "pipeto --background ${selecturl}";
             };
           };
+          extraConfig = "hooksfile = ${./alothook.py}";
         };
         afew = {
           enable = true;
@@ -126,10 +130,20 @@ in {
 
             # UGent sometimes still sends spam
             # but with [SPAM] as subject ...
-            [HeaderMatchingFilter.1]
+            [HeaderMatchingFilter.0]
             header = Subject
             pattern = ^\[SPAM\]
             tags = +spam
+
+            [HeaderMatchingFilter.1]
+            header = From
+            pattern = logcheck@
+            tags = +logcheck
+
+            [HeaderMatchingFilter.2]
+            header = From
+            pattern = dodona@ugent.be
+            tags = +dodona
 
             # Adds the 'killed' tag to mails within a thread that
             # has been tagged with 'killed'.
@@ -150,7 +164,6 @@ in {
           search.excludeTags = [ "killed" "spam" ];
         };
       };
-
       home.file.".mailcap".text = ''
         text/html; ${pkgs.firefox}/bin/firefox %s ; nametemplate=%s.html; needsterminal
         text/html; ${pkgs.w3m}/bin/w3m -dump -o display_link_number=1 -o document_charset=%{charset} %s ; copiousoutput; nametemplate=%s.html

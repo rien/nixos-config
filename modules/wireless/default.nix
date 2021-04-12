@@ -20,6 +20,7 @@ in
     networking.wireless = {
       enable = true;
       networks = import ./networks.secret.nix;
+      interfaces = [ cfg.device ];
     };
     networking.interfaces."${cfg.device}".useDHCP = true;
   };

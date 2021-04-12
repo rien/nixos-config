@@ -13,6 +13,8 @@
 
   programs.steam.enable = true;
 
+  virtualisation.virtualbox.host.enable = true;
+
   custom = {
     sshd.enable = true;
     bash.enable = true;
@@ -24,9 +26,10 @@
     neovim.enable = true;
     pass.enable = true;
     ssh.enable = true;
-    #zeroad.enable = true;
+    zeroad.enable = true;
     mail.enable = true;
-    vpnc.enable = true;
+    #vpnc.enable = true;
+    ugent-vpn.enable = true;
     tor.enable = true;
     intellij.enable = true;
 
@@ -43,6 +46,11 @@
     };
 
     extraHomePackages = with pkgs; [
+      binutils
+      python3Packages.binwalk
+      citrix_workspace
+      cura
+      blender
       audacity
       discord
       ffmpeg-full
@@ -68,9 +76,13 @@
       teeworlds
       youtube-dl
       zathura
+      openttd
+      zotero
+      openscad
+      custompkgs.freecad
     ];
 
-    allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams steam "steam-original" "steam-runtime" discord minecraft "minecraft-launcher" "minecraft"];
+    allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams steam "steam-original" "steam-runtime" discord minecraft "minecraft-launcher" "minecraft" citrix_workspace ];
 
     wireless = {
       enable = true;

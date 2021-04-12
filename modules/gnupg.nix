@@ -11,7 +11,7 @@ in
 
   config = mkIf cfg.enable {
     programs.gnupg.agent.enable = true;
-    home-manager.users.rien = { pkgs, ... }: {
+    home-manager.users.${config.custom.user} = { pkgs, ... }: {
       programs.gpg.enable = true;
       services.gpg-agent = {
         enable = true;

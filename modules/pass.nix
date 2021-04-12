@@ -10,10 +10,9 @@ in
   };
 
   config = mkIf cfg.enable {
-    home-manager.users.rien = { pkgs, ... }: {
+    home-manager.users.${config.custom.user} = { pkgs, ... }: {
       programs.browserpass.enable = true;
       programs.password-store.enable = true;
-      services.password-store-sync.enable = true;
     };
   };
 }

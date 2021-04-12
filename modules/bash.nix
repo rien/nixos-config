@@ -9,7 +9,7 @@ with lib;
   };
 
   config = mkIf config.custom.bash.enable {
-    home-manager.users.rien = { pkgs, ... }: {
+    home-manager.users.${config.custom.user} = { pkgs, ... }: {
       programs.bash = {
         enable = true;
         shellAliases = let

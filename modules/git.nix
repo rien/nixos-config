@@ -17,12 +17,14 @@
         programs.git = {
           enable = true;
           extraConfig = {
+            url."ssh://git@github.com/".insteadOf = "https://github.com/";
             branch = {
               autosetuprebase = "always";
             };
             pull = {
               rebase = true;
             };
+            core.autocrlf = "input";
           };
           ignores = [
             ".direnv"
@@ -45,7 +47,7 @@
       };
     in
     lib.mkIf config.custom.git.enable {
-      home-manager.users.rien = { ... }: base;
+      home-manager.users.${config.custom.user} = { ... }: base;
       home-manager.users.root = { ... }: base;
     };
 }

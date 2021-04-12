@@ -7,7 +7,7 @@
   };
 
   config = lib.mkIf config.custom.kitty.enable {
-    home-manager.users.rien = { pkgs, ... }: {
+    home-manager.users.${config.custom.user} = { pkgs, ... }: {
       programs.kitty = {
         enable = true;
         settings = {
