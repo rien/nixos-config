@@ -112,6 +112,7 @@ let
     plugins = with pkgs.vimPlugins // customPlugins; [
         darcula
         vim-nix
+        editorconfig-vim
       ];
     };
   };

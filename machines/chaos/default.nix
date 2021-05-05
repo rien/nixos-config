@@ -45,6 +45,10 @@
       identityFile = "/run/secrets/media-key";
     };
 
+    extraSystemPackages = with pkgs; [
+      ntfs3g
+    ];
+
     extraHomePackages = with pkgs; [
       binutils
       python3Packages.binwalk
@@ -79,10 +83,15 @@
       openttd
       zotero
       openscad
-      custompkgs.freecad
+      freecad
+      ncspot
+      colmap
+      openmvg
+      python3Packages.ds4drv
+      godot
+      ardour
+      termdown
     ];
-
-    allowUnfree = with pkgs; [ jetbrains.idea-ultimate teams steam "steam-original" "steam-runtime" discord minecraft "minecraft-launcher" "minecraft" citrix_workspace ];
 
     wireless = {
       enable = true;

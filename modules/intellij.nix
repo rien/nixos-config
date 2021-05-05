@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, custompkgs, ... }:
 let
   cfg = config.custom.intellij;
 in {
@@ -10,7 +10,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    custom.allowUnfree = [ pkgs.jetbrains.idea-ultimate ];
     home-manager.users.${config.custom.user} = let
       path = with pkgs; [ jdk python3 nodejs yarn nodePackages."@vue/cli" ];
       intellij = pkgs.runCommand "intellij" 

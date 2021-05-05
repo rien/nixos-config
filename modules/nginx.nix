@@ -26,6 +26,10 @@ in
       recommendedGzipSettings = true;
       recommendedOptimisation = true;
       recommendedProxySettings = true;
+
+      appendHttpConfig = ''
+        add_header "Permissions-Policy" "interest-cohort=()";
+      '';
     };
   };
 }

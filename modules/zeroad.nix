@@ -1,4 +1,4 @@
-{ config, lib, pkgs, stdenv, custompkgs, ... }: {
+{ config, lib, pkgs, stdenv, ... }: {
   options = {
     custom.zeroad = {
       enable = lib.mkOption {

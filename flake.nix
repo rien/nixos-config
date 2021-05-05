@@ -3,8 +3,8 @@
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    nixpkgs-custom.url = "github:rien/nixpkgs/master";
+    nixpkgs-custom.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:rien/nixpkgs/master";
     home-manager = {
       url = "github:rien/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";

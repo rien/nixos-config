@@ -86,8 +86,6 @@ in {
       package = pkgs.pulseaudioFull;
     };
 
-    custom.allowUnfree = [ pkgs.symbola ];
-
     environment.systemPackages = with pkgs; [ sof-firmware ];
 
 
