@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, util, ... }:
 with lib;
 let
   inherit (lib.strings) concatStringsSep;
@@ -24,6 +24,7 @@ in
   config = mkIf cfg.enable {
 
     networking.firewall.allowedTCPPorts = [ 25 587 ];
+    users.users.postfix.extraGroups = [ "acme" ];
 
     services.opendkim = {
       enable = true;
@@ -65,8 +66,12 @@ in
       domain = host;
       networksStyle = "host";
 
-      sslCert = "/var/lib/acme/${ host }/fullchain.pem";
-      sslKey = "/var/lib/acme/${ host }/key.pem";
+      sslCert = "/var/lib/acme/${ util.baseDomain host }/fullchain.pem";
+      sslKey = "/var/lib/acme/${ util.baseDomain host }/key.pem";
+
+      config = {
+        smtp_tls_security_level = "may";
+      };
 
       enableSmtp = true;        # Receiving mail from other mail servers
 
@@ -116,7 +121,7 @@ in
       # These two lines define how postfix will connect to other mail servers.
       # DANE is a stronger form of opportunistic TLS. You can read about it here:
       # http://www.postfix.org/TLS_README.html#client_tls_dane
-      smtp_tls_security_level = dane
+      # smtp_tls_security_level = dane -- already set trough NixOS
       smtp_dns_support_level = dnssec
 
       smtpd_tls_auth_only = yes

@@ -14,8 +14,9 @@ in {
     ./minidlna.nix
     ./mounts
     ./mail
+    ./nextcloud.nix
     ./neovim.nix
-    ./nginx.nix
+    ./nginx
     ./pass.nix
     ./postfix
     ./ssh

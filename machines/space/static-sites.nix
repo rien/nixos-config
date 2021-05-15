@@ -19,7 +19,7 @@ in {
     virtualHosts = {
       "space.rxn.be" = {
         #serverAliases = [ "www.rxn.be" "rxn.be" ];
-        enableACME = true;
+        useACMEHost = "rxn.be";
         addSSL = true;
         extraConfig = "default_type \"text/plain; charset=utf-8\";";
         locations."/" = {
@@ -27,12 +27,12 @@ in {
         };
       };
       "rien.maertens.io" = {
-        enableACME = true;
+        useACMEHost = "maertens.io";
         forceSSL = true;
         root = "/srv/webhost/maertens.io";
       };
       "maertens.io" = {
-        enableACME = true;
+        useACMEHost = "maertens.io";
         forceSSL = true;
         locations."/" = {
           return = "302 https://rien.maertens.io";
@@ -40,8 +40,7 @@ in {
       };
       "theatervolta.be" = {
         serverAliases = [ "www.theatervolta.be" "voltaprojects.be" "www.voltaprojects.be" ];
-        enableACME = true;
-        # useACMEHost = "theatervolta.be";
+        useACMEHost = "theatervolta.be";
         forceSSL = true;
         root = "/srv/webhost/volta";
       };

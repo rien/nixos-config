@@ -38,6 +38,18 @@
         "force-user=transmission"
       ];
     };
+
+    "/var/lib/nextcloud/storage-box" = {
+      device = "/data/nextcloud/";
+      fsType = "fuse.bindfs";
+      options = [
+        "nonempty"
+        "multithreaded"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=nginx.service"
+        "force-user=nextcloud"
+      ];
+    };
   };
 
 

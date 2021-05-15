@@ -11,17 +11,28 @@ in
       ./hardware-configuration.nix
     ];
 
-  age.secrets."transmission-auth" = {
-    owner = "nginx";
-    file = ./transmission-auth.age;
+  age.secrets = {
+    "transmission-auth" = {
+      owner = "nginx";
+      file = ./transmission-auth.age;
+    };
+    "postfix-sasl".file = ./postfix-sasl.age;
+    "nextcloud-adminpass"= {
+      owner = "nextcloud";
+      file = ./nextcloud-adminpass.age;
+    };
   };
-  age.secrets."postfix-sasl".file = ./postfix-sasl.age;
 
   custom = {
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
     nginx.enable = true;
+    nextcloud = {
+      enable = true;
+      hostname = "cloud.rxn.be";
+      adminpassFile = "/run/secrets/nextcloud-adminpass";
+    };
     transmission = {
       enable = true;
       domain = "transmission.rxn.be";

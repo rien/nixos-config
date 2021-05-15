@@ -71,6 +71,7 @@
       okular
       protontricks
       qview
+      qutebrowser
       remmina
       sent
       signal-desktop
@@ -89,7 +90,7 @@
       openmvg
       python3Packages.ds4drv
       godot
-      ardour
+      #ardour
       termdown
     ];
 

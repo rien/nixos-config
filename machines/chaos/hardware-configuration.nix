@@ -44,7 +44,10 @@
       fsType = "zfs";
     };
 
-  swapDevices = [ ];
+  #swapDevices = [{
+  #  device = "pool/swap";
+  #}];
+
   hardware = {
     opengl = {
       enable = true;

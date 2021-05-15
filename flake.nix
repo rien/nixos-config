@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
-      url = "github:rien/agenix/master";
+      url = "github:ryantm/agenix/master";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -23,7 +23,10 @@
         inherit system;
       };
       mkSystem = system: hostname: nixpkgs.lib.nixosSystem {
-        extraArgs = { custompkgs = import nixpkgs-custom { inherit system; }; };
+        extraArgs = {
+          custompkgs = import nixpkgs-custom { inherit system; };
+          util = import ./util.nix;
+        };
         inherit system;
         modules = [
           # Secrets management

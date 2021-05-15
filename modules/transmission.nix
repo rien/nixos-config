@@ -63,8 +63,8 @@ in
     systemd.services.transmission.serviceConfig.NetworkNamespacePath= mkIf (cfg.namespace != null) "/var/run/netns/${cfg.namespace}";
 
     services.nginx.virtualHosts."${cfg.domain}" = {
-
-      enableACME = true;
+      # calculate base domain
+      useACMEHost = (head (elemAt (builtins.split ''([^.]*\.[^.]*$)'' cfg.domain) 1));
       forceSSL = true;
 
       basicAuthFile = cfg.basicAuthFile;

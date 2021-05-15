@@ -11,7 +11,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.custom.user} = let
-      path = with pkgs; [ jdk python3 nodejs yarn nodePackages."@vue/cli" ];
+      path = with pkgs; [ jdk11 jdk python3 nodejs yarn nodePackages."@vue/cli" ];
       intellij = pkgs.runCommand "intellij" 
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
