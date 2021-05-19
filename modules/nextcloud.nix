@@ -19,6 +19,7 @@ in {
   config = lib.mkIf cfg.enable {
     services = {
       nextcloud = {
+        maxUploadSize = "4G";
         https = true;
         hostName = cfg.hostname;
         enable = true;
@@ -31,6 +32,8 @@ in {
           dbhost = "/run/postgresql";
           adminuser = "rien";
           adminpassFile = cfg.adminpassFile;
+          overwriteProtocol = "https";
+          defaultPhoneRegion = "BE";
         };
       };
       nginx.virtualHosts.${cfg.hostname} = {

@@ -39,15 +39,17 @@
       ];
     };
 
-    "/var/lib/nextcloud/storage-box" = {
+    "/var/lib/nextcloud/data" = {
       device = "/data/nextcloud/";
       fsType = "fuse.bindfs";
       options = [
         "nonempty"
         "multithreaded"
         "x-systemd.requires=data.mount"
-        "x-systemd.before=nginx.service"
+        "x-systemd.before=phpfpm-nextcloud.service"
+        "x-systemd.required-by=phpfpm-nextcloud.service"
         "force-user=nextcloud"
+        "force-group=nextcloud"
       ];
     };
   };

@@ -15,7 +15,7 @@
   boot.extraModprobeConfig = ''
      options snd-intel-dspcfg dsp_driver=1
   '';
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages;
   boot.blacklistedKernelModules = [ "psmouse" ];
   services.fwupd.enable = true;
 
