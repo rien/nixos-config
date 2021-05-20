@@ -21,6 +21,10 @@ in
       owner = "nextcloud";
       file = ./nextcloud-adminpass.age;
     };
+    "syncthing-auth"= {
+      owner = "nginx";
+      file = ./syncthing-auth.age;
+    };
   };
 
   custom = {
@@ -44,6 +48,11 @@ in
     postfix = {
       enable = true;
       loginFile = "/run/secrets/postfix-sasl";
+    };
+    syncthing-server = {
+      enable = true;
+      hostname = "sync.rxn.be";
+      basicAuthFile = "/run/secrets/syncthing-auth";
     };
     #mail.fetcher.enable = true;
   };

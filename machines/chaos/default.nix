@@ -32,6 +32,7 @@
     ugent-vpn.enable = true;
     tor.enable = true;
     intellij.enable = true;
+    syncthing-client.enable = true;
 
     minidlna = {
       enable = true;

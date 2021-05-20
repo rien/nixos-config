@@ -26,6 +26,17 @@
       ];
     };
 
+    "/home/rien/docs" = {
+      device = "/data/syncthing/docs/";
+      fsType = "fuse.bindfs";
+      options = [
+        "multithreaded"
+        "x-systemd.after=data.mount"
+        "x-systemd.requires=data.mount"
+        "force-user=rien"
+      ];
+    };
+
     "/var/lib/transmission/data" = {
       device = "/data/transmission/";
       fsType = "fuse.bindfs";
@@ -50,6 +61,35 @@
         "x-systemd.required-by=phpfpm-nextcloud.service"
         "force-user=nextcloud"
         "force-group=nextcloud"
+      ];
+    };
+
+    "/var/lib/nextcloud/syncthing" = {
+      device = "/data/syncthing/";
+      fsType = "fuse.bindfs";
+      options = [
+        "ro"
+        "nonempty"
+        "multithreaded"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=syncthing.service"
+        "x-systemd.required-by=syncthing.service"
+        "force-user=nextcloud"
+        "force-group=nextcloud"
+      ];
+    };
+
+    "/var/lib/syncthing/data" = {
+      device = "/data/syncthing/";
+      fsType = "fuse.bindfs";
+      options = [
+        "nonempty"
+        "multithreaded"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=syncthing.service"
+        "x-systemd.required-by=syncthing.service"
+        "force-user=syncthing"
+        "force-group=syncthing"
       ];
     };
   };

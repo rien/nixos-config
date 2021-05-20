@@ -21,6 +21,8 @@ in {
     ./postfix
     ./ssh
     ./sshd.nix
+    ./syncthing-client.nix
+    ./syncthing-server.nix
     ./tor.nix
     ./transmission.nix
     ./ugent-vpn.nix

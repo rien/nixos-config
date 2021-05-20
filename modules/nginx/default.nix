@@ -52,6 +52,7 @@ in
 
       appendHttpConfig = ''
         add_header "Permissions-Policy" "interest-cohort=()";
+        proxy_headers_hash_bucket_size 64;
       '';
     };
   };
