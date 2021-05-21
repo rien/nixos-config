@@ -11,17 +11,29 @@ in {
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.custom.user} = let
-      path = with pkgs; [ jdk11 jdk python3 nodejs yarn nodePackages."@vue/cli" ];
-      intellij = pkgs.runCommand "intellij" 
+      devSDKs = with pkgs; {
+        java11 = jdk11;
+        java15 = jdk;
+        python = python3;
+        node = nodejs;
+        yarn = yarn;
+        vuecli = nodePackages."@vue/cli";
+      };
+      extraPath = lib.makeBinPath (builtins.attrValues devSDKs);
+      intellij = pkgs.runCommand "intellij"
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
           mkdir -p $out/bin
           makeWrapper ${pkgs.jetbrains.idea-ultimate}/bin/idea-ultimate \
             $out/bin/intellij \
-            --prefix PATH : ${lib.makeBinPath path}
+            --prefix PATH : ${extraPath}
         '';
     in { ... }: {
       home.packages = [ intellij ];
+      home.file.".local/dev".source = let
+          mkEntry = name: value: { inherit name; path = value; };
+          entries = lib.mapAttrsToList mkEntry devSDKs;
+        in pkgs.linkFarm "local-dev" entries;
     };
   };
 }
