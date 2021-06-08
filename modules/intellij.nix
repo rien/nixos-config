@@ -13,7 +13,7 @@ in {
     home-manager.users.${config.custom.user} = let
       devSDKs = with pkgs; {
         java11 = jdk11;
-        java15 = jdk;
+        java16 = jdk;
         python = python3;
         node = nodejs;
         yarn = yarn;

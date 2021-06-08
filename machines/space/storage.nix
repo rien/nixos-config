@@ -64,6 +64,21 @@
       ];
     };
 
+    "/var/lib/nextcloud/transmission" = {
+      device = "/data/transmission/";
+      fsType = "fuse.bindfs";
+      options = [
+        "ro"
+        "nonempty"
+        "multithreaded"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=phpfpm-nextcloud.service"
+        "x-systemd.required-by=phpfpm-nextcloud.service"
+        "force-user=nextcloud"
+        "force-group=nextcloud"
+      ];
+    };
+
     "/var/lib/nextcloud/syncthing" = {
       device = "/data/syncthing/";
       fsType = "fuse.bindfs";
@@ -72,8 +87,8 @@
         "nonempty"
         "multithreaded"
         "x-systemd.requires=data.mount"
-        "x-systemd.before=syncthing.service"
-        "x-systemd.required-by=syncthing.service"
+        "x-systemd.before=phpfpm-nextcloud.service"
+        "x-systemd.required-by=phpfpm-nextcloud.service"
         "force-user=nextcloud"
         "force-group=nextcloud"
       ];

@@ -51,6 +51,7 @@
     ];
 
     extraHomePackages = with pkgs; [
+      weechat
       binutils
       python3Packages.binwalk
       citrix_workspace
