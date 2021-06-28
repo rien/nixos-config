@@ -3,8 +3,8 @@
 
   inputs = {
     flake-utils.url = "github:numtide/flake-utils/master";
-    nixpkgs-custom.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "github:rien/nixpkgs/master";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     home-manager = {
       url = "github:rien/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +16,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-custom, home-manager, flake-utils, agenix }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -24,7 +24,6 @@
       };
       mkSystem = system: hostname: nixpkgs.lib.nixosSystem {
         extraArgs = {
-          custompkgs = import nixpkgs-custom { inherit system; };
           util = import ./util.nix;
         };
         inherit system;

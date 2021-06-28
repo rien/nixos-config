@@ -36,7 +36,7 @@
 
     minidlna = {
       enable = true;
-      dirs = [ "/data/music/" ];
+      dirs = [ "/data/music/" "/mnt/media/transmission/complete/" ];
     };
 
     mounts.ugent.enable = true;
@@ -86,13 +86,13 @@
       openttd
       zotero
       openscad
+      obsidian
       freecad
       ncspot
       colmap
       openmvg
       python3Packages.ds4drv
       godot
-      #ardour
       termdown
     ];
 

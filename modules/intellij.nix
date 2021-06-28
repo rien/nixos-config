@@ -12,6 +12,8 @@ in {
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.custom.user} = let
       devSDKs = with pkgs; {
+        rustc = symlinkJoin { name = rustc.pname; paths = [ rustc cargo gcc ]; };
+        rust-src =  rust.packages.stable.rustPlatform.rustLibSrc;
         java11 = jdk11;
         java16 = jdk;
         python = python3;

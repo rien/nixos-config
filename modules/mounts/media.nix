@@ -23,7 +23,7 @@ in {
     environment.systemPackages = with pkgs; [ sshfs ];
     fileSystems = {
       "${cfg.mountPoint}" = {
-        device = secret.mediaDevice;
+        device = secret.storageDevice;
         fsType = "fuse.sshfs";
         options = [
           "x-systemd.automount"
@@ -34,6 +34,7 @@ in {
           "transform_symlinks"
           "_netdev"
           "reconnect"
+          "allow_other"
           "identityfile=${cfg.identityFile}"
           "uid=${config.custom.user}"
           "gid=users"
