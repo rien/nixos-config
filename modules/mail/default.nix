@@ -90,7 +90,7 @@ in {
         alot = let
           dmenu = "${pkgs.dmenu}/bin/dmenu";
           urlscan = "${pkgs.urlscan}/bin/urlscan";
-          xdg-open = "${pkgs.xdg-utils}/bin/xdg-open";
+          xdg-open = "${pkgs.xdg_utils}/bin/xdg-open";
           selecturl = pkgs.writeScript
             "selecturl"
             "${urlscan} -n | ${dmenu} | xargs --no-run-if-empty ${xdg-open}";
@@ -167,7 +167,6 @@ in {
       home.file.".mailcap".text = ''
         text/html; ${pkgs.firefox}/bin/firefox %s ; nametemplate=%s.html; needsterminal
         text/html; ${pkgs.w3m}/bin/w3m -dump -o display_link_number=1 -o document_charset=%{charset} %s ; copiousoutput; nametemplate=%s.html
-        text/calendar; ${pkgs.khal}/bin/khal import %s;
         application/pdf; ${pkgs.okular}/bin/okular %s
         image/png; ${pkgs.okular}/bin/okular %s
         image/jpeg; ${pkgs.okular}/bin/okular %s

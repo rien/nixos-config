@@ -33,7 +33,6 @@ in {
           adminuser = "rien";
           adminpassFile = cfg.adminpassFile;
           overwriteProtocol = "https";
-          defaultPhoneRegion = "BE";
         };
       };
       nginx.virtualHosts.${cfg.hostname} = {

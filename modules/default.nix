@@ -27,6 +27,7 @@ in {
     ./transmission.nix
     ./ugent-vpn.nix
     ./wireless
+    ./wireshark.nix
     ./zeroad.nix
   ];
 
@@ -145,7 +146,10 @@ in {
       programs.direnv = {
         enable = true;
         enableBashIntegration = true;
-        enableNixDirenvIntegration = true;
+        nix-direnv = {
+          enable = true;
+          enableFlakes = true;
+        };
       };
     };
 

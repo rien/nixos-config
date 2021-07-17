@@ -33,6 +33,7 @@
     tor.enable = true;
     intellij.enable = true;
     syncthing-client.enable = true;
+    wireshark.enable = true;
 
     minidlna = {
       enable = true;
@@ -69,7 +70,6 @@
       mpv
       mumble
       obs-studio
-      obs-v4l2sink
       okular
       protontricks
       qview
@@ -79,6 +79,8 @@
       signal-desktop
       spotify-tui
       steam-run
+      krita
+      remarkable-mouse
       teams
       teeworlds
       youtube-dl
