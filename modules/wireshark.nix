@@ -12,6 +12,7 @@
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
       home.packages = [ pkgs.wireshark ];
     };
+    programs.wireshark.enable = true;
     users.users.${config.custom.user}.extraGroups = [ "wireshark" ];
   };
 }
