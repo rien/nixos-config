@@ -12,6 +12,10 @@ in
     ];
 
   age.secrets = {
+    "accentor-env" = {
+      owner = "accentor";
+      file = ./accentor-env.age;
+    };
     "transmission-auth" = {
       owner = "nginx";
       file = ./transmission-auth.age;
@@ -55,6 +59,13 @@ in
       basicAuthFile = "/run/secrets/syncthing-auth";
     };
     #mail.fetcher.enable = true;
+  };
+
+  services.accentor = {
+    enable = true;
+    hostname = "music.rxn.be";
+    workers = 1;
+    environmentFile = "/run/secrets/accentor-env";
   };
 
   # Use the GRUB 2 boot loader.
