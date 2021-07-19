@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "accentor": {
+      "locked": {
+        "lastModified": 1626734664,
+        "narHash": "sha256-cxy9dOnb90XMNML8vFHlsFatpPtAYKX1CFsx9ied0P8=",
+        "owner": "rien",
+        "repo": "accentor-nix",
+        "rev": "5d03a8b008a0d6f6aefc939001a8acc7e3b16b05",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rien",
+        "ref": "main",
+        "repo": "accentor-nix",
+        "type": "github"
+      }
+    },
     "agenix": {
       "inputs": {
         "nixpkgs": [
@@ -60,11 +76,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1626584293,
-        "narHash": "sha256-k66L6mJ//vke8jlFfiGlJsIjc1rbli8yUpD6nt5S7T4=",
+        "lastModified": 1626653641,
+        "narHash": "sha256-A/R+2+tPToPlYtORjx57WxklHIwkC698Fj03jpPG3/8=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "ff4f2b6b85c9446001d6a410549223afe141f101",
+        "rev": "56a017774e2992a6592e1ed811ab1b79126c6bba",
         "type": "github"
       },
       "original": {
@@ -76,6 +92,7 @@
     },
     "root": {
       "inputs": {
+        "accentor": "accentor",
         "agenix": "agenix",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",

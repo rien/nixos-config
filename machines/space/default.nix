@@ -59,7 +59,12 @@ in
       basicAuthFile = "/run/secrets/syncthing-auth";
     };
     #mail.fetcher.enable = true;
+
+    extraSystemPackages = with pkgs; [
+      htop
+    ];
   };
+
 
   services.accentor = {
     enable = true;

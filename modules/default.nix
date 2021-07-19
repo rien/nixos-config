@@ -4,7 +4,6 @@ let
 in {
 
   imports = [
-    ./accentor
     ./bash.nix
     ./docker.nix
     ./git.nix

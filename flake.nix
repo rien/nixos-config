@@ -5,6 +5,7 @@
     flake-utils.url = "github:numtide/flake-utils/master";
     #nixpkgs.url = "github:rien/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    accentor.url = "github:rien/accentor-nix/main";
     home-manager = {
       url = "github:rien/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,7 +17,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, accentor }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -31,6 +32,9 @@
           # Secrets management
           agenix.nixosModules.age
           { environment.systemPackages = [ agenix.defaultPackage.${system} ]; }
+
+          # Accentor music server
+          accentor.nixosModules.accentor
 
           # Enable home-manager
           home-manager.nixosModules.home-manager
