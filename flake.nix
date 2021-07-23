@@ -5,7 +5,10 @@
     flake-utils.url = "github:numtide/flake-utils/master";
     #nixpkgs.url = "github:rien/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
-    accentor.url = "github:rien/accentor-nix/main";
+    accentor = {
+      url = "github:accentor/flake/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:rien/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
