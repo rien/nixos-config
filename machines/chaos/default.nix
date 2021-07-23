@@ -13,7 +13,15 @@
 
   programs.steam.enable = true;
 
+  services.printing.enable = true;
+
   virtualisation.virtualbox.host.enable = true;
+
+  programs.adb.enable = true;
+  users.users.rien.extraGroups = [ "adbusers" ];
+  services.udev.packages = [
+    pkgs.android-udev-rules
+  ];
 
   custom = {
     sshd.enable = true;
@@ -52,6 +60,7 @@
     ];
 
     extraHomePackages = with pkgs; [
+      android-studio
       weechat
       binutils
       python3Packages.binwalk
