@@ -4,7 +4,7 @@
   inputs = {
     flake-utils.url = "github:numtide/flake-utils/master";
     #nixpkgs.url = "github:rien/nixpkgs/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     accentor = {
       url = "github:accentor/flake/main";
       inputs.nixpkgs.follows = "nixpkgs";

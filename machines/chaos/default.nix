@@ -14,6 +14,7 @@
   programs.steam.enable = true;
 
   services.printing.enable = true;
+  services.printing.drivers = [ pkgs.hplip ];
 
   virtualisation.virtualbox.host.enable = true;
 

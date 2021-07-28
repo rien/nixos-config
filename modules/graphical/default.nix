@@ -206,7 +206,10 @@ in {
 
       xsession = {
         enable = true;
-        initExtra = "xset r rate 175 75";
+        initExtra = ''
+          xset r rate 175 75
+          autorandr --change
+          '';
         windowManager.xmonad = {
           enable = true;
           enableContribAndExtras = true;
