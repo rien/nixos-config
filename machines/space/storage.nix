@@ -136,6 +136,20 @@
         "force-group=accentor"
       ];
     };
+
+    "/var/lib/fava/data" = {
+      device = "/data/syncthing/ledger/";
+      fsType = "fuse.bindfs";
+      options = [
+        "nonempty"
+        "multithreaded"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=fava.service"
+        "x-systemd.required-by=fava.service"
+        "force-user=fava"
+        "force-group=fava"
+      ];
+    };
   };
 
 

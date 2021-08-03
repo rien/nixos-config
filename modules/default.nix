@@ -6,6 +6,8 @@ in {
   imports = [
     ./bash.nix
     ./docker.nix
+    ./dwarffortress.nix
+    ./fava.nix
     ./git.nix
     ./gnupg.nix
     ./graphical

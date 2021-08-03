@@ -28,6 +28,7 @@
     sshd.enable = true;
     bash.enable = true;
     docker.enable = true;
+    dwarffortress.enable = true;
     git.enable = true;
     gnupg.enable = true;
     graphical.enable = true;
@@ -61,6 +62,8 @@
     ];
 
     extraHomePackages = with pkgs; [
+      beancount
+      wine-staging
       android-studio
       weechat
       binutils

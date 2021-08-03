@@ -29,6 +29,10 @@ in
       owner = "nginx";
       file = ./syncthing-auth.age;
     };
+    "fava-auth"= {
+      owner = "nginx";
+      file = ./fava-auth.age;
+    };
   };
 
   custom = {
@@ -57,6 +61,11 @@ in
       enable = true;
       hostname = "sync.rxn.be";
       basicAuthFile = "/run/secrets/syncthing-auth";
+    };
+    fava = {
+      enable = true;
+      hostname = "fin.rxn.be";
+      basicAuthFile = "/run/secrets/fava-auth";
     };
     #mail.fetcher.enable = true;
 
