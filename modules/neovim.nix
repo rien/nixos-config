@@ -10,6 +10,15 @@ let
           sha256 = "sha256-mq5Ahj1yc6s9ekHY03ztInHasNXceTeC3Em6HBT800k=";
         };
     };
+    vim-beancount = pkgs.vimUtils.buildVimPlugin {
+        name = "vim-beancount";
+        src = pkgs.fetchFromGitHub {
+          owner = "nathangrigg";
+          repo = "vim-beancount";
+          rev = "2f970a0c826275f7d07fa145ba9a35c15b15232d";
+          sha256 = "sha256-fn38ISg/19E6OVsmltqjx1Iw41w16DuDLN6h7Ghm6js=";
+        };
+    };
   };
   base = home: {
     home.sessionVariables = { EDITOR = "nvim"; };
@@ -111,6 +120,7 @@ let
 
     plugins = with pkgs.vimPlugins // customPlugins; [
         darcula
+        vim-beancount
         vim-nix
         editorconfig-vim
       ];

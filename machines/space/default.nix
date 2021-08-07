@@ -66,6 +66,10 @@ in
       enable = true;
       hostname = "fin.rxn.be";
       basicAuthFile = "/run/secrets/fava-auth";
+      journalFiles = [
+        "rien.beancount"
+        "gedeeld.beancount"
+      ];
     };
     #mail.fetcher.enable = true;
 
