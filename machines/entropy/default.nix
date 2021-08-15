@@ -9,12 +9,32 @@ in
       ./hardware-configuration.nix
     ];
 
+  age.secrets = {
+    "hetzner-api-key" = {
+      file = ./hetzner-api-key.age;
+      owner = "acme";
+    };
+  };
+
 
   custom = {
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
-    nginx.enable = true;
+    nginx = {
+      enable = true;
+      dnsCredentialsFile = "/run/secrets/hetzner-api-key";
+      certificateDomains = [{
+        domain = "entropy.rxn.be";
+        extra = [ "home.rxn.be" ];
+      }];
+    };
+
+    home-assistant = {
+      enable = true;
+      hostname = "home.rxn.be";
+      acmeHost = "entropy.rxn.be";
+    };
 
     extraSystemPackages = with pkgs; [
       htop

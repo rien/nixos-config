@@ -11,6 +11,7 @@ in {
     ./git.nix
     ./gnupg.nix
     ./graphical
+    ./home-assistant.nix
     ./intellij.nix
     ./kitty.nix
     ./minidlna.nix

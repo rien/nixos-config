@@ -33,18 +33,42 @@ in
       owner = "nginx";
       file = ./fava-auth.age;
     };
+    "hetzner-api-key" = {
+      file = ./hetzner-api-key.age;
+      owner = "acme";
+    };
   };
 
   custom = {
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
-    nginx.enable = true;
+
+    nginx = {
+      enable = true;
+      dnsCredentialsFile = "/run/secrets/hetzner-api-key";
+      certificateDomains = [
+        {
+          domain = "maertens.io";
+          extra = [ "*.maertens.io" ];
+        }
+        {
+          domain = "rxn.be";
+          extra = ["*.rxn.be"];
+        }
+        {
+          domain = "theatervolta.be";
+          extra = [ "*.theatervolta.be" "voltaprojects.be" "*.voltaprojects.be" ];
+        }
+      ];
+    };
+
     nextcloud = {
       enable = true;
       hostname = "cloud.rxn.be";
       adminpassFile = "/run/secrets/nextcloud-adminpass";
     };
+
     transmission = {
       enable = true;
       domain = "transmission.rxn.be";

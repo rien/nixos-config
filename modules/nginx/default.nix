@@ -10,37 +10,40 @@ in
       default = false;
       example = true;
     };
+
+    dnsCredentialsFile = mkOption {
+      example = "/run/secrets/dns-api-key";
+    };
+
+    certificateDomains = mkOption {
+      default = [];
+      example = [
+        {
+          domain = "example.com";
+          extra = [ "a.example.com" "b.example.com" ];
+        }
+      ];
+    };
   };
 
   config = mkIf cfg.enable {
     networking.firewall.allowedTCPPorts = [ 80 443 ];
     users.users.nginx.extraGroups = [ "acme" ];
 
-    age.secrets."hetzner-api-key" = {
-      file = ./hetzner-api-key.age;
-      owner = "acme";
-    };
-
     security.acme = {
       acceptTerms = true;
       email = personal.email;
-      certs = {
-        "maertens.io" = {
-          dnsProvider = "hetzner";
-          credentialsFile = "/run/secrets/hetzner-api-key";
-          extraDomainNames = [ "*.maertens.io" ];
-        };
-        "rxn.be" = {
-          dnsProvider = "hetzner";
-          credentialsFile = "/run/secrets/hetzner-api-key";
-          extraDomainNames = [ "*.rxn.be" ];
-        };
-        "theatervolta.be" = {
-          dnsProvider = "hetzner";
-          credentialsFile = "/run/secrets/hetzner-api-key";
-          extraDomainNames = [ "*.theatervolta.be" "voltaprojects.be" "*.voltaprojects.be" ];
-        };
-      };
+      certs = builtins.listToAttrs (map
+        (item: {
+          name = item.domain;
+          value = {
+            dnsProvider = "hetzner";
+            credentialsFile = cfg.dnsCredentialsFile;
+            extraDomainNames = item.extra;
+          };
+        })
+        cfg.certificateDomains
+      );
     };
 
     services.nginx = {

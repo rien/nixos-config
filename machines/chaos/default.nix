@@ -62,6 +62,8 @@
     ];
 
     extraHomePackages = with pkgs; [
+      texlive.combined.scheme-full
+      pandoc
       beancount
       wine-staging
       android-studio
