@@ -30,6 +30,39 @@ in {
         system_health = { };
         default_config = {};
         met = {};
+        esphome = {};
+        fritz = {};
+
+        sensor = [
+          {
+            name = "vlinder";
+            platform = "rest";
+            resource = "https://mooncake.ugent.be/api/measurements/zZ6ZeSg11dJ5zp5GrNwNck9A";
+            json_attributes_path = "$[-1:]";
+            json_attributes = [
+              "humidity"
+              "pressure"
+              "rainIntensity"
+              "temp"
+              "time"
+              "windDirection"
+              "windGust"
+              "windSpeed"
+              "rainVolume"
+            ];
+            value_template = "OK";
+          }
+          {
+            platform = "template";
+            sensors = {
+              vlinder_temperature = {
+                value_template = "{{ states.sensor.vlinder.attributes['temp'] }}";
+                device_class = "temperature";
+                unit_of_measurement = "°C";
+              };
+            };
+          }
+        ];
 
         http = {
           use_x_forwarded_for = true;
@@ -41,6 +74,20 @@ in {
         logger.default = "info";
       };
     };
+
+    # Enable writing to /dev/ttyUSB0
+    users.users.hass.extraGroups = [ "dialout" ];
+
+    #systemd.services.esphome = {
+    #  description = "ESPHome";
+    #  after = [ "network.target" ];
+    #  wantedBy = [ "multi-user.target" ];
+    #  User = "hass";
+    #  Group = "hass";
+    #  Restart = "on-failure";
+    #  WorkingDirectory = config.services.home-assistant.configDir;
+    #  ExecStart = "${ pkgs.esphome }/bin/esphome dashboard ${config.services.home-assistant.configDir}/esphome";
+    #};
 
     services.nginx.virtualHosts.${cfg.hostname} = {
       useACMEHost = if cfg.acmeHost != null
