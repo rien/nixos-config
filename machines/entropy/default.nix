@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 let
   secret = import ./secret.nix;
 in
@@ -15,6 +15,45 @@ in
       owner = "acme";
     };
   };
+
+  system.activationScripts.users.supportsDryActivation = lib.mkForce false;
+
+  musnix.enable = true;
+  musnix.kernel.realtime = true;
+  musnix.kernel.packages = pkgs.linuxPackages-rt_latest;
+  musnix.rtirq = {
+    # highList = "snd_hrtimer";
+    resetAll = 1;
+    prioLow = 0;
+    enable = true;
+    nameList = "rtc0 snd";
+  };
+
+  systemd.user.services = {
+    fluidsynth = {
+      path = [ pkgs.fluidsynth ];
+      environment = {
+        LD_PRELOAD = "${pkgs.fluidsynth}/lib/libfluidsynth.so.2";
+      };
+      serviceConfig = {
+        LimitMEMLOCK = "256M";
+        LimitNICE = -15;
+        LimitRTPRIO = 99;
+        Type = "simple";
+        WorkingDirectory = "/home/rien";
+        ExecStart = "${pkgs.fluidsynth}/bin/fluidsynth -a jack -m jack -j -o midi.autoconnect=1 -is Nice-Steinway-v3.8.sf2";
+      };
+    };
+  };
+
+  sound.enable = true;
+  services.jack = {
+    jackd.enable = true;
+    alsa.enable = false;
+    loopback.enable = true;
+  };
+
+  users.users.rien.extraGroups = [ "audio" "jackaudio" "wheel" ];
 
 
   custom = {
