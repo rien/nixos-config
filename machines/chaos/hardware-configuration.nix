@@ -10,7 +10,7 @@
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "i915" ];
-  boot.kernelModules = [ "kvm-intel" ];
+  boot.kernelModules = [ "kvm-intel" "snd-seq" "snd-rawmidi" "snd-usb-audio" ];
   boot.extraModulePackages = [ ];
   boot.extraModprobeConfig = ''
      options snd-intel-dspcfg dsp_driver=1

@@ -9,6 +9,10 @@
       url = "github:accentor/flake/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    musnix = {
+      url = "github:musnix/musnix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:rien/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -20,7 +24,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, accentor }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, accentor, musnix }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -38,6 +42,8 @@
 
           # Accentor music server
           accentor.nixosModules.accentor
+
+          musnix.nixosModules.musnix
 
           # Enable home-manager
           home-manager.nixosModules.home-manager

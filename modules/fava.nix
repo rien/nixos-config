@@ -15,9 +15,8 @@ in {
       default = "/var/lib/fava/data";
       type = lib.types.str;
     };
-    ledgerFile = lib.mkOption {
-      default = "journal.beancount";
-      type = lib.types.str;
+    journalFiles = lib.mkOption {
+      default = [ "journal.beancount" ];
     };
     hostname = lib.mkOption {
       example = "fava.example.com";
@@ -53,7 +52,7 @@ in {
           Group = "fava";
           Restart = "on-failure";
           WorkingDirectory = cfg.dataDir;
-          ExecStart = "${pkgs.fava}/bin/fava --port ${cfg.port} ${cfg.ledgerFile}";
+          ExecStart = "${pkgs.fava}/bin/fava --port ${cfg.port} ${builtins.concatStringsSep " " cfg.journalFiles}";
         };
       };
     };

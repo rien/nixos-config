@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 let
   secret = import ./secret.nix;
 in
@@ -38,6 +38,8 @@ in
       owner = "acme";
     };
   };
+
+  system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
   custom = {
     bash.enable = true;

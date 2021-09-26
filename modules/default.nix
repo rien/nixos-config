@@ -95,7 +95,7 @@ in {
     users.users.${config.custom.user} = {
       isNormalUser = true;
       createHome = true;
-      extraGroups = [ "wheel" "audio" "input" "video" "graphical" "vboxusers"];
+      extraGroups = [ "wheel" "audio" "input" "video" "graphical" "vboxusers" "dialout"];
       openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos ];
     };
 

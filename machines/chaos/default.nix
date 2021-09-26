@@ -17,6 +17,10 @@
   services.printing.drivers = [ pkgs.hplip ];
 
   virtualisation.virtualbox.host.enable = true;
+  #virtualisation.virtualbox.host.enableExtensionPack = true;
+  users.extraGroups.vboxusers.members = [ "rien" ];
+  system.activationScripts.users.supportsDryActivation = lib.mkForce false;
+
 
   programs.adb.enable = true;
   users.users.rien.extraGroups = [ "adbusers" ];
@@ -62,6 +66,10 @@
     ];
 
     extraHomePackages = with pkgs; [
+      feh
+      bitwig-studio3
+      wesnoth
+      inkscape
       texlive.combined.scheme-full
       pandoc
       beancount

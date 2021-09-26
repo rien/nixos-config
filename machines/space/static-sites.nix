@@ -17,13 +17,25 @@ in {
 
   services.nginx = {
     virtualHosts = {
-      "space.rxn.be" = {
-        #serverAliases = [ "www.rxn.be" "rxn.be" ];
+      "rxn.be" = {
+        serverAliases = [ "www.rxn.be" "space.rxn.be" ];
         useACMEHost = "rxn.be";
         addSSL = true;
         extraConfig = "default_type \"text/plain; charset=utf-8\";";
         locations."/" = {
           return = "200 \"\\n███████╗    ██████╗      █████╗      ██████╗    ███████╗\\n██╔════╝    ██╔══██╗    ██╔══██╗    ██╔════╝    ██╔════╝\\n███████╗    ██████╔╝    ███████║    ██║         █████╗\\n╚════██║    ██╔═══╝     ██╔══██║    ██║         ██╔══╝\\n███████║    ██║         ██║  ██║    ╚██████╗    ███████╗\\n╚══════╝    ╚═╝         ╚═╝  ╚═╝     ╚═════╝    ╚══════╝\\n\"";
+        };
+        locations."/vuur" = {
+          return = "302 https://docs.google.com/forms/d/e/1FAIpQLSeTltrQAZxYmmoov4jijEMzJy5Bg4dfnRW0PW_56lgYqLqW4w/viewform";
+        };
+        locations."/zwart-wit" = {
+          return = "302 https://docs.google.com/forms/d/e/1FAIpQLSeTltrQAZxYmmoov4jijEMzJy5Bg4dfnRW0PW_56lgYqLqW4w/viewform";
+        };
+        locations."/zwartwit" = {
+          return = "302 https://docs.google.com/forms/d/e/1FAIpQLSeTltrQAZxYmmoov4jijEMzJy5Bg4dfnRW0PW_56lgYqLqW4w/viewform";
+        };
+        locations."/brief" = {
+          return = "302 https://drive.google.com/file/d/1JsMAJbnwWslBfpXe05gNvSlGi5M0wNNe/view";
         };
       };
       "rien.maertens.io" = {

@@ -10,13 +10,24 @@ in {
 
   config = mkIf cfg.enable {
 
-    fileSystems."/mnt/ugent/files" = {
-      device = "//files.ugent.be/rbmaerte/";
-      fsType = "cifs";
-      options = let
-        automountOpts = "x-systemd.automount,noauto,x-systemd.idle-timeout=10,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
-      in [ "credentials=/run/secrets/cifs-credentials,vers=3.0,sec=ntlmv2i,uid=rien,${automountOpts}" ];
-    };
+    fileSystems =
+      let
+        automount_opts = "x-systemd.automount,noauto,x-systemd.idle-timeout=60,x-systemd.device-timeout=5s,x-systemd.mount-timeout=5s";
+      in
+      {
+        "/mnt/ugent/files" = {
+          device = "//files.ugent.be/rbmaerte";
+          fsType = "cifs";
+          options = [ "credentials=/run/secrets/cifs-credentials,${automount_opts},users,vers=3.0,noperm,domain=UGENT,sec=ntlmv2i,noserverino" ];
+          noCheck = true;
+        };
+        "/mnt/ugent/webhost" = {
+          device = "//webhost.ugent.be/rbmaerte";
+          fsType = "cifs";
+          options = [ "credentials=/run/secrets/cifs-credentials,${automount_opts},users,vers=3.0,noserverino" ];
+          noCheck = true;
+        };
+      };
 
     age.secrets."cifs-credentials".file = ./cifs-credentials.age;
 
