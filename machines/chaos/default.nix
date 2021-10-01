@@ -8,6 +8,19 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
+  nixpkgs.overlays = [
+    (self: super:
+    {
+      cyrus_sasl_xoauth2 = self.callPackage ../../cyrus_sasl_xoauth2.nix;
+    })
+    (self: super:
+    {
+      nixUnstable = super.nixUnstable.override {
+        patches = [ ../../unset-is-macho.patch ];
+      };
+    })
+  ];
+
   networking.firewall.allowedTCPPorts = [ 10999 ];
   networking.firewall.allowedUDPPorts = [ 10999 ];
 

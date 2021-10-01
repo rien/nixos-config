@@ -9,6 +9,11 @@
       url = "github:accentor/flake/main";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    mfauth = {
+      url = "github:rien/mfauth/main";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +29,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, accentor, musnix }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, accentor, musnix, mfauth }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -39,6 +44,13 @@
           # Secrets management
           agenix.nixosModules.age
           { environment.systemPackages = [ agenix.defaultPackage.${system} ]; }
+
+          # Simple OAuth2 client
+          ({
+            nixpkgs.overlays = [(self: super: {
+              mfauth = mfauth.defaultPackage.${system};
+            })];
+          })
 
           # Accentor music server
           accentor.nixosModules.accentor
@@ -66,6 +78,8 @@
             '');
             nix.nixPath = [ "nixpkgs=/etc/nixpkgs" ];
           })
+
+
 
           # Load the config for out current machine
           (./. + "/machines/${hostname}")

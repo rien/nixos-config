@@ -39,7 +39,9 @@ let
         flatten = ".";
         remove = "both";
         patterns = mkIf (folders != null) (lib.attrsets.attrValues folders);
-        extraConfig.account.AuthMechs = "LOGIN";
+        extraConfig.account.AuthMechs = if oauth
+          then "XOAUTH2"
+          else "LOGIN";
       };
       msmtp.enable = true;
       alot.sendMailCommand = "${pkgs.msmtp}/bin/msmtp --read-recipients --read-envelope-from --account ${name}";
@@ -71,6 +73,7 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${config.custom.user} = { ... }: {
+      home.packages = [ pkgs.cyrus_sasl_xoauth2 ];
       accounts.email = {
         maildirBasePath = "/home/${config.custom.user}/mail";
         accounts = builtins.listToAttrs (
