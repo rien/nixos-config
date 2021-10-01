@@ -11,7 +11,7 @@
   nixpkgs.overlays = [
     (self: super:
     {
-      cyrus_sasl_xoauth2 = self.callPackage ../../cyrus_sasl_xoauth2.nix;
+      cyrus_sasl_xoauth2 = self.callPackage ../../packages/cyrus_sasl_xoauth2.nix {};
     })
     (self: super:
     {

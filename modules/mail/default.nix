@@ -6,11 +6,28 @@ let
   '';
   personal = import ../personal.secret.nix;
   cfg = config.custom.mail;
+  toml = pkgs.formats.toml {};
+
+  eachAccount = f: builtins.listToAttrs (
+    builtins.filter
+    (v: v != null)
+    (builtins.map (account:
+      let
+      value = f (personal.emailAccounts.${account} // { name = "${account}"; });
+      in if value == null
+        then null
+        else {
+          name = "${account}";
+          inherit value;
+     })
+     (builtins.attrNames personal.emailAccounts))
+  );
+
   makeAccount = {
     name, address, host ? "", imapHost ? host, smtpHost ? host,
     useStartTls ? false, passFile, extraConfig ? { }, primary ? false,
     userName ? address, signature ? personal.defaultSignature, mbsync ? true,
-    folders ? null
+    folders ? null, oauth ? null
   }: (
     lib.recursiveUpdate
     {
@@ -39,13 +56,15 @@ let
         flatten = ".";
         remove = "both";
         patterns = mkIf (folders != null) (lib.attrsets.attrValues folders);
-        extraConfig.account.AuthMechs = if oauth
+        extraConfig.account.AuthMechs = if (oauth != null)
           then "XOAUTH2"
           else "LOGIN";
       };
       msmtp.enable = true;
       alot.sendMailCommand = "${pkgs.msmtp}/bin/msmtp --read-recipients --read-envelope-from --account ${name}";
-      passwordCommand = "${passwordScript} ${passFile}";
+      passwordCommand = if oauth == null
+        then "${passwordScript} ${passFile}"
+        else "${pkgs.mfauth}/bin/mfauth access ${name}";
       realName = personal.fullName;
       signature = {
         text = signature;
@@ -73,19 +92,15 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${config.custom.user} = { ... }: {
-      home.packages = [ pkgs.cyrus_sasl_xoauth2 ];
+      home.packages = with pkgs; [ cyrus_sasl_xoauth2 mfauth ];
+      xdg.configFile."mfauth/config.toml".source = toml.generate
+      "mfauth-config.toml"
+      {
+        accounts = eachAccount ({ oauth ? null, ... }: oauth );
+      };
       accounts.email = {
         maildirBasePath = "/home/${config.custom.user}/mail";
-        accounts = builtins.listToAttrs (
-          builtins.map
-            (account: {
-              name = "${account}";
-              value = makeAccount (
-                personal.emailAccounts.${account} // { name = "${account}"; }
-              );
-            })
-            (builtins.attrNames personal.emailAccounts)
-        );
+        accounts = eachAccount makeAccount;
       };
       programs = {
         mbsync.enable = true;
