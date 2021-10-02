@@ -1,4 +1,4 @@
-{ lib, stdenv, fetchFromGitHub, makeWrapper, autoconf, automake, cyrus_sasl, libtool, ... }:
+{ lib, stdenv, fetchFromGitHub, makeWrapper, autoconf, automake, libtool, cyrus_sasl, ... }:
 stdenv.mkDerivation rec {
   pname = "cyrus_sasl_xoauth2";
   version = "0.2";
