@@ -18,7 +18,18 @@ in
 
   system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
+  sound.enable = true;
+  services.jack = {
+    jackd.extraOptions = [ "-dalsa" ];
+    jackd.enable = true;
+    alsa.enable = false;
+    loopback.enable = false;
+  };
+
+  users.users.rien.extraGroups = [ "audio" "jackaudio" "wheel" ];
+
   musnix.enable = true;
+  musnix.alsaSeq.enable = true;
   musnix.kernel.realtime = true;
   musnix.kernel.packages = pkgs.linuxPackages-rt_latest;
   musnix.rtirq = {
@@ -29,31 +40,28 @@ in
     nameList = "rtc0 snd";
   };
 
-  systemd.user.services = {
-    fluidsynth = {
-      path = [ pkgs.fluidsynth ];
-      environment = {
-        LD_PRELOAD = "${pkgs.fluidsynth}/lib/libfluidsynth.so.2";
-      };
-      serviceConfig = {
-        LimitMEMLOCK = "256M";
-        LimitNICE = -15;
-        LimitRTPRIO = 99;
-        Type = "simple";
-        WorkingDirectory = "/home/rien";
-        ExecStart = "${pkgs.fluidsynth}/bin/fluidsynth -a jack -m jack -j -o midi.autoconnect=1 -is Nice-Steinway-v3.8.sf2";
-      };
+  systemd.services.fluidsynth = {
+    path = [ pkgs.fluidsynth ];
+    environment = {
+      LD_PRELOAD = "${pkgs.fluidsynth}/lib/libfluidsynth.so.2";
+      JACK_NO_AUDIO_RESERVATION = "1";
+      JACK_PROMISCUOUS_SERVER = "jackaudio";
     };
+    serviceConfig = {
+      LimitMEMLOCK = "256M";
+      LimitNICE = -15;
+      LimitRTPRIO = 99;
+      User = "rien";
+      Group = "jackaudio";
+      Type = "simple";
+      WorkingDirectory = "/home/rien";
+      #ExecStart = "${pkgs.jack2}/bin/jack_simple_client";
+      ExecStart = "${pkgs.fluidsynth}/bin/fluidsynth -a jack -m jack -j -o midi.autoconnect=1 -is Nice-Steinway-v3.8.sf2";
+    };
+    after = [ "jack.service" ];
+    wantedBy = [ "multi-user.target" ];
   };
 
-  sound.enable = true;
-  services.jack = {
-    jackd.enable = true;
-    alsa.enable = false;
-    loopback.enable = true;
-  };
-
-  users.users.rien.extraGroups = [ "audio" "jackaudio" "wheel" ];
 
 
   custom = {
@@ -76,7 +84,7 @@ in
     };
 
     extraSystemPackages = with pkgs; [
-      htop
+      htop fluidsynth mpv libjack2 jack2
     ];
 
     wireless = {
