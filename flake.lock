@@ -82,13 +82,13 @@
       "locked": {
         "lastModified": 1633453105,
         "narHash": "sha256-UAqxizTFg/Kg5MrHm+I1N/9+zhFRbq+V5CZno0HIJms=",
-        "owner": "rien",
+        "owner": "nix-community",
         "repo": "home-manager",
         "rev": "e4df31dceaedc4b9abd18f7c8616d58987e790c8",
         "type": "github"
       },
       "original": {
-        "owner": "rien",
+        "owner": "nix-community",
         "ref": "master",
         "repo": "home-manager",
         "type": "github"

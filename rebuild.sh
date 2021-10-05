@@ -1,5 +1,5 @@
 #!/usr/bin/env sh
-if [[ ! "$1" =~ ^-.* ]]; then
+if [[ -n "$1" && ! "$1" =~ ^-.* ]]; then
     host="$1"
     shift
 fi

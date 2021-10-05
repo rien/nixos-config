@@ -60,7 +60,10 @@ let
           then "XOAUTH2"
           else "LOGIN";
       };
-      msmtp.enable = true;
+      msmtp = {
+        enable = true;
+        extraConfig = mkIf (oauth != null) { auth = "xoauth2"; };
+      };
       alot.sendMailCommand = "${pkgs.msmtp}/bin/msmtp --read-recipients --read-envelope-from --account ${name}";
       passwordCommand = if oauth == null
         then "${passwordScript} ${passFile}"
@@ -92,36 +95,36 @@ in {
 
   config = mkIf cfg.enable {
 
-    nixpkgs.overlays = [(self: super:
-    rec {
-      cyrus_sasl_xoauth2_plugin = self.callPackage ../../packages/cyrus_sasl_xoauth2.nix {
-        cyrus_sasl = super.cyrus_sasl;
-      };
-      cyrus_sasl_xoauth2 = let
-        out = self.runCommand "cyrus-sasl-with-xoauth2" {}
-        ''
-          mkdir -p $out/lib/sasl2
-          for i in $(find ${super.cyrus_sasl.out}/lib/ -mindepth 1 -maxdepth 1 -not -type d); do
-            echo $i
-            ln -s $i $out/lib/
-          done
-          for i in $(find ${super.cyrus_sasl.out}/lib/sasl2/ -mindepth 1); do
-            echo $i
-            ln -s $i $out/lib/sasl2/
-          done
-          for i in $(find ${self.cyrus_sasl_xoauth2_plugin}/lib/sasl2/ -mindepth 1); do
-            echo $i
-            ln -s $i $out/lib/sasl2/
-          done
-        '';
-      in super.cyrus_sasl // { inherit out; };
-      isync = super.isync.override {
-        cyrus_sasl = cyrus_sasl_xoauth2;
-      };
-    })];
+#    nixpkgs.overlays = [(self: super:
+#    rec {
+#      cyrus_sasl_xoauth2_plugin = self.callPackage ../../packages/cyrus_sasl_xoauth2.nix {
+#        cyrus_sasl = super.cyrus_sasl;
+#      };
+#      cyrus_sasl_xoauth2 = let
+#        out = self.runCommand "cyrus-sasl-with-xoauth2" {}
+#        ''
+#          mkdir -p $out/lib/sasl2
+#          for i in $(find ${super.cyrus_sasl.out}/lib/ -mindepth 1 -maxdepth 1 -not -type d); do
+#            echo $i
+#            ln -s $i $out/lib/
+#          done
+#          for i in $(find ${super.cyrus_sasl.out}/lib/sasl2/ -mindepth 1); do
+#            echo $i
+#            ln -s $i $out/lib/sasl2/
+#          done
+#          for i in $(find ${self.cyrus_sasl_xoauth2_plugin}/lib/sasl2/ -mindepth 1); do
+#            echo $i
+#            ln -s $i $out/lib/sasl2/
+#          done
+#        '';
+#      in super.cyrus_sasl // { inherit out; };
+#      isync = super.isync.override {
+#        cyrus_sasl = cyrus_sasl_xoauth2;
+#      };
+#    })];
 
     home-manager.users.${config.custom.user} = { ... }: {
-      home.packages = with pkgs; [ cyrus_sasl_xoauth2 mfauth ];
+      home.packages = with pkgs; [ mfauth ];
       xdg.configFile."mfauth/config.toml".source = toml.generate
       "mfauth-config.toml"
       {
