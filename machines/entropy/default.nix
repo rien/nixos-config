@@ -40,7 +40,26 @@ in
     nameList = "rtc0 snd";
   };
 
-  systemd.services.fluidsynth = {
+  systemd.services.fluidsynth = let
+    synthconf = pkgs.writeText "fluidsynth-conf"
+      ''
+      router_clear
+      router_begin note
+      router_end
+
+      router_begin cc
+      router_end
+
+      router_begin prog
+      router_end
+
+      router_begin pbend
+      router_end
+
+      router_begin kpress
+      router_end
+      '';
+  in {
     path = [ pkgs.fluidsynth ];
     environment = {
       LD_PRELOAD = "${pkgs.fluidsynth}/lib/libfluidsynth.so.2";
@@ -55,8 +74,7 @@ in
       Group = "jackaudio";
       Type = "simple";
       WorkingDirectory = "/home/rien";
-      #ExecStart = "${pkgs.jack2}/bin/jack_simple_client";
-      ExecStart = "${pkgs.fluidsynth}/bin/fluidsynth -a jack -m jack -j -o midi.autoconnect=1 -is Nice-Steinway-v3.8.sf2";
+      ExecStart = "${pkgs.fluidsynth}/bin/fluidsynth -f ${synthconf} -a jack -m jack -j -o midi.autoconnect=1 -is Nice-Steinway-v3.8.sf2";
     };
     after = [ "jack.service" ];
     wantedBy = [ "multi-user.target" ];
