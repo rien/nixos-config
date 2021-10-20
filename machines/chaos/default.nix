@@ -37,6 +37,18 @@
     pkgs.android-udev-rules
   ];
 
+  services.transmission = {
+    enable = true;
+    downloadDirPermissions = "775";
+    settings = {
+      download-dir = "/home/rien/Downloads/transmission/downloaded/";
+      incomplete-dir = "/home/rien/Downloads/transmission/incomplete/";
+      encryption = 2;
+      rpc-url = "/";
+      rpc-host-whitelist-enabled = false;
+    };
+  };
+
   custom = {
     sshd.enable = true;
     bash.enable = true;
