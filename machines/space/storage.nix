@@ -12,6 +12,7 @@
         "reconnect"
         "identityfile=/etc/nixos/machines/space/storage/ssh_key.secret"
         "idmap=user"
+        "x-systemd.after=nss-lookup.target"
       ];
     };
 
@@ -23,6 +24,7 @@
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "force-user=rien"
+        "_netdev"
       ];
     };
 
@@ -34,6 +36,7 @@
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "force-user=rien"
+        "_netdev"
       ];
     };
 
@@ -47,6 +50,7 @@
         "x-systemd.before=transmission.service"
         "x-systemd.required-by=transmission.service"
         "force-user=transmission"
+        "_netdev"
       ];
     };
 
@@ -61,6 +65,7 @@
         "x-systemd.required-by=phpfpm-nextcloud.service"
         "force-user=nextcloud"
         "force-group=nextcloud"
+        "_netdev"
       ];
     };
 
@@ -76,6 +81,7 @@
         "x-systemd.required-by=phpfpm-nextcloud.service"
         "force-user=nextcloud"
         "force-group=nextcloud"
+        "_netdev"
       ];
     };
 
@@ -91,6 +97,7 @@
         "x-systemd.required-by=phpfpm-nextcloud.service"
         "force-user=nextcloud"
         "force-group=nextcloud"
+        "_netdev"
       ];
     };
 
@@ -105,6 +112,7 @@
         "x-systemd.required-by=syncthing.service"
         "force-user=syncthing"
         "force-group=syncthing"
+        "_netdev"
       ];
     };
 
@@ -120,6 +128,7 @@
         "x-systemd.required-by=accentor-api.service"
         "force-user=accentor"
         "force-group=accentor"
+        "_netdev"
       ];
     };
 
@@ -134,6 +143,7 @@
         "x-systemd.required-by=accentor-api.service"
         "force-user=accentor"
         "force-group=accentor"
+        "_netdev"
       ];
     };
 
@@ -148,6 +158,7 @@
         "x-systemd.required-by=fava.service"
         "force-user=fava"
         "force-group=fava"
+        "_netdev"
       ];
     };
   };

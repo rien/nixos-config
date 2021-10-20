@@ -25,14 +25,11 @@ in {
         locations."/" = {
           return = "200 \"\\n███████╗    ██████╗      █████╗      ██████╗    ███████╗\\n██╔════╝    ██╔══██╗    ██╔══██╗    ██╔════╝    ██╔════╝\\n███████╗    ██████╔╝    ███████║    ██║         █████╗\\n╚════██║    ██╔═══╝     ██╔══██║    ██║         ██╔══╝\\n███████║    ██║         ██║  ██║    ╚██████╗    ███████╗\\n╚══════╝    ╚═╝         ╚═╝  ╚═╝     ╚═════╝    ╚══════╝\\n\"";
         };
-        locations."/vuur" = {
-          return = "302 https://docs.google.com/forms/d/e/1FAIpQLSeTltrQAZxYmmoov4jijEMzJy5Bg4dfnRW0PW_56lgYqLqW4w/viewform";
-        };
         locations."/zwart-wit" = {
-          return = "302 https://docs.google.com/forms/d/e/1FAIpQLSeTltrQAZxYmmoov4jijEMzJy5Bg4dfnRW0PW_56lgYqLqW4w/viewform";
+          return = "302 /zwartwit";
         };
         locations."/zwartwit" = {
-          return = "302 https://docs.google.com/forms/d/e/1FAIpQLSeTltrQAZxYmmoov4jijEMzJy5Bg4dfnRW0PW_56lgYqLqW4w/viewform";
+          return = "200 \"\\nHelaas! De inschrijvingen voor Theaterweekend 2021 zijn gesloten.\\n\"";
         };
         locations."/brief" = {
           return = "302 https://drive.google.com/file/d/1JsMAJbnwWslBfpXe05gNvSlGi5M0wNNe/view";
