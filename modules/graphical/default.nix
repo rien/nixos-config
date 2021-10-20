@@ -209,6 +209,7 @@ in {
         initExtra = ''
           xset r rate 175 75
           autorandr --change
+          feh --recursive --randomize --bg-fill ~/pictures/simonstalenhag/ || true
           '';
         windowManager.xmonad = {
           enable = true;
