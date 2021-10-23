@@ -43,21 +43,24 @@ in
   systemd.services.fluidsynth = let
     synthconf = pkgs.writeText "fluidsynth-conf"
       ''
-      router_clear
-      router_begin note
-      router_end
+        router_clear
+        router_begin note
+        router_end
 
-      router_begin cc
-      router_end
+        # Invert sustain pedal
+        router_begin cc
+        router_par1 64 64 1 0
+        router_par2 0 127 -1 127
+        router_end
 
-      router_begin prog
-      router_end
+        router_begin prog
+        router_end
 
-      router_begin pbend
-      router_end
+        router_begin pbend
+        router_end
 
-      router_begin kpress
-      router_end
+        router_begin kpress
+        router_end
       '';
   in {
     path = [ pkgs.fluidsynth ];
