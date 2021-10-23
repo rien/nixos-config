@@ -96,7 +96,7 @@ in {
       isNormalUser = true;
       createHome = true;
       extraGroups = [ "wheel" "audio" "input" "video" "graphical" "vboxusers" "dialout"];
-      openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos ];
+      openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos euphoria ];
     };
 
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
