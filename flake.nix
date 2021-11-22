@@ -23,7 +23,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
-      url = "github:ryantm/agenix/master";
+      url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
