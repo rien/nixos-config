@@ -8,14 +8,28 @@
     [ (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
+  boot.devShmSize = "75%";
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "i915" ];
-  boot.kernelModules = [ "kvm-intel" "snd-seq" "snd-rawmidi" "snd-usb-audio" ];
+  boot.kernelModules = [ "kvm-intel" "snd-seq" "snd-rawmidi" "snd-usb-audio" "btqca" "hci_qca" "hci_uart"];
   boot.extraModulePackages = [ ];
   boot.extraModprobeConfig = ''
      options snd-intel-dspcfg dsp_driver=1
   '';
-  boot.kernelPackages = pkgs.linuxPackages;
+  #boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPatches = [{
+    name = "enable-qca6390-bluetooth";
+    patch = null;
+    extraConfig = ''
+      BT_QCA m
+      BT_HCIUART m
+      BT_HCIUART_QCA y
+      BT_HCIUART_SERDEV y
+      SERIAL_DEV_BUS y
+      SERIAL_DEV_CTRL_TTYPORT y
+    '';
+  }];
   boot.blacklistedKernelModules = [ "psmouse" ];
   services.fwupd.enable = true;
 
@@ -49,6 +63,7 @@
   #}];
 
   hardware = {
+    bluetooth.enable = true;
     opengl = {
       enable = true;
       driSupport = true;

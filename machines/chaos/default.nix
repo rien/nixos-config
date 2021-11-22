@@ -136,7 +136,7 @@
       freecad
       ncspot
       colmap
-      openmvg
+      #openmvg
       python3Packages.ds4drv
       godot
       termdown
