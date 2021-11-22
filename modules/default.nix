@@ -170,6 +170,7 @@ in {
     };
 
     boot.tmpOnTmpfs = true;
+    boot.tmpOnTmpfsSize = "75%";
     nixpkgs.config.allowUnfree = true;
   };
 
