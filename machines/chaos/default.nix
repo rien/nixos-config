@@ -3,7 +3,7 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   age.secrets."media-key".file = ./chaos_key.age;
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];

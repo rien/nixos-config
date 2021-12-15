@@ -27,9 +27,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
+    zeroad = {
+      url = "github:chvp/0ad-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, accentor, musnix, mfauth }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, accentor, musnix, mfauth, zeroad }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -47,10 +51,12 @@
 
           # Simple OAuth2 client
           ({
-            nixpkgs.overlays = [(self: super: {
-              mfauth = mfauth.defaultPackage.${system};
-            })];
+            nixpkgs.overlays = [
+              (self: super: { mfauth = mfauth.defaultPackage.${system}; })
+              #(self: super: { zeroad = zeroad.packages.${system}.zeroad; })
+            ];
           })
+
 
           # Accentor music server
           accentor.nixosModules.accentor

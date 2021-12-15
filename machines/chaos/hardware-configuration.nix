@@ -10,6 +10,8 @@
 
   boot.devShmSize = "75%";
 
+  #boot.zfs.enableUnstable = true;
+
   boot.initrd.availableKernelModules = [ "xhci_pci" "thunderbolt" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
   boot.initrd.kernelModules = [ "i915" ];
   boot.kernelModules = [ "kvm-intel" "snd-seq" "snd-rawmidi" "snd-usb-audio" "btqca" "hci_qca" "hci_uart"];
@@ -17,19 +19,14 @@
   boot.extraModprobeConfig = ''
      options snd-intel-dspcfg dsp_driver=1
   '';
-  #boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelPatches = [{
-    name = "enable-qca6390-bluetooth";
-    patch = null;
-    extraConfig = ''
-      BT_QCA m
-      BT_HCIUART m
-      BT_HCIUART_QCA y
-      BT_HCIUART_SERDEV y
-      SERIAL_DEV_BUS y
-      SERIAL_DEV_CTRL_TTYPORT y
-    '';
-  }];
+
+  # WARNING: don't bump kernel version without checking zfs support!
+  boot.kernelPackages = if lib.versionOlder pkgs.linuxPackages.kernel.version "5.15" 
+    then pkgs.linuxPackages_5_15.extend (final: prev: {
+      zfs = prev.zfs.overrideAttrs (_: { meta.broken = false; });
+    })
+    else pkgs.linuxPackages;
+
   boot.blacklistedKernelModules = [ "psmouse" ];
   services.fwupd.enable = true;
 
