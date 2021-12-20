@@ -171,14 +171,42 @@ in {
       HandleLidSwitch=ignore
     '';
 
+    programs.dconf.enable = true;
+
+
     # Configure X session with Xmonad and Xmobar
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
-      home.packages = with pkgs; [ pavucontrol patchage dunst volumectl brightnessctl brightness slockWrapped screenshot ];
+      home.packages = with pkgs; [ pavucontrol patchage dunst volumectl brightnessctl brightness slockWrapped screenshot gnome.adwaita-icon-theme adwaita-qt ];
       home.file.".xinitrc".text = "source ~/.xsession";
       home.keyboard = {
         layout = "us";
         variant = "alt-intl";
         options = [ "caps:none" ];
+      };
+
+      dconf.settings."org/gnome/desktop/interface" = {
+        gtk-theme = "breeze-gtk";
+        icon-theme = "breeze-icons";
+      };
+      gtk = {
+        enable = true;
+
+        iconTheme = {
+          package = pkgs.libsForQt5.breeze-icons;
+          name = "breeze-icons";
+        };
+        theme = {
+          package = pkgs.libsForQt5.breeze-gtk;
+          name = "breeze-gtk";
+        };
+      };
+      qt = {
+        enable = true;
+        platformTheme = "gnome";
+        style = {
+          name = "breeze";
+          package = pkgs.libsForQt5.breeze-qt5;
+        };
       };
 
       services.screen-locker.lockCmd = "${slockWrapped}/bin/slock";
