@@ -31,6 +31,7 @@ in {
     ./ugent-vpn.nix
     ./wireless
     ./wireshark.nix
+    ./wireguard.nix
     ./zeroad.nix
   ];
 

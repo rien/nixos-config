@@ -9,6 +9,7 @@ in
       ./static-sites.nix
       ./motd.nix
       ./hardware-configuration.nix
+      ./wireguard.secret.nix
     ];
 
   age.secrets = {
@@ -48,7 +49,7 @@ in
 
     nginx = {
       enable = true;
-      dnsCredentialsFile = "/run/secrets/hetzner-api-key";
+      dnsCredentialsFile = "/run/agenix/hetzner-api-key";
       certificateDomains = [
         {
           domain = "maertens.io";
@@ -68,7 +69,7 @@ in
     nextcloud = {
       enable = true;
       hostname = "cloud.rxn.be";
-      adminpassFile = "/run/secrets/nextcloud-adminpass";
+      adminpassFile = "/run/agenix/nextcloud-adminpass";
     };
 
     transmission = {
@@ -76,22 +77,22 @@ in
       domain = "transmission.rxn.be";
       download-dir = "/var/lib/transmission/data/complete";
       incomplete-dir = "/var/lib/transmission/data/incomplete";
-      basicAuthFile = "/run/secrets/transmission-auth";
+      basicAuthFile = "/run/agenix/transmission-auth";
       port = secret.transmission.port;
     };
     postfix = {
       enable = true;
-      loginFile = "/run/secrets/postfix-sasl";
+      loginFile = "/run/agenix/postfix-sasl";
     };
     syncthing-server = {
       enable = true;
       hostname = "sync.rxn.be";
-      basicAuthFile = "/run/secrets/syncthing-auth";
+      basicAuthFile = "/run/agenix/syncthing-auth";
     };
     fava = {
       enable = true;
       hostname = "fin.rxn.be";
-      basicAuthFile = "/run/secrets/fava-auth";
+      basicAuthFile = "/run/agenix/fava-auth";
       journalFiles = [
         "rien.beancount"
         "gedeeld.beancount"
@@ -109,7 +110,7 @@ in
     enable = true;
     hostname = "music.rxn.be";
     workers = 1;
-    environmentFile = "/run/secrets/accentor-env";
+    environmentFile = "/run/agenix/accentor-env";
   };
 
   # Use the GRUB 2 boot loader.
