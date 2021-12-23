@@ -80,7 +80,6 @@
     extraHomePackages = with pkgs; [
       lutris
       feh
-      bitwig-studio3
       wesnoth
       inkscape
       texlive.combined.scheme-full
@@ -128,7 +127,6 @@
       freecad
       ncspot
       colmap
-      #openmvg
       python3Packages.ds4drv
       godot
       termdown
