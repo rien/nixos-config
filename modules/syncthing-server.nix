@@ -12,7 +12,7 @@ in {
       type = lib.types.str;
     };
     basicAuthFile = lib.mkOption {
-      example = "/run/secrets/syncthing-auth";
+      example = "/run/agenix/syncthing-auth";
       type = lib.types.str;
     };
   };

@@ -28,7 +28,7 @@ in {
 
       serviceConfig = {
         Type = "forking";
-        ExecStart = "${vpnc}/bin/vpnc --pid-file=/run/vpnc.pid --script ${script} /run/secrets/vpnc";
+        ExecStart = "${vpnc}/bin/vpnc --pid-file=/run/vpnc.pid --script ${script} /run/agenix/vpnc";
 
         PIDFile = "/run/vpnc.pid";
         Restart = "always";

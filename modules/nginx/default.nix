@@ -12,7 +12,7 @@ in
     };
 
     dnsCredentialsFile = mkOption {
-      example = "/run/secrets/dns-api-key";
+      example = "/run/agenix/dns-api-key";
     };
 
     certificateDomains = mkOption {

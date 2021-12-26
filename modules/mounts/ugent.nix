@@ -18,13 +18,13 @@ in {
         "/mnt/ugent/files" = {
           device = "//files.ugent.be/rbmaerte";
           fsType = "cifs";
-          options = [ "credentials=/run/secrets/cifs-credentials,${automount_opts},users,vers=3.0,noperm,domain=UGENT,sec=ntlmv2i,noserverino" ];
+          options = [ "credentials=/run/agenix/cifs-credentials,${automount_opts},users,vers=3.0,noperm,domain=UGENT,sec=ntlmv2i,noserverino" ];
           noCheck = true;
         };
         "/mnt/ugent/webhost" = {
           device = "//webhost.ugent.be/rbmaerte";
           fsType = "cifs";
-          options = [ "credentials=/run/secrets/cifs-credentials,${automount_opts},users,vers=3.0,noserverino" ];
+          options = [ "credentials=/run/agenix/cifs-credentials,${automount_opts},users,vers=3.0,noserverino" ];
           noCheck = true;
         };
       };

@@ -70,7 +70,7 @@
     mounts.media = {
       enable = true;
       mountPoint = "/mnt/media";
-      identityFile = "/run/secrets/media-key";
+      identityFile = "/run/agenix/media-key";
     };
 
     extraSystemPackages = with pkgs; [

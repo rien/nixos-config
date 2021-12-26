@@ -26,7 +26,7 @@ in {
       default = "5000";
     };
     basicAuthFile = lib.mkOption {
-      example = "/run/secrets/fava-auth";
+      example = "/run/agenix/fava-auth";
       type = lib.types.str;
     };
   };

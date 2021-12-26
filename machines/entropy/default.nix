@@ -91,7 +91,7 @@ in
     sshd.enable = true;
     nginx = {
       enable = true;
-      dnsCredentialsFile = "/run/secrets/hetzner-api-key";
+      dnsCredentialsFile = "/run/agenix/hetzner-api-key";
       certificateDomains = [{
         domain = "entropy.rxn.be";
         extra = [ "home.rxn.be" ];

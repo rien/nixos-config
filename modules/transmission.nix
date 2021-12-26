@@ -25,7 +25,7 @@ in
     };
     basicAuthFile = mkOption {
       type = types.str;
-      example = "/run/secrets/transmission-auth";
+      example = "/run/agenix/transmission-auth";
     };
     namespace = mkOption {
       type = types.nullOr types.str;
