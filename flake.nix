@@ -40,11 +40,11 @@
         inherit system;
       };
       mkSystem = system: hostname: nixpkgs.lib.nixosSystem {
-        extraArgs = {
-          util = import ./util.nix;
-        };
         inherit system;
         modules = [
+          # Add extra input arguments to modules
+          ({ config._module.args = { util = import ./util.nix; }; })
+
           # Secrets management
           agenix.nixosModules.age
           { environment.systemPackages = [ agenix.defaultPackage.${system} ]; }
@@ -56,7 +56,6 @@
               #(self: super: { zeroad = zeroad.packages.${system}.zeroad; })
             ];
           })
-
 
           # Accentor music server
           accentor.nixosModules.accentor
@@ -85,9 +84,7 @@
             nix.nixPath = [ "nixpkgs=/etc/nixpkgs" ];
           })
 
-
-
-          # Load the config for out current machine
+          # Load the config for our current machine
           (./. + "/machines/${hostname}")
         ];
       };
