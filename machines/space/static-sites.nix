@@ -18,26 +18,20 @@ in {
   services.nginx = {
     virtualHosts = {
       "rxn.be" = {
-        serverAliases = [ "www.rxn.be" "space.rxn.be" ];
+        serverAliases = [ "www.rxn.be" "space.rxn.be" "49.12.7.126" ];
         useACMEHost = "rxn.be";
         addSSL = true;
         extraConfig = "default_type \"text/plain; charset=utf-8\";";
         locations."/" = {
           return = "200 \"\\n███████╗    ██████╗      █████╗      ██████╗    ███████╗\\n██╔════╝    ██╔══██╗    ██╔══██╗    ██╔════╝    ██╔════╝\\n███████╗    ██████╔╝    ███████║    ██║         █████╗\\n╚════██║    ██╔═══╝     ██╔══██║    ██║         ██╔══╝\\n███████║    ██║         ██║  ██║    ╚██████╗    ███████╗\\n╚══════╝    ╚═╝         ╚═╝  ╚═╝     ╚═════╝    ╚══════╝\\n\"";
         };
-        locations."/zwart-wit" = {
-          return = "302 /zwartwit";
-        };
-        locations."/zwartwit" = {
-          return = "200 \"\\nHelaas! De inschrijvingen voor Theaterweekend 2021 zijn gesloten.\\n\"";
-        };
-        locations."/brief" = {
-          return = "302 https://drive.google.com/file/d/1JsMAJbnwWslBfpXe05gNvSlGi5M0wNNe/view";
+        locations."/hupseflupse/" = {
+          alias = "/srv/webhost/rxn.be/";
         };
       };
       "rien.maertens.io" = {
         useACMEHost = "maertens.io";
-        forceSSL = true;
+        addSSL = true;
         root = "/srv/webhost/maertens.io";
       };
       "maertens.io" = {
