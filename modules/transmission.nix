@@ -107,6 +107,11 @@ in
       locations."/web/images/" = {
         alias = "${staticFiles}/images/";
       };
+
+      locations."/downloaded-files/" = {
+        alias = "${cfg.download-dir}/";
+        extraConfig = "autoindex on;";
+      };
     };
 
   };
