@@ -13,7 +13,7 @@ in {
       ports = [ 9450 ];
       permitRootLogin = "prohibit-password";
       passwordAuthentication = false;
-      challengeResponseAuthentication = false;
+      kbdInteractiveAuthentication = false;
     };
   };
 }
