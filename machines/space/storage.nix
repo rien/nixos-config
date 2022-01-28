@@ -12,7 +12,11 @@
         "reconnect"
         "identityfile=/etc/nixos/machines/space/storage/ssh_key.secret"
         "idmap=user"
-        "x-systemd.after=nss-lookup.target"
+        "x-systemd.after=network-addresses-ens3.service"
+        "x-systemd.requires=network-addresses-ens3.service"
+        #"debug"
+        #"sshfs_debug"
+        #"loglevel=debug"
       ];
     };
 
@@ -46,10 +50,13 @@
       options = [
         "nonempty"
         "multithreaded"
+        "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "x-systemd.before=transmission.service"
         "x-systemd.required-by=transmission.service"
         "force-user=transmission"
+        "force-group=nginx"
+        "perms=u=rwD:g=rD"
         "_netdev"
       ];
     };
@@ -60,6 +67,7 @@
       options = [
         "nonempty"
         "multithreaded"
+        "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "x-systemd.before=phpfpm-nextcloud.service"
         "x-systemd.required-by=phpfpm-nextcloud.service"
@@ -76,6 +84,7 @@
         "ro"
         "nonempty"
         "multithreaded"
+        "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "x-systemd.before=phpfpm-nextcloud.service"
         "x-systemd.required-by=phpfpm-nextcloud.service"
@@ -92,6 +101,7 @@
         "ro"
         "nonempty"
         "multithreaded"
+        "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "x-systemd.before=phpfpm-nextcloud.service"
         "x-systemd.required-by=phpfpm-nextcloud.service"
@@ -107,6 +117,7 @@
       options = [
         "nonempty"
         "multithreaded"
+        "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "x-systemd.before=syncthing.service"
         "x-systemd.required-by=syncthing.service"
@@ -123,6 +134,7 @@
         "ro"
         "nonempty"
         "multithreaded"
+        "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "x-systemd.before=accentor-api.service"
         "x-systemd.required-by=accentor-api.service"
@@ -138,6 +150,7 @@
       options = [
         "nonempty"
         "multithreaded"
+        "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "x-systemd.before=accentor-api.service"
         "x-systemd.required-by=accentor-api.service"
@@ -153,6 +166,7 @@
       options = [
         "nonempty"
         "multithreaded"
+        "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
         "x-systemd.before=fava.service"
         "x-systemd.required-by=fava.service"

@@ -38,9 +38,7 @@ in {
       description = "Web interface for Beancount";
       isSystemUser = true;
       home = cfg.homeDir;
-      uid = 315;
     };
-    users.groups.fava.gid = 315;
 
     systemd.services = {
       fava = {

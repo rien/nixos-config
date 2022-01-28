@@ -2,9 +2,12 @@
   description = "Nixos configuration";
 
   inputs = {
-    flake-utils.url = "github:numtide/flake-utils/master";
-    #nixpkgs.url = "github:rien/nixpkgs/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    flake-utils = {
+      url = "github:numtide/flake-utils/master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixpkgs.url = "github:rien/nixpkgs/master";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     accentor = {
       url = "github:accentor/flake/main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -52,8 +55,9 @@
           # Simple OAuth2 client
           ({
             nixpkgs.overlays = [
-              (self: super: { mfauth = mfauth.defaultPackage.${system}; })
-              #(self: super: { zeroad = zeroad.packages.${system}.zeroad; })
+              (self: super: {
+                mfauth = mfauth.defaultPackage.${system};
+              })
             ];
           })
 
@@ -107,4 +111,3 @@
       };
     };
 }
-

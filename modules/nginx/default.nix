@@ -32,7 +32,8 @@ in
 
     security.acme = {
       acceptTerms = true;
-      email = personal.email;
+      defaults.email = personal.email;
+
       certs = builtins.listToAttrs (map
         (item: {
           name = item.domain;

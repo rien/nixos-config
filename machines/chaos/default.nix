@@ -78,6 +78,7 @@
     ];
 
     extraHomePackages = with pkgs; [
+      retroarch
       lutris
       feh
       wesnoth
@@ -91,7 +92,7 @@
       binutils
       python3Packages.binwalk
       citrix_workspace
-      cura
+      #cura
       blender
       audacity
       discord
@@ -145,6 +146,11 @@
   networking.hostName = "chaos"; # Define your hostname.
   # Required for ZFS
   networking.hostId = "04cdf13e";
+
+  networking.interfaces.enp0s13f0u3u2 = {
+    useDHCP = true;
+    neededForBoot = false;
+  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

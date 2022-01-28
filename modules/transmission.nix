@@ -58,9 +58,14 @@ in
         rpc-host-whitelist-enabled = false;
         rpc-whitelist = cfg.rpc-whitelist;
       };
+
+      openPeerPorts = true;
     };
 
+
     systemd.services.transmission.serviceConfig.NetworkNamespacePath= mkIf (cfg.namespace != null) "/var/run/netns/${cfg.namespace}";
+
+    users.users.nginx.extraGroups = [ "transmission" ];
 
     services.nginx.virtualHosts."${cfg.domain}" = {
       # calculate base domain
