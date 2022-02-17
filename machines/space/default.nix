@@ -38,9 +38,24 @@ in
       file = ./hetzner-api-key.age;
       owner = "acme";
     };
+    "coturn-secret" = {
+      file = ./coturn-secret.age;
+      owner = "turnserver";
+    };
   };
 
   system.activationScripts.users.supportsDryActivation = lib.mkForce false;
+
+  services.coturn = {
+    enable = true;
+    realm = "coturn.rxn.be";
+    listening-ips = [ "49.12.7.126" ];
+    use-auth-secret = true;
+    static-auth-secret-file = "/run/agenix/coturn-secret";
+  };
+
+  networking.firewall.allowedTCPPorts = [ 3478 ];
+  networking.firewall.allowedUDPPorts = [ 3478 ];
 
   custom = {
     bash.enable = true;
