@@ -16,6 +16,7 @@ in {
         rust-src =  rust.packages.stable.rustPlatform.rustLibSrc;
         java11 = jdk11;
         java16 = jdk;
+        java17 = jdk17;
         python = python3;
         node = nodejs;
         yarn = yarn;

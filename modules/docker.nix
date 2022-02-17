@@ -9,7 +9,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      extraOptions = "--experimental";
+    };
     users.users.${config.custom.user}.extraGroups = [ "docker" ];
   };
 }

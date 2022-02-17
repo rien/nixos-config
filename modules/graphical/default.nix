@@ -262,6 +262,9 @@ in {
         };
       };
 
+      # bluetooth MIDI controls
+      services.mpris-proxy.enable = true;
+
       xsession = {
         enable = true;
         initExtra = ''
