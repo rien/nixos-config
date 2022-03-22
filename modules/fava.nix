@@ -32,6 +32,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    users.groups.fava = {};
     users.users.fava = {
       group = "fava";
       createHome = true;
