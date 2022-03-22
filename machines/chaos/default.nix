@@ -8,8 +8,8 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  networking.firewall.allowedTCPPorts = [ 10999 ];
-  networking.firewall.allowedUDPPorts = [ 10999 ];
+  networking.firewall.allowedTCPPorts = [ 10999 20595 ];
+  networking.firewall.allowedUDPPorts = [ 10999 20595 ];
 
   programs.steam.enable = true;
 
@@ -78,6 +78,9 @@
     ];
 
     extraHomePackages = with pkgs; [
+      orca-c
+      qsynth
+      thunderbird
       retroarch
       lutris
       feh
@@ -92,7 +95,7 @@
       binutils
       python3Packages.binwalk
       citrix_workspace
-      #cura
+      cura
       blender
       audacity
       discord
@@ -125,7 +128,7 @@
       zotero
       openscad
       obsidian
-      freecad
+      #freecad
       ncspot
       colmap
       python3Packages.ds4drv
@@ -147,10 +150,10 @@
   # Required for ZFS
   networking.hostId = "04cdf13e";
 
-  networking.interfaces.enp0s13f0u3u2 = {
-    useDHCP = true;
-    neededForBoot = false;
-  };
+  #networking.interfaces.enp0s13f0u3u2 = {
+  #  useDHCP = true;
+  #  neededForBoot = false;
+  #};
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

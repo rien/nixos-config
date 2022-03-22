@@ -47,6 +47,12 @@ in {
         forceSSL = true;
         root = "/srv/webhost/volta";
       };
+      "tryout.theatervolta.be" = {
+        serverAliases = [ "tryout.voltaprojects.be" ];
+        useACMEHost = "theatervolta.be";
+        forceSSL = true;
+        root = "/srv/webhost/volta-tryout";
+      };
     };
   };
 }

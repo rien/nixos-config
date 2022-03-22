@@ -174,6 +174,10 @@ in {
       };
     };
 
+    nixpkgs.config.permittedInsecurePackages = [
+      "electron-13.6.9"
+    ];
+
     boot.tmpOnTmpfs = true;
     boot.tmpOnTmpfsSize = "75%";
     nixpkgs.config.allowUnfree = true;
