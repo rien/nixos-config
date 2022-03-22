@@ -13,6 +13,8 @@ in {
       enable = true;
       extraOptions = "--experimental";
     };
+    programs.criu.enable = true;
+    systemd.services.docker.path = [ pkgs.gzip pkgs.gnutar pkgs.criu ];
     users.users.${config.custom.user}.extraGroups = [ "docker" ];
   };
 }
