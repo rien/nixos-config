@@ -17,6 +17,8 @@ in {
         java11 = jdk11;
         java16 = jdk;
         java17 = jdk17;
+        openjfx = openjfx;
+        scenebuilder = scenebuilder;
         python = python3;
         node = nodejs;
         yarn = yarn;
