@@ -64,7 +64,15 @@ let
         enable = true;
         extraConfig = mkIf (oauth != null) { auth = "xoauth2"; };
       };
-      alot.sendMailCommand = "${pkgs.msmtp}/bin/msmtp --read-recipients --read-envelope-from --account ${name}";
+      alot = {
+        sendMailCommand = "${pkgs.msmtp}/bin/msmtp --read-recipients --read-envelope-from --account ${name}";
+        contactCompletion = {
+          type = "shellcommand";
+          command = "${pkgs.notmuch-addrlookup}/bin/notmuch-addrlookup";
+          regexp = "(?P<name>.*).*<(?P<email>.+)>";
+          ignorecase = "True";
+        };
+      };
       passwordCommand = if oauth == null
         then "${passwordScript} ${passFile}"
         else "${pkgs.mfauth}/bin/mfauth access ${name}";
