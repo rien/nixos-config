@@ -37,11 +37,35 @@ let
         autocmd FileType mail set colorcolumn=72
 
         function Text()
-        set spell spelllang=en_us,nl
-        "set formatoptions+=a " Automatic wrapping & unwrapping
-        set formatoptions+=n " Keep list alignment
-        set formatoptions+=1 " Prefer to wrap before single character words
+          set spell spelllang=en_us,nl
+          "set formatoptions+=a " Automatic wrapping & unwrapping
+          "set formatoptions+=1 " Prefer to wrap before single character words
+          set formatoptions+=n " Keep list alignment
         endfunction
+
+
+        function! s:goyo_enter()
+          let b:quitting = 0
+          let b:quitting_bang = 0
+          set linebreak
+          set wrap
+          autocmd QuitPre <buffer> let b:quitting = 1
+          cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+        endfunction
+
+        function! s:goyo_leave()
+          " Quit Vim if this is the only remaining buffer
+          if b:quitting && len(filter(range(1, bufnr('$')), 'buflisted(v:val)')) == 1
+            if b:quitting_bang
+              qa!
+            else
+              qa
+            endif
+          endif
+        endfunction
+
+        autocmd! User GoyoEnter call <SID>goyo_enter()
+        autocmd! User GoyoLeave call <SID>goyo_leave()
 
         function Nix()
         set filetype=nix
@@ -112,10 +136,17 @@ let
         autocmd FileType ansible set syntax=yaml
 
         function TwoSpaces()
-        setlocal tabstop=2
-        setlocal shiftwidth=2
-        setlocal softtabstop=2
+          setlocal tabstop=2
+          setlocal shiftwidth=2
+          setlocal softtabstop=2
         endfunction
+
+        let g:goyo_height = '100%'
+        autocmd vimenter *.md Goyo
+
+        let g:vim_markdown_folding_disabled = 1
+        let g:vim_markdown_no_default_key_mappings = 1
+        set conceallevel=3
       '';
 
     plugins = with pkgs.vimPlugins // customPlugins; [
@@ -123,6 +154,8 @@ let
         vim-beancount
         vim-nix
         editorconfig-vim
+        goyo-vim
+        vim-markdown
       ];
     };
   };
