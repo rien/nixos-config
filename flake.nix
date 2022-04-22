@@ -2,8 +2,8 @@
   description = "Nixos configuration";
 
   inputs = {
-    nixpkgs.url = "github:rien/nixpkgs/master";
-    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs.url = "github:rien/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils = {
       url = "github:numtide/flake-utils/master";
       inputs.nixpkgs.follows = "nixpkgs";
