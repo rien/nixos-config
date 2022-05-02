@@ -11,12 +11,13 @@ in {
 
   config = lib.mkIf cfg.enable {
     home-manager.users.${config.custom.user} = let
+      overrideWithGApps = (pkg: pkg.overrideAttrs (oldAttrs: {nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook ];}));
       devSDKs = with pkgs; {
         rustc = symlinkJoin { name = rustc.pname; paths = [ rustc cargo gcc ]; };
         rust-src =  rust.packages.stable.rustPlatform.rustLibSrc;
         java11 = jdk11;
-        java16 = jdk;
         java17 = jdk17;
+        ruby_3_0 = ruby_3_0;
         openjfx = openjfx;
         scenebuilder = scenebuilder;
         python = python3;

@@ -76,6 +76,7 @@ in {
     services.pipewire = mkIf (cfg.soundsystem == "pipewire") {
       enable = true;
       alsa.enable = true;
+      alsa.support32Bit = true;
       jack.enable = true;
       pulse.enable = true;
       config.pipewire = {
@@ -173,6 +174,27 @@ in {
 
     programs.dconf.enable = true;
 
+    # Fix GTK filepicker crashing
+    nixpkgs.overlays = [(self: super: {
+      xmonad-with-packages = let
+        xmessage = self.xorg.xmessage;
+        ghcWithPackages = self.haskellPackages.ghcWithPackages;
+        packages = _: [ self.haskellPackages.xmonad-contrib self.haskellPackages.xmonad-extras ];
+        xmonadEnv = ghcWithPackages (self: [ self.xmonad ] ++ packages self);
+      in super.xmonad-with-packages.overrideAttrs (oldAttrs: {
+        nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ self.glib self.wrapGAppsHook self.gtk3 ];
+        buildCommand = ''
+          gappsWrapperArgsHook
+
+          install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
+          makeWrapper ${xmonadEnv}/bin/xmonad $out/bin/xmonad \
+          ''${gappsWrapperArgs[@]} \
+          --set NIX_GHC "${xmonadEnv}/bin/ghc" \
+          --set XMONAD_XMESSAGE "${xmessage}/bin/xmessage"
+        '';
+      });
+    })];
+
 
     # Configure X session with Xmonad and Xmobar
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
@@ -265,6 +287,8 @@ in {
       # bluetooth MIDI controls
       services.mpris-proxy.enable = true;
 
+
+
       xsession = {
         enable = true;
         initExtra = ''
@@ -309,12 +333,12 @@ in {
         };
       };
 
-      programs.bash.initExtra = ''
-        if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
-          startx
-          exit
-        fi
-      '';
+      #programs.bash.initExtra = ''
+      #  if [ -z "$DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+      #    startx
+      #    exit
+      #  fi
+      #'';
 
 
       programs.autorandr = {
@@ -323,7 +347,7 @@ in {
           laptop = "00ffffffffffff004d10f91400000000151e0104a51d12780ede50a3544c99260f505400000001010101010101010101010101010101283c80a070b023403020360020b410000018203080a070b023403020360020b410000018000000fe0056564b3859804c513133344e31000000000002410332001200000a010a20200080";
           home = "00ffffffffffff004c2d0e1036395743181e010380351e782a6595a854519c25105054bfef80714f81c0810081809500a9c0b3000101023a801871382d40582c45000f282100001e000000fd00324b1e5512000a202020202020000000fc00533234523335780a2020202020000000ff004834544e3630303238330a20200179020313b14690041f13120367030c0010000024011d00bc52d01e20b82855400f282100001e8c0ad090204031200c4055000f28210000188c0ad08a20e02d10103e96000f28210000182a4480a070382740302035000f282100001a0000000000000000000000000000000000000000000000000000000000000000000000007a";
           home2 = "00ffffffffffff0010ac99a04c524b38011a0104a5301b78e2ebf5a656519c26105054a54b00714f8180a9c0d1c00101010101010101023a801871382d40582c4500dd0c1100001e000000ff003239433239363132384b524c0a000000fc0044454c4c205032323134480a20000000fd00384c1e5311000a20202020202000f4";
-          office = "00ffffffffffff0010ac6da0555036352614010380351e78eabb04a159559e280d5054a54b00714f8180d1c001010101010101010101023a801871382d40582c4500132b2100001e000000ff004e52505035303947353650550a000000fc0044454c4c205032343131480a20000000fd00384c1e5311000a20202020202001e602031b61230907078301000067030c002000802d43908402e2000f8c0ad08a20e02d10103e9600a05a000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000029";
+          office = "00ffffffffffff004c2d720f59485843041f0103805021782a46c5a5564f9b250f5054bfef80714f810081c081809500a9c0b30001019d6770a0d0a0225030203a001d4d3100001a000000fd00324b1e511b000a202020202020000000fc005333344a3535780a2020202020000000ff0048344c523130313734360a202001c402031cf147901f041303125a230907078301000067030c0010008036565e00a0a0a02950302035001d4d3100001a023a801871382d40582c450000000000001e584d00b8a1381440f82c45001d4d3100001e011d007251d01e206e2855001d4d3100001e00000000000000000000000000000000000000000000000000000021";
           in {
           "home" = {
             config = {
@@ -379,13 +403,13 @@ in {
                 primary = true;
                 rate = "59.95";
                 mode = "1920x1200";
-                position = "0x1080";
+                position = "0x1440";
               };
               DP-1-3 = {
                 enable = true;
                 crtc = 1;
-                rate = "60.00";
-                mode = "1920x1080";
+                rate = "49.99";
+                mode = "3440x1440";
                 position = "0x0";
               };
             };

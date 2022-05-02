@@ -74,6 +74,7 @@
     };
 
     extraSystemPackages = with pkgs; [
+      cntr
       ntfs3g
     ];
 

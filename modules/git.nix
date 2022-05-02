@@ -37,6 +37,11 @@
             # IntelliJ
             ".idea/*"
             "*.iml"
+            # Python
+            "__pycache__"
+            "venv"
+            # syncthing
+            ".stversions"
           ];
           signing = {
             key = personal.email;

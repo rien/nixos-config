@@ -31,6 +31,12 @@ in
       group = "postfix";
       domains = concatStringsSep "," domains;
       selector = "opendkim";
+      configFile = pkgs.writeTextFile {
+        name = "opendkim.conf";
+        text = ''
+         UMask 007
+        '';
+      };
     };
 
     environment.etc = {

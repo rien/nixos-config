@@ -12,6 +12,7 @@ with lib;
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
       programs.bash = {
         enable = true;
+        historyFileSize = 1000000000;
         shellAliases = let
           exa = "${pkgs.exa}/bin/exa --colour-scale";
         in {

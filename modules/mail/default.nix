@@ -69,7 +69,7 @@ let
         contactCompletion = {
           type = "shellcommand";
           command = "${pkgs.notmuch-addrlookup}/bin/notmuch-addrlookup";
-          regexp = "(?P<name>.*).*<(?P<email>.+)>";
+          regexp = "(?P<name>[^<@]*\\w).*<(?P<email>[^><]+)>";
           ignorecase = "True";
         };
       };
