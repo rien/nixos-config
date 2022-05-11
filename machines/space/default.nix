@@ -42,9 +42,19 @@ in
       file = ./coturn-secret.age;
       owner = "turnserver";
     };
+    "opendkim.private" = {
+      file = ./opendkim.private.age;
+      path = "/var/lib/opendkim/keys/opendkim.private";
+      owner = "opendkim";
+    };
+  };
+
+  system.activationScripts.linkDKIMtxt = {
+    text = "ln -sf ${./opendkim.txt} /var/lib/opendkim/keys/opendkim.txt";
   };
 
   system.activationScripts.users.supportsDryActivation = lib.mkForce false;
+
 
   services.coturn = {
     enable = true;

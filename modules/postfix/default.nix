@@ -34,7 +34,9 @@ in
       configFile = pkgs.writeTextFile {
         name = "opendkim.conf";
         text = ''
-         UMask 007
+        FixCRLF true
+        Canonicalization relaxed/simple
+        UMask 007
         '';
       };
     };

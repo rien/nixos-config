@@ -1,0 +1,3 @@
+opendkim._domainkey	IN	TXT	( "v=DKIM1; h=sha256; k=rsa; "
+	  "p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApW29K4lClV8M1LtF+8fD001YfdddgKqGz7faiNpQ1qdxMK0M5H18vV+5sjurCl0EBjjokhWGOXqBMcqs/ofy7dN4Fa3MhqQcvx/4QGc0DFsTn7uovUV2tfwBiD/vQUx88u00GfmApdOetMNfZXn7Is5yZBZETXYm2qYVj5E9xHEPdBR1kzsAAC1L0Cu4wfCqYLODIul7GWeOZo"
+	  "HSKTP3jgvC8ORKQ+u/nVWXcylNfOcQk7VmzW29wwOFgJZ0nMzKoYDljgt6Z6UYaiw4MgwMMlO/mR7jAvte7L5Qst6d3PceElTAAjB8V/B/IVpweWcl/V3DYBw+JkS3YKzrhykm7QIDAQAB" )  ; ----- DKIM key opendkim for all-domains-generic-key
