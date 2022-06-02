@@ -8,9 +8,36 @@
       url = "github:numtide/flake-utils/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
     accentor = {
-      url = "github:accentor/flake/main";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:accentor/flake";
+      inputs = {
+        devshell.follows = "devshell";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    accentor-api = {
+      url = "github:accentor/api";
+      inputs = {
+        devshell.follows = "devshell";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+    accentor-web = {
+      url = "github:accentor/web";
+      inputs = {
+        devshell.follows = "devshell";
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+      };
     };
     mfauth = {
       url = "github:rien/mfauth/main";
@@ -36,7 +63,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, accentor, musnix, mfauth, zeroad }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, musnix, mfauth, zeroad, accentor, accentor-web, accentor-api, devshell }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -52,10 +79,12 @@
           agenix.nixosModules.age
           { environment.systemPackages = [ agenix.defaultPackage.${system} ]; }
 
-          # Simple OAuth2 client
           ({
             nixpkgs.overlays = [
               (self: super: {
+                accentor-api = accentor-api.packages.${self.system}.default;
+                accentor-web = accentor-web.packages.${self.system}.default;
+                # Simple OAuth2 client
                 mfauth = mfauth.defaultPackage.${system};
               })
             ];
