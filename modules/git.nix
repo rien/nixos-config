@@ -19,13 +19,11 @@
           extraConfig = {
             init.defaultBranch = "main";
             #url."ssh://git@github.com/".insteadOf = "https://github.com/";
-            branch = {
-              autosetuprebase = "always";
-            };
-            pull = {
-              rebase = true;
-            };
+            branch.autosetuprebase = "always";
+            pull.rebase = true;
+            push.autoSetupRemote = true;
             core.autocrlf = "input";
+            diff.external = "${pkgs.difftastic}/bin/difft";
           };
           ignores = [
             ".direnv"

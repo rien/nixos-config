@@ -189,7 +189,7 @@ in {
           install -D ${xmonadEnv}/share/man/man1/xmonad.1.gz $out/share/man/man1/xmonad.1.gz
           makeWrapper ${xmonadEnv}/bin/xmonad $out/bin/xmonad \
           ''${gappsWrapperArgs[@]} \
-          --set NIX_GHC "${xmonadEnv}/bin/ghc" \
+          --set XMONAD_GHC "${xmonadEnv}/bin/ghc" \
           --set XMONAD_XMESSAGE "${xmessage}/bin/xmessage"
         '';
       });
@@ -232,6 +232,10 @@ in {
       };
 
       services.screen-locker.lockCmd = "${slockWrapped}/bin/slock";
+      services.gnome-keyring = {
+        enable = true;
+        components = [ "secrets" ];
+      };
 
       services.dunst = {
         enable = true;

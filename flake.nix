@@ -51,6 +51,7 @@
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     agenix = {
       url = "github:ryantm/agenix/main";
@@ -87,6 +88,38 @@
                 # Simple OAuth2 client
                 mfauth = mfauth.defaultPackage.${system};
               })
+              (final: prev: rec {
+                  zathuraPkgs = rec {
+                    inherit
+                    (prev.zathuraPkgs)
+                    gtk
+                    zathura_djvu
+                    zathura_pdf_poppler
+                    zathura_ps
+                    zathura_core
+                    zathura_cb
+                    ;
+
+                    zathura_pdf_mupdf = prev.zathuraPkgs.zathura_pdf_mupdf.overrideAttrs (o: {
+                      patches = [./packages/zathura.patch];
+                    });
+
+                    zathuraWrapper = prev.zathuraPkgs.zathuraWrapper.overrideAttrs (o: {
+                      paths = [
+                        zathura_core.man
+                        zathura_core.dev
+                        zathura_core.out
+                        zathura_djvu
+                        zathura_ps
+                        zathura_cb
+                        zathura_pdf_mupdf
+                      ];
+                    });
+                  };
+
+                  zathura = zathuraPkgs.zathuraWrapper;
+                }
+              )
             ];
           })
 

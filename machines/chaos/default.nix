@@ -11,7 +11,15 @@
   networking.firewall.allowedTCPPorts = [ 10999 20595 ];
   networking.firewall.allowedUDPPorts = [ 10999 20595 ];
 
-  programs.steam.enable = true;
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+  };
+
+  programs.cdemu = {
+    enable = true;
+    gui = true;
+  };
 
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.hplip ];
@@ -23,7 +31,7 @@
 
 
   programs.adb.enable = true;
-  users.users.rien.extraGroups = [ "adbusers" ];
+  users.users.rien.extraGroups = [ "adbusers" "cdemu" ];
   services.udev.packages = [
     pkgs.android-udev-rules
   ];
@@ -44,7 +52,7 @@
     sshd.enable = true;
     bash.enable = true;
     docker.enable = true;
-    dwarffortress.enable = true;
+    dwarffortress.enable = false;
     git.enable = true;
     gnupg.enable = true;
     graphical.enable = true;
@@ -60,11 +68,12 @@
     intellij.enable = true;
     syncthing-client.enable = true;
     wireshark.enable = true;
+    vscode.enable = false;
 
-    minidlna = {
-      enable = true;
-      dirs = [ "/data/music/" "/mnt/media/transmission/complete/" ];
-    };
+    #minidlna = {
+    #  enable = false;
+    #  dirs = [ "/data/music/" "/mnt/media/transmission/complete/" ];
+    #};
 
     mounts.ugent.enable = true;
     mounts.media = {
@@ -78,7 +87,15 @@
       ntfs3g
     ];
 
-    extraHomePackages = with pkgs; [
+    extraHomePackages = with pkgs; let
+      cura = pkgs.writeShellScriptBin "cura" ''
+        export GIO_EXTRA_MODULES='${dconf}/lib/gio/modules'
+        export GDK_PIXBUF_MODULE_FILE='${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache'
+        export XDG_DATA_DIRS='${gtk3}/share/gsettings-schemas/gtk+3-${gtk3.version}:${gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${gsettings-desktop-schemas.version}'
+        ${pkgs.cura}/bin/cura "$@"
+  '';
+    in [
+      signal-desktop
       orca-c
       qsynth
       thunderbird
@@ -141,6 +158,8 @@
       enable = true;
       device = "wlp114s0";
     };
+
+    stateVersion = "21.03";
   };
 
   # Use the systemd-boot EFI boot loader.
@@ -155,14 +174,6 @@
   #  useDHCP = true;
   #  neededForBoot = false;
   #};
-
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "21.03"; # Did you read the comment?
 
 }
 

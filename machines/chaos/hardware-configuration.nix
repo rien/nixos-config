@@ -60,6 +60,7 @@
   #}];
 
   hardware = {
+    steam-hardware.enable = true;
     bluetooth.enable = true;
     opengl = {
       enable = true;

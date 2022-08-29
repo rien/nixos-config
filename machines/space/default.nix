@@ -128,6 +128,7 @@ in
     extraSystemPackages = with pkgs; [
       htop
     ];
+    stateVersion = "20.03";
   };
 
 
@@ -150,10 +151,6 @@ in
   # replicates the default behaviour.
   networking.useDHCP = false;
   networking.interfaces.ens3.useDHCP = true;
-
-  # Don't change this.
-  # See https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
-  system.stateVersion = "20.03";
 
   nix = {
     gc = {

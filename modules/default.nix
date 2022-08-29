@@ -29,6 +29,7 @@ in {
     ./tor.nix
     ./transmission.nix
     ./ugent-vpn.nix
+    ./vscode.nix
     ./wireless
     ./wireshark.nix
     ./wireguard.nix
@@ -53,6 +54,10 @@ in {
     extraHomePackages = lib.mkOption {
       default = [];
       example = [ pkgs.spotify-tui ];
+    };
+
+    stateVersion = lib.mkOption {
+      example = "21.03";
     };
   };
 
@@ -83,10 +88,21 @@ in {
       DefaultTimeoutStopSec=5s
     '';
 
+
     # Don't wait for dhcpd when booting
     networking.dhcpcd.wait = "background";
 
-    i18n.defaultLocale = "en_US.UTF-8";
+    i18n = {
+      defaultLocale = "en_IE.UTF-8";
+      #extraLocaleSettings = {
+        # LC_TIME = "en_GB.UTF-8";
+      #};
+      supportedLocales = [
+        "en_GB.UTF-8/UTF-8"
+        "en_IE.UTF-8/UTF-8"
+        "en_US.UTF-8/UTF-8"
+      ];
+    };
     time.timeZone = "Europe/Brussels";
 
     users.users.root = {
@@ -100,7 +116,12 @@ in {
       openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos euphoria ];
     };
 
+    home-manager.users.root = { ... }: {
+      home.stateVersion = cfg.stateVersion;
+    };
+
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
+      home.stateVersion = cfg.stateVersion;
       home.packages = with pkgs; [
         xdg-user-dirs
         curlie
@@ -181,6 +202,15 @@ in {
     boot.tmpOnTmpfs = true;
     boot.tmpOnTmpfsSize = "75%";
     nixpkgs.config.allowUnfree = true;
+
+
+    # This value determines the NixOS release from which the default
+    # settings for stateful data, like file locations and database versions
+    # on your system were taken. It‘s perfectly fine and recommended to leave
+    # this value at the release version of the first install of this system.
+    # Before changing this value read the documentation for this option
+    # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+    system.stateVersion = cfg.stateVersion; # Did you read the comment?
   };
 
 }

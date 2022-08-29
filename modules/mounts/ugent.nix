@@ -18,7 +18,7 @@ in {
         "/mnt/ugent/files" = {
           device = "//files.ugent.be/rbmaerte";
           fsType = "cifs";
-          options = [ "credentials=/run/agenix/cifs-credentials,${automount_opts},users,vers=3.0,noperm,domain=UGENT,sec=ntlmv2i,noserverino" ];
+          options = [ "credentials=/run/agenix/cifs-credentials,${automount_opts},users,vers=3.11,noperm,domain=UGENT,sec=ntlmv2i" ];
           noCheck = true;
         };
         "/mnt/ugent/webhost" = {

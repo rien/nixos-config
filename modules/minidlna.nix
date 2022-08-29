@@ -20,11 +20,11 @@ in {
     networking.firewall.allowedUDPPorts = [ 1900 56139];
     services.minidlna = {
       enable = true;
-      mediaDirs = cfg.dirs;
-      announceInterval = 30;
-      extraConfig = ''
-        inotify=no
-      '';
+      #settings = {
+      #  inotify = "no";
+      #  media_dirs = cfg.dirs;
+      #  notify_interval = 30;
+      #};
     };
   };
 }

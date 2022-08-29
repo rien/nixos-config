@@ -25,6 +25,7 @@ let
     programs.neovim = {
       enable = true;
       vimAlias = true;
+      extraPackages = [ pkgs.xclip ];
       extraConfig = ''
         set nocompatible
         filetype off	
