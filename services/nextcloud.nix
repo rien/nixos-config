@@ -3,7 +3,7 @@
   services.nextcloud = {
     enable = true;
     hostName = "nextcloud.vm";
-    package = pkgs.nextcloud19;
+    package = pkgs.nextcloud24;
     nginx.enable = true;
     config = {
       dbtype = "pgsql";

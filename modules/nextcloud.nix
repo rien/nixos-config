@@ -24,7 +24,7 @@ in {
         hostName = cfg.hostname;
         enable = true;
         autoUpdateApps.enable = true;
-        package = pkgs.nextcloud23;
+        package = pkgs.nextcloud24;
         config = {
           dbuser = "nextcloud";
           dbname = "nextcloud";
