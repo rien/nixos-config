@@ -6,7 +6,6 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils = {
       url = "github:numtide/flake-utils/master";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     devshell = {
       url = "github:numtide/devshell";
@@ -51,12 +50,10 @@
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     agenix = {
       url = "github:ryantm/agenix/main";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     zeroad = {
       url = "github:chvp/0ad-flake";
