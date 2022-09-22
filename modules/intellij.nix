@@ -35,8 +35,16 @@ in {
             $out/bin/intellij \
             --prefix PATH : ${extraPath}
         '';
+      clion = pkgs.runCommand "clion"
+        { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+        ''
+          mkdir -p $out/bin
+          makeWrapper ${pkgs.jetbrains.clion}/bin/clion \
+            $out/bin/clion \
+            --prefix PATH : ${extraPath}
+        '';
     in { ... }: {
-      home.packages = [ intellij ];
+      home.packages = [ intellij clion ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;

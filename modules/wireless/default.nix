@@ -21,6 +21,7 @@ in
       enable = true;
       networks = import ./networks.secret.nix;
       interfaces = [ cfg.device ];
+      userControlled.enable = true;
     };
     networking.interfaces."${cfg.device}".useDHCP = true;
   };
