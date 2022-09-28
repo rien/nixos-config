@@ -68,7 +68,7 @@
     intellij.enable = true;
     syncthing-client.enable = true;
     wireshark.enable = true;
-    vscode.enable = false;
+    #vscode.enable = false;
 
     #minidlna = {
     #  enable = false;
@@ -120,7 +120,7 @@
       ffmpeg-full
       firefox
       gimp
-      imagemagick7
+      imagemagick
       libqalculate
       lutris
       minecraft

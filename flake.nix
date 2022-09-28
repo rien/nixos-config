@@ -2,8 +2,8 @@
   description = "Nixos configuration";
 
   inputs = {
-    #nixpkgs.url = "github:rien/nixpkgs/master";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:rien/nixpkgs/master";
+    #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils = {
       url = "github:numtide/flake-utils/master";
     };
@@ -139,7 +139,7 @@
 
           # Expose the currently deployed nixpkgs in /etc/nixpkgs/
           ({ pkgs, ... }: {
-            environment.etc."nixpkgs".source = (pkgs.runCommandNoCC "nixpkgs" { } ''
+            environment.etc."nixpkgs".source = (pkgs.runCommand "nixpkgs" { } ''
               cp -r ${nixpkgs} $out
               chmod 700 $out
               echo "${version-suffix}" > $out/.version-suffix

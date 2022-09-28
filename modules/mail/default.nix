@@ -137,7 +137,7 @@ in {
         alot = let
           dmenu = "${pkgs.dmenu}/bin/dmenu";
           urlscan = "${pkgs.urlscan}/bin/urlscan";
-          xdg-open = "${pkgs.xdg_utils}/bin/xdg-open";
+          xdg-open = "${pkgs.xdg-utils}/bin/xdg-open";
           selecturl = pkgs.writeScript
             "selecturl"
             "${urlscan} -n | ${dmenu} | xargs --no-run-if-empty ${xdg-open}";

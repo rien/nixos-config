@@ -25,6 +25,9 @@ in {
         node = nodejs;
         yarn = yarn;
         vuecli = nodePackages."@vue/cli";
+        c = clang_14;
+        make = gnumake;
+        valgrind = valgrind;
       };
       extraPath = lib.makeBinPath (builtins.attrValues devSDKs);
       intellij = pkgs.runCommand "intellij"
@@ -41,6 +44,7 @@ in {
           mkdir -p $out/bin
           makeWrapper ${pkgs.jetbrains.clion}/bin/clion \
             $out/bin/clion \
+            --set NIX_CC ${devSDKs.c}/bin/cc \
             --prefix PATH : ${extraPath}
         '';
     in { ... }: {
