@@ -34,7 +34,7 @@ in {
       addCopilot = (editor:
         with pkgs.jetbrains.plugins;
         let
-          info = (getUrl { id = "17718"; hash = "sha256-YttM/ueluqfvYsU93Ebov9rTCL4vWcUppipfnU87ZpM="; });
+          info = (getUrl { id = "17718"; hash = "sha256-lOAVJx+xxz4gBJ4Cchq+02ArdmwMWOuGh+afU6LavNQ="; });
           libPath = lib.makeLibraryPath [pkgs.glibc pkgs.gcc-unwrapped];
           copilot-plugin = (urlToDrv {
             name = "GitHub Copilot";
@@ -84,6 +84,7 @@ in {
           });
         in addPlugins editor [ copilot-plugin ]);
       idea-with-copilot = addCopilot pkgs.jetbrains.idea-ultimate;
+      clion-with-copilot = addCopilot pkgs.jetbrains.clion;
       intellij = pkgs.runCommand "intellij"
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
@@ -96,7 +97,7 @@ in {
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
           mkdir -p $out/bin
-          makeWrapper ${pkgs.jetbrains.clion}/bin/clion \
+          makeWrapper ${clion-with-copilot}/bin/clion \
             $out/bin/clion \
             --set NIX_CC ${devSDKs.c}/bin/cc \
             --prefix PATH : ${extraPath}
