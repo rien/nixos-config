@@ -28,6 +28,12 @@ in {
         locations."/hupseflupse/" = {
           alias = "/srv/webhost/rxn.be/";
         };
+        locations."/brief" = {
+          return = "302 https://drive.google.com/file/d/1kmKL7ir2gVoTCvGFehKEkNeuAD2wNXLG/view";
+        };
+        locations."/wild" = {
+          return = "302 https://forms.gle/VUYhYB2fFq5XrPys7";
+        };
       };
       "rien.maertens.io" = {
         useACMEHost = "maertens.io";

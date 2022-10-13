@@ -14,7 +14,7 @@ in {
       overrideWithGApps = (pkg: pkg.overrideAttrs (oldAttrs: {nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook ];}));
       devSDKs = with pkgs; {
         rustc = symlinkJoin { name = rustc.pname; paths = [ rustc cargo gcc ]; };
-        rust-src =  rust.packages.stable.rustPlatform.rustLibSrc;
+        rust-src = rust.packages.stable.rustPlatform.rustLibSrc;
         java11 = jdk11;
         java17 = jdk17;
         ruby_3_0 = ruby_3_0;
@@ -34,7 +34,7 @@ in {
       addCopilot = (editor:
         with pkgs.jetbrains.plugins;
         let
-          info = (getUrl { id = "17718"; hash = "sha256-lOAVJx+xxz4gBJ4Cchq+02ArdmwMWOuGh+afU6LavNQ="; });
+          info = (getUrl { id = "17718"; hash = "sha256-GEry1oxh8ZJyDXsjAXeRpioRV2OBdQbnpbunw6ZXdGI="; });
           libPath = lib.makeLibraryPath [pkgs.glibc pkgs.gcc-unwrapped];
           copilot-plugin = (urlToDrv {
             name = "GitHub Copilot";

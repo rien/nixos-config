@@ -2,7 +2,8 @@
 let
   customPlugins = {
     darcula = pkgs.vimUtils.buildVimPlugin {
-        name = "darcula";
+        pname = "darcula";
+        version = "92e8f51d82b36fc6cca148eb98dd3e4cfacc92cd";
         src = pkgs.fetchFromGitHub {
           owner = "blueshirts";
           repo = "darcula";
@@ -11,7 +12,8 @@ let
         };
     };
     vim-beancount = pkgs.vimUtils.buildVimPlugin {
-        name = "vim-beancount";
+        pname = "vim-beancount";
+        version = "2f970a0c826275f7d07fa145ba9a35c15b15232d";
         src = pkgs.fetchFromGitHub {
           owner = "nathangrigg";
           repo = "vim-beancount";
