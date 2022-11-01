@@ -34,12 +34,11 @@ in {
       addCopilot = (editor:
         with pkgs.jetbrains.plugins;
         let
-          info = (getUrl { id = "17718"; hash = "sha256-GEry1oxh8ZJyDXsjAXeRpioRV2OBdQbnpbunw6ZXdGI="; });
           libPath = lib.makeLibraryPath [pkgs.glibc pkgs.gcc-unwrapped];
           copilot-plugin = (urlToDrv {
             name = "GitHub Copilot";
-            url = info.url;
-            hash = "sha256-117CHiwMOlEoiZBRk7hT3INncargoeYCuewpCeQ4nz8=";
+            url = "https://plugins.jetbrains.com/files/17718/233164/github-copilot-intellij-1.1.33.1980.zip";
+            hash = "sha256-XuQWI+kbck1BqnTvMfK6o85u9spksBkPhfcmFzs4VvI=";
             extra = {
               inputs = [ pkgs.patchelf pkgs.glibc pkgs.gcc-unwrapped ];
               commands = ''

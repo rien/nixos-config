@@ -88,12 +88,17 @@
     ];
 
     extraHomePackages = with pkgs; let
-      cura = pkgs.writeShellScriptBin "cura" ''
-        export GIO_EXTRA_MODULES='${dconf}/lib/gio/modules'
-        export GDK_PIXBUF_MODULE_FILE='${librsvg}/lib/gdk-pixbuf-2.0/2.10.0/loaders.cache'
-        export XDG_DATA_DIRS='${gtk3}/share/gsettings-schemas/gtk+3-${gtk3.version}:${gsettings-desktop-schemas}/share/gsettings-schemas/gsettings-desktop-schemas-${gsettings-desktop-schemas.version}'
-        ${pkgs.cura}/bin/cura "$@"
-  '';
+      cura = stdenv.mkDerivation {
+        name = "curaWrapped";
+        nativeBuildInputs = [ glib wrapGAppsHook gtk3 ];
+        buildCommand = ''
+          gappsWrapperArgsHook
+
+          makeWrapper ${pkgs.cura}/bin/cura $out/bin/cura \
+            ''${gappsWrapperArgs[@]}
+        '';
+
+      };
     in [
       signal-desktop
       orca-c
@@ -152,6 +157,7 @@
       python3Packages.ds4drv
       godot
       termdown
+      zoom-us
     ];
 
     wireless = {
