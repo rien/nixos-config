@@ -89,7 +89,7 @@ humanReadableBytes size = uncurry (printf "%.1f%sB") $ fit pairs
 
 config :: Config
 config = defaultConfig
-  { font = "xft:Monospace:pixelsize=18,Symbola:pixelsize=18"
+  { font = "Fira Code 18px"
   , commands = [ Run $ Battery
     [ "-t", "<acstatus> <left>%", "--",
       "-o", "🔋", "-O", "🔌", "-i", "🔌" ]
@@ -102,6 +102,7 @@ config = defaultConfig
   , sepChar = "%"
   , alignSep = "}{"
   , template = "%StdinReader% }{ WiFi: %wlan% | %battery% | %date% "
+  , position = TopH 30
   }
 
 main :: IO ()
