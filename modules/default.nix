@@ -14,6 +14,7 @@ in {
     ./home-assistant.nix
     ./intellij.nix
     ./kitty.nix
+    ./mastodon.nix
     ./minidlna.nix
     ./mounts
     ./mail

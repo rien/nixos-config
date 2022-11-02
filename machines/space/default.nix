@@ -38,14 +38,26 @@ in
       file = ./hetzner-api-key.age;
       owner = "acme";
     };
-    "coturn-secret" = {
-      file = ./coturn-secret.age;
-      owner = "turnserver";
-    };
     "opendkim.private" = {
       file = ./opendkim.private.age;
       path = "/var/lib/opendkim/keys/opendkim.private";
       owner = "opendkim";
+    };
+    "mastodon-vapid-privkey" = {
+      file = ./mastodon-vapid-privkey.age;
+      owner = "mastodon";
+    };
+    "mastodon-vapid-pubkey" = {
+      file = ./mastodon-vapid-pubkey.age;
+      owner = "mastodon";
+    };
+    "mastodon-secretkey" = {
+      file = ./mastodon-secretkey.age;
+      owner = "mastodon";
+    };
+    "mastodon-otpsecret" = {
+      file = ./mastodon-otpsecret.age;
+      owner = "mastodon";
     };
   };
 
@@ -56,14 +68,6 @@ in
   system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
 
-  services.coturn = {
-    enable = true;
-    realm = "coturn.rxn.be";
-    listening-ips = [ "49.12.7.126" ];
-    use-auth-secret = true;
-    static-auth-secret-file = "/run/agenix/coturn-secret";
-  };
-
   networking.firewall.allowedTCPPorts = [ 3478 ];
   networking.firewall.allowedUDPPorts = [ 3478 ];
 
@@ -71,6 +75,15 @@ in
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
+
+    mastodon = {
+      enable = true;
+      localDomain = "toot.rxn.be";
+      vapidPublicKeyFile = "/run/agenix/mastodon-vapid-pubkey";
+      vapidPrivateKeyFile = "/run/agenix/mastodon-vapid-privkey";
+      secretKeyBaseFile = "/run/agenix/mastodon-secretkey";
+      otpSecretFile = "/run/agenix/mastodon-otpsecret";
+    };
 
     nginx = {
       enable = true;
