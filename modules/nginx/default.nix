@@ -32,14 +32,16 @@ in
 
     security.acme = {
       acceptTerms = true;
-      defaults.email = personal.email;
+      defaults = {
+        email = personal.email;
+        dnsProvider = "hetzner";
+        credentialsFile = cfg.dnsCredentialsFile;
+      };
 
       certs = builtins.listToAttrs (map
         (item: {
           name = item.domain;
           value = {
-            dnsProvider = "hetzner";
-            credentialsFile = cfg.dnsCredentialsFile;
             extraDomainNames = item.extra;
           };
         })
