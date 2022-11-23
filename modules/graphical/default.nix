@@ -407,7 +407,7 @@ in {
                 primary = true;
                 rate = "59.95";
                 mode = "1920x1200";
-                position = "0x1440";
+                position = "1520x1440";
               };
               DP-1-3 = {
                 enable = true;
