@@ -24,6 +24,7 @@ in {
         hostName = cfg.hostname;
         enable = true;
         autoUpdateApps.enable = true;
+        enableBrokenCiphersForSSE = false;
         package = pkgs.nextcloud25;
         config = {
           dbuser = "nextcloud";

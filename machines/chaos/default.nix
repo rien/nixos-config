@@ -158,6 +158,7 @@
       godot
       termdown
       zoom-us
+      ungoogled-chromium
     ];
 
     wireless = {

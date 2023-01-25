@@ -6,5 +6,5 @@ fi
 if [ -z "$host" ]; then
     sudo nixos-rebuild switch -v --flake '.#' "$@"
 else
-    nixos-rebuild -v --flake ".#$host" --target-host "root@$host" --build-host localhost switch "$@"
+    nixos-rebuild -v --flake ".#$host" --target-host "root@$host" switch "$@"
 fi

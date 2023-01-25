@@ -14,30 +14,6 @@
         nixpkgs.follows = "nixpkgs";
       };
     };
-    accentor = {
-      url = "github:accentor/flake";
-      inputs = {
-        devshell.follows = "devshell";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    accentor-api = {
-      url = "github:accentor/api";
-      inputs = {
-        devshell.follows = "devshell";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
-    accentor-web = {
-      url = "github:accentor/web";
-      inputs = {
-        devshell.follows = "devshell";
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
     mfauth = {
       url = "github:rien/mfauth/main";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -61,7 +37,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, musnix, mfauth, zeroad, accentor, accentor-web, accentor-api, devshell }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, musnix, mfauth, zeroad, devshell }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -80,16 +56,11 @@
           ({
             nixpkgs.overlays = [
               (self: super: {
-                accentor-api = accentor-api.packages.${self.system}.default;
-                accentor-web = accentor-web.packages.${self.system}.default;
                 # Simple OAuth2 client
                 mfauth = mfauth.defaultPackage.${system};
               })
             ];
           })
-
-          # Accentor music server
-          accentor.nixosModules.accentor
 
           musnix.nixosModules.musnix
 
