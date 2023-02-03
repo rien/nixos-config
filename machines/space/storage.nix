@@ -127,39 +127,6 @@
       ];
     };
 
-    "/var/lib/accentor/transmission" = {
-      device = "/data/transmission/";
-      fsType = "fuse.bindfs";
-      options = [
-        "ro"
-        "nonempty"
-        "multithreaded"
-        "x-systemd.after=data.mount"
-        "x-systemd.requires=data.mount"
-        "x-systemd.before=accentor-api.service"
-        "x-systemd.required-by=accentor-api.service"
-        "force-user=accentor"
-        "force-group=accentor"
-        "_netdev"
-      ];
-    };
-
-    "/var/lib/accentor/storage" = {
-      device = "/data/accentor/";
-      fsType = "fuse.bindfs";
-      options = [
-        "nonempty"
-        "multithreaded"
-        "x-systemd.after=data.mount"
-        "x-systemd.requires=data.mount"
-        "x-systemd.before=accentor-api.service"
-        "x-systemd.required-by=accentor-api.service"
-        "force-user=accentor"
-        "force-group=accentor"
-        "_netdev"
-      ];
-    };
-
     "/var/lib/fava/data" = {
       device = "/data/syncthing/ledger/";
       fsType = "fuse.bindfs";

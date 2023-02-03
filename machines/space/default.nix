@@ -13,10 +13,6 @@ in
     ];
 
   age.secrets = {
-    "accentor-env" = {
-      owner = "accentor";
-      file = ./accentor-env.age;
-    };
     "transmission-auth" = {
       owner = "nginx";
       file = ./transmission-auth.age;
@@ -144,13 +140,6 @@ in
     stateVersion = "20.03";
   };
 
-
-  services.accentor = {
-    enable = true;
-    hostname = "music.rxn.be";
-    workers = 1;
-    environmentFile = "/run/agenix/accentor-env";
-  };
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;

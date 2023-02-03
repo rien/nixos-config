@@ -27,7 +27,7 @@ let
     name, address, host ? "", imapHost ? host, smtpHost ? host,
     useStartTls ? false, passFile, extraConfig ? { }, primary ? false,
     userName ? address, signature ? personal.defaultSignature, mbsync ? true,
-    folders ? null, oauth ? null, signByDefault ? true,
+    folders ? null, oauth ? null, signByDefault ? true, extraFolderPatterns ? []
   }: (
     lib.recursiveUpdate
     {
@@ -55,7 +55,7 @@ let
         expunge = "both";
         flatten = ".";
         remove = "both";
-        patterns = mkIf (folders != null) (lib.attrsets.attrValues folders);
+        patterns = mkIf (folders != null) ((lib.attrsets.attrValues folders) ++ extraFolderPatterns);
         extraConfig.account.AuthMechs = if (oauth != null)
           then "XOAUTH2"
           else "LOGIN";

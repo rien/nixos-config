@@ -11,9 +11,11 @@ in {
     services.openssh = {
       enable = true;
       ports = [ 9450 ];
-      permitRootLogin = "prohibit-password";
-      passwordAuthentication = false;
-      kbdInteractiveAuthentication = false;
+      settings = {
+        PermitRootLogin = "prohibit-password";
+        PasswordAuthentication = false;
+        KbdInteractiveAuthentication = false;
+      };
     };
   };
 }
