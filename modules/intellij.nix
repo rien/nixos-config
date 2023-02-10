@@ -37,8 +37,8 @@ in {
           libPath = lib.makeLibraryPath [pkgs.glibc pkgs.gcc-unwrapped];
           copilot-plugin = (urlToDrv {
             name = "GitHub Copilot";
-            url = "https://plugins.jetbrains.com/files/17718/233164/github-copilot-intellij-1.1.33.1980.zip";
-            hash = "sha256-XuQWI+kbck1BqnTvMfK6o85u9spksBkPhfcmFzs4VvI=";
+            url = "https://plugins.jetbrains.com/files/17718/283011/github-copilot-intellij-1.2.1.2347.zip";
+            hash = "sha256-sGk7ay/p0aE0WLLKebSV3BwFdqsPZdEFe0CUQako9qM=";
             extra = {
               inputs = [ pkgs.patchelf pkgs.glibc pkgs.gcc-unwrapped ];
               commands = ''
