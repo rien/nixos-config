@@ -5,7 +5,7 @@
     nixpkgs.url = "github:rien/nixpkgs/master";
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils = {
-      url = "github:numtide/flake-utils/master";
+      url = "github:numtide/flake-utils/main";
     };
     devshell = {
       url = "github:numtide/devshell";
@@ -50,14 +50,15 @@
           ({ config._module.args = { util = import ./util.nix; }; })
 
           # Secrets management
-          agenix.nixosModules.age
-          { environment.systemPackages = [ agenix.defaultPackage.${system} ]; }
+          agenix.nixosModules.default
 
           ({
             nixpkgs.overlays = [
               (self: super: {
                 # Simple OAuth2 client
                 mfauth = mfauth.defaultPackage.${system};
+                # Agenix secrets
+                agenix = agenix.packages.${system}.default;
               })
             ];
           })

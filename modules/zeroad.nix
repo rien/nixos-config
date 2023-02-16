@@ -5,10 +5,6 @@
         default = false;
         example = true;
       };
-      asServer = lib.mkOption {
-        default = false;
-        example = true;
-      };
     };
   };
 
@@ -18,10 +14,5 @@
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
       home.packages = [ pkgs.zeroad ];
     };
-    networking.firewall = lib.mkIf config.custom.zeroad.asServer {
-      allowedTCPPorts = [ 20595 ];
-      allowedUDPPorts = [ 20595 ];
-    };
-    services.openssh.forwardX11 = lib.mkDefault config.custom.zeroad.asServer;
   };
 }
