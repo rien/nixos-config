@@ -70,6 +70,8 @@
     wireshark.enable = true;
     #vscode.enable = false;
 
+    dodona-mailer.enable = true;
+
     #minidlna = {
     #  enable = false;
     #  dirs = [ "/data/music/" "/mnt/media/transmission/complete/" ];

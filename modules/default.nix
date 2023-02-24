@@ -6,6 +6,7 @@ in {
   imports = [
     ./bash.nix
     ./docker.nix
+    ./dodona-mailer
     ./dwarffortress.nix
     ./fava.nix
     ./git.nix
@@ -124,6 +125,7 @@ in {
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
       home.stateVersion = cfg.stateVersion;
       home.packages = with pkgs; [
+        agenix
         xdg-user-dirs
         curlie
         exiftool
