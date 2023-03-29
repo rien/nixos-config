@@ -145,7 +145,7 @@
       steam-run
       krita
       remarkable-mouse
-      teams
+      #teams
       teeworlds
       youtube-dl
       zathura
