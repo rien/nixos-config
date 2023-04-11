@@ -119,7 +119,7 @@
       weechat
       binutils
       python3Packages.binwalk
-      citrix_workspace
+      #citrix_workspace
       cura
       blender
       audacity
@@ -178,6 +178,7 @@
   networking.hostName = "chaos"; # Define your hostname.
   # Required for ZFS
   networking.hostId = "04cdf13e";
+  networking.timeServers = [ "ntp.ugent.be" "2.nixos.pool.ntp.org" ];
 
   #networking.interfaces.enp0s13f0u3u2 = {
   #  useDHCP = true;
