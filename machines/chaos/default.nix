@@ -143,7 +143,7 @@
       signal-desktop
       spotify-tui
       steam-run
-      krita
+      #krita
       remarkable-mouse
       #teams
       teeworlds

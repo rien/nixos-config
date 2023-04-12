@@ -59,14 +59,14 @@
                 mfauth = mfauth.defaultPackage.${system};
                 # Agenix secrets
                 agenix = agenix.packages.${system}.default;
-                lego = super.lego.overrideAttrs (final: prev: {
-                  src = super.fetchFromGitHub {
-                    owner = "go-acme";
-                    repo = prev.pname;
-                    rev = "master";
-                    sha256 = "sha256-HEZdYDewJJJu0yYaZy0nAY2L1JcL9py9wztm95W/xeQ=";
-                  };
-                });
+                #lego = super.lego.overrideAttrs (final: prev: {
+                #  src = super.fetchFromGitHub {
+                #    owner = "go-acme";
+                #    repo = prev.pname;
+                #    rev = "master";
+                #    sha256 = "sha256-HEZdYDewJJJu0yYaZy0nAY2L1JcL9py9wztm95W/xeQ=";
+                #  };
+                #});
               })
             ];
           })
