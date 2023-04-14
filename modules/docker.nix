@@ -12,6 +12,7 @@ in {
     virtualisation.docker = {
       enable = true;
       extraOptions = "--experimental";
+      storageDriver = "zfs";
     };
     programs.criu.enable = true;
     systemd.services.docker.path = [ pkgs.gzip pkgs.gnutar pkgs.criu ];
