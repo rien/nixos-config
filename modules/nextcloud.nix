@@ -25,7 +25,7 @@ in {
         enable = true;
         autoUpdateApps.enable = true;
         enableBrokenCiphersForSSE = false;
-        package = pkgs.nextcloud25;
+        package = pkgs.nextcloud26;
         config = {
           dbuser = "nextcloud";
           dbname = "nextcloud";

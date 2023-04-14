@@ -146,6 +146,7 @@
       #krita
       remarkable-mouse
       #teams
+      teams-for-linux
       teeworlds
       youtube-dl
       zathura
