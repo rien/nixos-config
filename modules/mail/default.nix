@@ -89,6 +89,9 @@ let
           inherit useStartTls;
         };
       };
+      thunderbird = mkIf cfg.thunderbird {
+        enable = true;
+      };
     }
     extraConfig
   );
@@ -96,9 +99,16 @@ in {
 
   imports = [ ./fetcher.nix ];
 
-  options.custom.mail.enable = mkOption {
-    example = true;
-    default = false;
+  options.custom.mail = {
+    enable = mkOption {
+      example = true;
+      default = false;
+    };
+
+    thunderbird = mkOption {
+      example = true;
+      default = false;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -118,6 +128,13 @@ in {
         isync = super.isync.override {
           cyrus_sasl = cyrus_sasl_with_xoauth2;
         };
+        thunderbird-beta = super.thunderbird.overrideAttrs (oldAttrs: rec {
+          version = "113.0b3";
+          src = super.fetchurl {
+            url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
+            hash = "sha256-wZmucDMIMlnGxro1+ZPGYHQuNyj+Fy4i1yrDPaMn1uk=";
+          };
+        });
     })];
 
     home-manager.users.${config.custom.user} = { ... }: {
@@ -134,6 +151,15 @@ in {
       programs = {
         mbsync.enable = true;
         msmtp.enable = true;
+        thunderbird = mkIf cfg.thunderbird {
+          enable = true;
+          package = pkgs.thunderbird-beta;
+          profiles = {
+            default = {
+              isDefault = true;
+            };
+          };
+        };
         alot = let
           dmenu = "${pkgs.dmenu}/bin/dmenu";
           urlscan = "${pkgs.urlscan}/bin/urlscan";

@@ -61,7 +61,10 @@
     pass.enable = true;
     ssh.enable = true;
     zeroad.enable = true;
-    mail.enable = true;
+    mail = {
+      enable = true;
+      thunderbird = true;
+    };
     #vpnc.enable = true;
     ugent-vpn.enable = true;
     tor.enable = true;
@@ -105,7 +108,6 @@
       signal-desktop
       orca-c
       qsynth
-      thunderbird
       retroarch
       lutris
       feh

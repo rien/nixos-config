@@ -26,6 +26,7 @@
             diff.external = "${pkgs.difftastic}/bin/difft";
           };
           ignores = [
+            ".data/"
             ".direnv"
             ".envrc"
             "shell.nix"
