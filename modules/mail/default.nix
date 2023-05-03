@@ -34,7 +34,7 @@ let
       inherit address primary userName;
       gpg = {
         inherit signByDefault;
-        key = personal.email;
+        key = personal.gpgKey;
       };
       imap = {
         host = imapHost;
@@ -129,10 +129,10 @@ in {
           cyrus_sasl = cyrus_sasl_with_xoauth2;
         };
         thunderbird-beta = super.thunderbird.overrideAttrs (oldAttrs: rec {
-          version = "113.0b3";
+          version = "113.0b5";
           src = super.fetchurl {
             url = "mirror://mozilla/thunderbird/releases/${version}/source/thunderbird-${version}.source.tar.xz";
-            hash = "sha256-wZmucDMIMlnGxro1+ZPGYHQuNyj+Fy4i1yrDPaMn1uk=";
+            hash = "sha256-emJQ+bSMxmsWTvi8YC4Si/u7/v+uNjX0vsSypwROHVE=";
           };
         });
     })];
