@@ -202,8 +202,8 @@ in {
       "electron-13.6.9"
     ];
 
-    boot.tmpOnTmpfs = true;
-    boot.tmpOnTmpfsSize = "75%";
+    boot.tmp.useTmpfs = true;
+    boot.tmp.tmpfsSize = "75%";
     nixpkgs.config.allowUnfree = true;
 
 

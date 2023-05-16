@@ -21,6 +21,7 @@
             #url."ssh://git@github.com/".insteadOf = "https://github.com/";
             branch.autosetuprebase = "always";
             pull.rebase = true;
+            rebase.autoStash = true;
             push.autoSetupRemote = true;
             core.autocrlf = "input";
             diff.external = "${pkgs.difftastic}/bin/difft";

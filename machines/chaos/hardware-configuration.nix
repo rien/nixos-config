@@ -72,6 +72,8 @@
         libva
         libvdpau-va-gl
         vaapiVdpau
+        intel-compute-runtime
+        ocl-icd
       ];
       extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
     };
