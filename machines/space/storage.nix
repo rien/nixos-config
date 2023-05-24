@@ -48,7 +48,6 @@
       device = "/data/transmission/";
       fsType = "fuse.bindfs";
       options = [
-        "nonempty"
         "multithreaded"
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
@@ -65,7 +64,6 @@
       device = "/data/nextcloud/";
       fsType = "fuse.bindfs";
       options = [
-        "nonempty"
         "multithreaded"
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
@@ -82,7 +80,6 @@
       fsType = "fuse.bindfs";
       options = [
         "ro"
-        "nonempty"
         "multithreaded"
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
@@ -99,7 +96,6 @@
       fsType = "fuse.bindfs";
       options = [
         "ro"
-        "nonempty"
         "multithreaded"
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
@@ -115,7 +111,6 @@
       device = "/data/syncthing/";
       fsType = "fuse.bindfs";
       options = [
-        "nonempty"
         "multithreaded"
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
@@ -131,7 +126,6 @@
       device = "/data/syncthing/ledger/";
       fsType = "fuse.bindfs";
       options = [
-        "nonempty"
         "multithreaded"
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"

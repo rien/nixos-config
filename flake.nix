@@ -9,10 +9,7 @@
     };
     devshell = {
       url = "github:numtide/devshell";
-      inputs = {
-        flake-utils.follows = "flake-utils";
-        nixpkgs.follows = "nixpkgs";
-      };
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     mfauth = {
       url = "github:rien/mfauth/main";

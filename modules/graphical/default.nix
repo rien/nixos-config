@@ -107,6 +107,7 @@ in {
     services.xserver = {
       enable = true;
       displayManager.startx.enable = true;
+      libinput.enable = false;
       synaptics = {
         enable = true;
         tapButtons = false;
