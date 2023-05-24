@@ -91,6 +91,10 @@ let
       };
       thunderbird = mkIf cfg.thunderbird {
         enable = true;
+        settings = mkIf (oauth != null) (id: {
+          "mail.smtpserver.smtp_${id}.authMethod" = 10;
+          "mail.server.server_${id}.authMethod" = 10;
+        });
       };
     }
     extraConfig
