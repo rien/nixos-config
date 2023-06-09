@@ -134,6 +134,15 @@ in {
         };
       };
       fonts = with pkgs; [
+        orbitron
+        roboto
+        roboto-mono
+        roboto-slab
+        source-serif
+        source-sans-pro
+        source-serif-pro
+        source-code-pro
+        fira-mono
         fira-code
         fira
         symbola
