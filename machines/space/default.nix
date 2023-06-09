@@ -55,6 +55,14 @@ in
       file = ./mastodon-otpsecret.age;
       owner = "mastodon";
     };
+    "photoprism-admin-password" = {
+      file = ./photoprism-admin-password.age;
+      owner = "photoprism";
+    };
+    "vaultwarden-env" = {
+      file = ./vaultwarden-env.age;
+      owner = "vaultwarden";
+    };
   };
 
   system.activationScripts.linkDKIMtxt = {
@@ -72,6 +80,13 @@ in
     neovim.enable = true;
     sshd.enable = true;
 
+    vaultwarden = {
+      enable = true;
+      hostname = "vault.rxn.be";
+      backupDir = "/var/lib/vaultwarden-backups";
+      environmentFile = "/run/agenix/vaultwarden-env";
+    };
+
     mastodon = {
       enable = true;
       localDomain = "toot.rxn.be";
@@ -79,6 +94,15 @@ in
       vapidPrivateKeyFile = "/run/agenix/mastodon-vapid-privkey";
       secretKeyBaseFile = "/run/agenix/mastodon-secretkey";
       otpSecretFile = "/run/agenix/mastodon-otpsecret";
+    };
+
+    photoprism = {
+      enable = true;
+      domain = "foto.rxn.be";
+      importPath = "/var/lib/photoprism/data-import";
+      originalsPath = "/var/lib/photoprism/data-originals";
+      adminUser = "rien";
+      adminPasswordFile = "/run/agenix/photoprism-admin-password";
     };
 
     nginx = {
@@ -143,7 +167,6 @@ in
 
   # Use the GRUB 2 boot loader.
   boot.loader.grub.enable = true;
-  boot.loader.grub.version = 2;
   boot.loader.grub.device = "/dev/sda";
 
   networking.hostName = "space"; # Define your hostname.

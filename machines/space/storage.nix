@@ -14,9 +14,6 @@
         "idmap=user"
         "x-systemd.after=network-addresses-ens3.service"
         "x-systemd.requires=network-addresses-ens3.service"
-        #"debug"
-        #"sshfs_debug"
-        #"loglevel=debug"
       ];
     };
 
@@ -136,7 +133,52 @@
         "_netdev"
       ];
     };
+
+    "/var/lib/photoprism/data-originals" = {
+      device = "/data/photoprism/originals";
+      fsType = "fuse.bindfs";
+      options = [
+        "multithreaded"
+        "x-systemd.after=data.mount"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=photoprism.service"
+        "x-systemd.required-by=photoprism.service"
+        "force-user=photoprism"
+        "force-group=photoprism"
+        "_netdev"
+      ];
+    };
+
+    "/var/lib/photoprism/data-import" = {
+      device = "/data/syncthing/fp3-photos";
+      fsType = "fuse.bindfs";
+      options = [
+        "multithreaded"
+        "ro"
+        "x-systemd.after=data.mount"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=photoprism.service"
+        "x-systemd.required-by=photoprism.service"
+        "force-user=photoprism"
+        "force-group=photoprism"
+        "_netdev"
+      ];
+    };
+
+    "/var/lib/vaultwarden-backups" = {
+      device = "/data/vaultwarden-backups";
+      fsType = "fuse.bindfs";
+      options = [
+        "multithreaded"
+        "x-systemd.after=data.mount"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=backup-vaultwarden.service"
+        "x-systemd.required-by=backup-vaultwarden.service"
+        "force-user=vaultwarden"
+        "force-group=vaultwarden"
+        "_netdev"
+      ];
+    };
+
   };
-
-
 }

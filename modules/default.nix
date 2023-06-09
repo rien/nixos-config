@@ -23,6 +23,7 @@ in {
     ./neovim.nix
     ./nginx
     ./pass.nix
+    ./photoprism.nix
     ./postfix
     ./ssh
     ./sshd.nix
@@ -31,6 +32,7 @@ in {
     ./tor.nix
     ./transmission.nix
     ./ugent-vpn.nix
+    ./vaultwarden.nix
     ./vscode.nix
     ./wireless
     ./wireshark.nix
