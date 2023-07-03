@@ -60,7 +60,7 @@
     neovim.enable = true;
     pass.enable = true;
     ssh.enable = true;
-    zeroad.enable = true;
+    #zeroad.enable = true;
     mail = {
       enable = true;
       thunderbird = true;
@@ -105,25 +105,24 @@
 
       };
     in [
-      signal-desktop
-      orca-c
-      qsynth
-      retroarch
-      lutris
+      #orca-c
+      #qsynth
+      #retroarch
+      #lutris
       feh
-      wesnoth
+      #wesnoth
       inkscape
       texlive.combined.scheme-full
       pandoc
-      beancount
+      #beancount
       wine-staging
-      android-studio
+      #android-studio
       weechat
       binutils
       python3Packages.binwalk
       #citrix_workspace
-      cura
-      blender
+      #cura
+      #blender
       audacity
       discord
       ffmpeg-full
@@ -131,38 +130,37 @@
       gimp
       imagemagick
       libqalculate
-      lutris
-      minecraft
+      #minecraft
       mpv
-      mumble
+      #mumble
       obs-studio
       okular
-      protontricks
+      #protontricks
       qview
       qutebrowser
-      remmina
+      #remmina
       sent
       signal-desktop
-      spotify-tui
+      #spotify-tui
       steam-run
       #krita
-      remarkable-mouse
+      #remarkable-mouse
       #teams
       teams-for-linux
-      teeworlds
-      youtube-dl
+      #teeworlds
+      yt-dlp
       zathura
-      openttd
+      #openttd
       zotero
       openscad
       obsidian
       #freecad
-      ncspot
-      colmap
-      python3Packages.ds4drv
-      godot
-      termdown
-      zoom-us
+      #ncspot
+      #colmap
+      #python3Packages.ds4drv
+      #godot
+      #termdown
+      #zoom-us
       ungoogled-chromium
     ];
 
