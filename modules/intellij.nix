@@ -50,7 +50,7 @@ in {
             --prefix PATH : ${extraPath}
         '';
     in { ... }: {
-      home.packages = [ intellij clion ];
+      home.packages = [ intellij ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;
