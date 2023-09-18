@@ -29,10 +29,17 @@ in {
           alias = "/srv/webhost/rxn.be/";
         };
         locations."/brief" = {
-          return = "302 https://drive.google.com/file/d/1kmKL7ir2gVoTCvGFehKEkNeuAD2wNXLG/view";
+          return = "302 https://drive.google.com/file/d/14m9oOKiqOiBpkv1RzPFtqxegl1DkndL5/view";
         };
-        locations."/wild" = {
-          return = "302 https://forms.gle/VUYhYB2fFq5XrPys7";
+        locations."/elementen" = {
+          return = "302 https://forms.gle/hefCh45VvBkJitGo8";
+        };
+      };
+      "rien.rxn.be" = {
+        useACMEHost = "rxn.be";
+        addSSL = true;
+        locations."/" = {
+          return = "302 https://toot.rxn.be/@rien";
         };
       };
       "rien.maertens.io" = {
@@ -52,12 +59,19 @@ in {
         useACMEHost = "theatervolta.be";
         forceSSL = true;
         root = "/srv/webhost/volta";
+        locations."/brief" = {
+          return = "302 https://drive.google.com/file/d/14m9oOKiqOiBpkv1RzPFtqxegl1DkndL5/view";
+        };
+        locations."/elementen" = {
+          return = "302 https://forms.gle/hefCh45VvBkJitGo8";
+        };
       };
       "tryout.theatervolta.be" = {
         serverAliases = [ "tryout.voltaprojects.be" ];
         useACMEHost = "theatervolta.be";
         forceSSL = true;
         root = "/srv/webhost/volta-tryout";
+
       };
     };
   };

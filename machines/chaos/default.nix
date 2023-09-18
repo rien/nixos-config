@@ -60,7 +60,7 @@
     neovim.enable = true;
     pass.enable = true;
     ssh.enable = true;
-    #zeroad.enable = true;
+    zeroad.enable = true;
     mail = {
       enable = true;
       thunderbird = true;
@@ -105,10 +105,12 @@
 
       };
     in [
+      hyperfine
       #orca-c
       #qsynth
       #retroarch
       #lutris
+      bitwig-studio
       feh
       #wesnoth
       inkscape

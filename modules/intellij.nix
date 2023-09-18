@@ -28,6 +28,7 @@ in {
         c = clang_14;
         make = gnumake;
         valgrind = valgrind;
+        perf = linuxPackages.perf;
       };
       extraPath = lib.makeBinPath (builtins.attrValues devSDKs);
       idea-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-ultimate [ "github-copilot" ];
@@ -50,7 +51,7 @@ in {
             --prefix PATH : ${extraPath}
         '';
     in { ... }: {
-      home.packages = [ intellij ];
+      home.packages = [ intellij clion ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;

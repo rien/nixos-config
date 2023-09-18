@@ -14,15 +14,15 @@ with lib;
         enable = true;
         historyFileSize = 1000000000;
         shellAliases = let
-          exa = "${pkgs.exa}/bin/exa --colour-scale";
+          eza = "${pkgs.eza}/bin/eza --colour-scale";
         in {
           ".." = "cd ..";
           "..." = "cd ../..";
           "...." = "cd ../../..";
           "....." = "cd ../../../..";
-          ls = "${exa}";
-          la = "${exa} -la";
-          tree = "${exa} --tree";
+          ls = "${eza}";
+          la = "${eza} -la";
+          tree = "${eza} --tree";
         };
       };
 

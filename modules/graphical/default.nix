@@ -147,6 +147,7 @@ in {
         fira
         symbola
         noto-fonts-emoji
+        comic-relief
       ];
     };
 
