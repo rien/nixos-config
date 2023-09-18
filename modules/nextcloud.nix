@@ -25,7 +25,7 @@ in {
         enable = true;
         autoUpdateApps.enable = true;
         enableBrokenCiphersForSSE = false;
-        package = pkgs.nextcloud26;
+        package = pkgs.nextcloud27;
         config = {
           dbuser = "nextcloud";
           dbname = "nextcloud";
@@ -34,6 +34,11 @@ in {
           adminuser = "rien";
           adminpassFile = cfg.adminpassFile;
           overwriteProtocol = "https";
+        };
+        extraOptions = {
+          calendar = {
+            calendarSubscriptionRefreshRate = "PT1H";
+          };
         };
       };
       nginx.virtualHosts.${cfg.hostname} = {
