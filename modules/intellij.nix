@@ -17,6 +17,7 @@ in {
         rust-src = rust.packages.stable.rustPlatform.rustLibSrc;
         java11 = jdk11;
         java17 = jdk17;
+        java20 = jdk20;
         ruby_3_0 = ruby_3_0;
         ruby_3_1 = ruby_3_1;
         openjfx = openjfx;
@@ -29,6 +30,7 @@ in {
         make = gnumake;
         valgrind = valgrind;
         perf = linuxPackages.perf;
+        dutch = hunspellDicts.nl_nl;
       };
       extraPath = lib.makeBinPath (builtins.attrValues devSDKs);
       idea-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-ultimate [ "github-copilot" ];
