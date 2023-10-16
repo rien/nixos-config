@@ -9,6 +9,11 @@ in {
       default = false;
     };
 
+    basicAuthFile = mkOption {
+      example = "/run/secrets/hass-basic-auth";
+      default = null;
+    };
+
     hostname = mkOption {
       example = "hass.example.org";
       type = lib.types.str;
@@ -27,11 +32,8 @@ in {
       config = {
         frontend = { };
         config = { };
-        system_health = { };
+        system_health = {};
         default_config = {};
-        met = {};
-        esphome = {};
-        fritz = {};
 
         sensor = [
           {
@@ -78,16 +80,6 @@ in {
     # Enable writing to /dev/ttyUSB0
     users.users.hass.extraGroups = [ "dialout" ];
 
-    #systemd.services.esphome = {
-    #  description = "ESPHome";
-    #  after = [ "network.target" ];
-    #  wantedBy = [ "multi-user.target" ];
-    #  User = "hass";
-    #  Group = "hass";
-    #  Restart = "on-failure";
-    #  WorkingDirectory = config.services.home-assistant.configDir;
-    #  ExecStart = "${ pkgs.esphome }/bin/esphome dashboard ${config.services.home-assistant.configDir}/esphome";
-    #};
 
     services.nginx.virtualHosts.${cfg.hostname} = {
       useACMEHost = if cfg.acmeHost != null
@@ -98,6 +90,9 @@ in {
       extraConfig = ''
         proxy_buffering off;
       '';
+
+      basicAuthFile = cfg.basicAuthFile;
+
 
       locations."/".extraConfig = ''
         proxy_pass http://127.0.0.1:8123;

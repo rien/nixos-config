@@ -14,81 +14,21 @@ in
       file = ./hetzner-api-key.age;
       owner = "acme";
     };
-  };
-
-  system.activationScripts.users.supportsDryActivation = lib.mkForce false;
-
-  sound.enable = true;
-  services.jack = {
-    jackd.extraOptions = [ "-dalsa" ];
-    jackd.enable = true;
-    alsa.enable = false;
-    loopback.enable = false;
-  };
-
-  users.users.rien.extraGroups = [ "audio" "jackaudio" "wheel" ];
-
-  musnix.enable = true;
-  musnix.alsaSeq.enable = true;
-  musnix.kernel.realtime = true;
-  musnix.kernel.packages = pkgs.linuxPackages-rt_latest;
-  musnix.rtirq = {
-    # highList = "snd_hrtimer";
-    resetAll = 1;
-    prioLow = 0;
-    enable = true;
-    nameList = "rtc0 snd";
-  };
-
-  systemd.services.fluidsynth = let
-    synthconf = pkgs.writeText "fluidsynth-conf"
-      ''
-        router_clear
-        router_begin note
-        router_end
-
-        # Invert sustain pedal
-        router_begin cc
-        router_par1 64 64 1 0
-        router_par2 0 127 -1 127
-        router_end
-
-        router_begin prog
-        router_end
-
-        router_begin pbend
-        router_end
-
-        router_begin kpress
-        router_end
-      '';
-  in {
-    path = [ pkgs.fluidsynth ];
-    environment = {
-      LD_PRELOAD = "${pkgs.fluidsynth}/lib/libfluidsynth.so.2";
-      JACK_NO_AUDIO_RESERVATION = "1";
-      JACK_PROMISCUOUS_SERVER = "jackaudio";
+    "hass-basic-auth" = {
+      file = ./hass-basic-auth.age;
+      owner = "nginx";
     };
-    serviceConfig = {
-      LimitMEMLOCK = "256M";
-      LimitNICE = -15;
-      LimitRTPRIO = 99;
-      User = "rien";
-      Group = "jackaudio";
-      Type = "simple";
-      WorkingDirectory = "/home/rien";
-      ExecStart = "${pkgs.fluidsynth}/bin/fluidsynth -f ${synthconf} -a jack -m jack -j -o midi.autoconnect=1 -is Nice-Steinway-v3.8.sf2";
-    };
-    after = [ "jack.service" ];
-    wantedBy = [ "multi-user.target" ];
   };
 
-
+  users.users.rien.extraGroups = [ "wheel" ];
 
   custom = {
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
+
+    hostname = "entropy";
+
     nginx = {
       enable = true;
       dnsCredentialsFile = "/run/agenix/hetzner-api-key";
@@ -100,27 +40,29 @@ in
 
     home-assistant = {
       enable = true;
-      hostname = "home.rxn.be";
-      acmeHost = "entropy.rxn.be";
+      hostname = "entropy.rxn.be";
+      basicAuthFile = "/run/agenix/hass-basic-auth";
     };
 
     extraSystemPackages = with pkgs; [
-      htop fluidsynth mpv libjack2 jack2
     ];
 
     wireless = {
       enable = true;
       device = "wlan0";
     };
-  };
 
-  networking.hostName = "entropy";
+    stateVersion = "23.11";
+  };
 
   networking.useDHCP = false;
   networking.interfaces.eth0.useDHCP = true;
+  networking.dhcpcd.extraConfig = ''
+    interface eth0
+    inform 192.168.0.2
 
-  # Don't change this.
-  # See https://nixos.org/manual/nixos/stable/options.html#opt-system.stateVersion
-  system.stateVersion = "21.11";
+    interface wlan0
+    inform 192.168.0.3
+  '';
 }
 

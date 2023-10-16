@@ -11,15 +11,6 @@
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    mfauth = {
-      url = "github:rien/mfauth/main";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
-    };
-    musnix = {
-      url = "github:musnix/musnix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,15 +23,18 @@
       url = "github:chvp/0ad-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    hardware = {
+      url = "github:NixOS/nixos-hardware";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, musnix, mfauth, zeroad, devshell }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, zeroad, devshell, hardware }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
         inherit system;
       };
-      mkSystem = system: hostname: nixpkgs.lib.nixosSystem {
+      mkSystem = system: hostname: extraModules: nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [
           # Add extra input arguments to modules
@@ -52,8 +46,6 @@
           ({
             nixpkgs.overlays = [
               (self: super: {
-                # Simple OAuth2 client
-                mfauth = mfauth.defaultPackage.${system};
                 # Agenix secrets
                 agenix = agenix.packages.${system}.default;
                 lego = self.symlinkJoin {
@@ -68,8 +60,6 @@
               })
             ];
           })
-
-          musnix.nixosModules.musnix
 
           # Enable home-manager
           home-manager.nixosModules.home-manager
@@ -95,7 +85,7 @@
 
           # Load the config for our current machine
           (./. + "/machines/${hostname}")
-        ];
+        ] ++ extraModules;
       };
     in
     flake-utils.lib.eachDefaultSystem
@@ -109,10 +99,10 @@
           };
         }) // {
       nixosConfigurations = {
-        chaos = mkSystem "x86_64-linux" "chaos";
-        space = mkSystem "x86_64-linux" "space";
-        living = mkSystem "aarch64-linux" "living";
-        entropy = mkSystem "aarch64-linux" "entropy";
+        chaos = mkSystem "x86_64-linux" "chaos" [];
+        space = mkSystem "x86_64-linux" "space" [];
+        living = mkSystem "aarch64-linux" "living" [];
+        entropy = mkSystem "aarch64-linux" "entropy" [ hardware.nixosModules.raspberry-pi-4 ];
       };
     };
 }

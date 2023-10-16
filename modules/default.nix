@@ -79,6 +79,7 @@ in {
       file
       jq
       lsof
+      htop
       pciutils
       ripgrep
       strace
@@ -86,6 +87,8 @@ in {
       wget
       zip
       dnsutils
+      nmap
+      binutils
     ] ++ cfg.extraSystemPackages;
 
     systemd.extraConfig = ''
