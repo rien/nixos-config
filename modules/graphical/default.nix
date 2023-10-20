@@ -133,7 +133,7 @@ in {
           serif = [ "Fira" ];
         };
       };
-      fonts = with pkgs; [
+      packages = with pkgs; [
         orbitron
         roboto
         roboto-mono
@@ -148,6 +148,7 @@ in {
         symbola
         noto-fonts-emoji
         comic-relief
+        corefonts
       ];
     };
 
