@@ -11,16 +11,16 @@ in
       example = true;
     };
 
-    dnsCredentialsFile = mkOption {
-      example = "/run/agenix/dns-api-key";
-    };
-
     certificateDomains = mkOption {
       default = [];
       example = [
         {
           domain = "example.com";
           extra = [ "a.example.com" "b.example.com" ];
+          dns = {
+            dnsProvider = "mydns";
+            dnsCredentialsFile = "/run/agenix/dns-api-key";
+          };
         }
       ];
     };
@@ -32,16 +32,13 @@ in
 
     security.acme = {
       acceptTerms = true;
-      defaults = {
-        email = personal.email;
-        dnsProvider = "hetzner";
-        credentialsFile = cfg.dnsCredentialsFile;
-      };
+      defaults.email = personal.email;
 
       certs = builtins.listToAttrs (map
         (item: {
           name = item.domain;
           value = {
+            inherit (item.dns) dnsProvider environmentFile;
             extraDomainNames = item.extra;
           };
         })

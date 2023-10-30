@@ -34,6 +34,10 @@ in
       file = ./hetzner-api-key.age;
       owner = "acme";
     };
+    "ovh-api-key" = {
+      file = ./ovh-api-key.age;
+      owner = "acme";
+    };
     "opendkim.private" = {
       file = ./opendkim.private.age;
       path = "/var/lib/opendkim/keys/opendkim.private";
@@ -107,19 +111,30 @@ in
 
     nginx = {
       enable = true;
-      dnsCredentialsFile = "/run/agenix/hetzner-api-key";
-      certificateDomains = [
+      certificateDomains = let
+        hetzner = {
+          dnsProvider = "hetzner";
+          environmentFile = "/run/agenix/hetzner-api-key";
+        };
+        ovh = {
+          dnsProvider = "ovh";
+          environmentFile = "/run/agenix/ovh-api-key";
+        };
+      in [
         {
           domain = "maertens.io";
           extra = [ "*.maertens.io" ];
+          dns = hetzner;
         }
         {
           domain = "rxn.be";
           extra = ["*.rxn.be"];
+          dns = hetzner;
         }
         {
           domain = "theatervolta.be";
           extra = [ "*.theatervolta.be" "voltaprojects.be" "*.voltaprojects.be" ];
+          dns = ovh;
         }
       ];
     };
