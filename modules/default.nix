@@ -204,7 +204,8 @@ in {
     };
 
     nixpkgs.config.permittedInsecurePackages = [
-      "electron-13.6.9"
+      "electron-24.8.6"
+      "zotero-6.0.27"
     ];
 
     boot.tmp.useTmpfs = true;

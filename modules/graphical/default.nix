@@ -224,6 +224,7 @@ in {
         };
       };
 
+      services.screen-locker.xautolock.enable = false;
       services.screen-locker.lockCmd = "${slockWrapped}/bin/slock";
       services.gnome-keyring = {
         enable = true;

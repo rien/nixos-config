@@ -156,6 +156,7 @@
       zotero
       openscad
       obsidian
+      nmap
       #freecad
       #ncspot
       #colmap
