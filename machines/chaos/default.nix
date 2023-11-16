@@ -8,8 +8,8 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  networking.firewall.allowedTCPPorts = [ 10999 20595 ];
-  networking.firewall.allowedUDPPorts = [ 10999 20595 ];
+  networking.firewall.allowedTCPPorts = [ 10999 20595 8000 ];
+  networking.firewall.allowedUDPPorts = [ 10999 20595 8000 ];
 
   programs.steam = {
     enable = true;
@@ -105,11 +105,14 @@
 
       };
     in [
+      protonup-qt
       hyperfine
+      element-desktop
+      prismlauncher
       #orca-c
       #qsynth
       #retroarch
-      #lutris
+      lutris
       bitwig-studio
       feh
       #wesnoth
@@ -132,7 +135,7 @@
       gimp
       imagemagick
       libqalculate
-      #minecraft
+      minecraft
       mpv
       #mumble
       obs-studio

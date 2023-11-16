@@ -21,11 +21,7 @@
   '';
 
   # WARNING: don't bump kernel version without checking zfs support!
-  boot.kernelPackages = if lib.versionOlder pkgs.linuxPackages.kernel.version "5.15" 
-    then pkgs.linuxPackages_5_15.extend (final: prev: {
-      zfs = prev.zfs.overrideAttrs (_: { meta.broken = false; });
-    })
-    else pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages;
 
   boot.blacklistedKernelModules = [ "psmouse" ];
   services.fwupd.enable = true;
