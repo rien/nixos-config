@@ -55,6 +55,7 @@
     dwarffortress.enable = false;
     git.enable = true;
     gnupg.enable = true;
+    sound.enable = true;
     graphical.enable = true;
     kitty.enable = true;
     neovim.enable = true;

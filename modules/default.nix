@@ -12,6 +12,7 @@ in {
     ./git.nix
     ./gnupg.nix
     ./graphical
+    #./graphical/kde.nix
     ./home-assistant.nix
     ./intellij.nix
     ./kitty.nix
@@ -25,6 +26,7 @@ in {
     ./pass.nix
     ./photoprism.nix
     ./postfix
+    ./sound.nix
     ./ssh
     ./sshd.nix
     ./syncthing-client.nix
