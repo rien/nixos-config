@@ -12,7 +12,7 @@ in {
     ./git.nix
     ./gnupg.nix
     ./graphical
-    #./graphical/kde.nix
+    ./graphical/wayland
     ./home-assistant.nix
     ./intellij.nix
     ./kitty.nix

@@ -55,23 +55,9 @@ in {
       default = false;
       example = true;
     };
-
-    soundsystem = mkOption {
-      default = "pipewire";
-      example = "pulseaudio";
-    };
   };
 
   config = mkIf cfg.enable {
-
-    assertions = [
-      {
-        assertion = (cfg.soundsystem == "pipewire" || cfg.soundsystem == "pulseaudio");
-        message = "soundsystem should be either pipewire or pulseaudio";
-      }
-    ];
-
-
 
 
     # Enable X11 and fix touchpad
