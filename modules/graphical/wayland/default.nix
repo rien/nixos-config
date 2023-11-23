@@ -22,7 +22,7 @@ in {
         options = [ "caps:none" ];
       };
 
-      home.packages = with pkgs; [ pamixer playerctl wlr-randr nwg-displays gnome.adwaita-icon-theme adwaita-qt wofi swww xdg-desktop-portal-hyprland xdg-desktop-portal-gtk ];
+      home.packages = with pkgs; [ pamixer playerctl wlr-randr nwg-displays gnome.adwaita-icon-theme adwaita-qt wofi swww xdg-desktop-portal-hyprland xdg-desktop-portal-gtk swaylock ];
 
       wayland.windowManager.hyprland = {
         enable = true;
@@ -44,6 +44,8 @@ in {
         };
       };
     };
+
+    security.pam.services.swaylock = {};
 
     fonts = {
       fontDir.enable = true;
