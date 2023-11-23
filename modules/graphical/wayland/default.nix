@@ -22,7 +22,7 @@ in {
         options = [ "caps:none" ];
       };
 
-      home.packages = with pkgs; [ pamixer playerctl wlr-randr nwg-displays gnome.adwaita-icon-theme adwaita-qt wofi swww xdg-desktop-portal-hyprland xdg-desktop-portal-gtk swaylock ];
+      home.packages = with pkgs; [ pamixer playerctl wlr-randr nwg-displays gnome.adwaita-icon-theme adwaita-qt wofi swww  swaylock ];
 
       wayland.windowManager.hyprland = {
         enable = true;
@@ -33,19 +33,16 @@ in {
       programs.waybar = {
         enable = true;
         systemd.enable = true;
-        settings = {
-          mainBar = {
-            layer = "top";
-            spacing = 2;
-            modules-left = [ "hyprland/workspaces" ];
-            modules-center = [ "hyprland/window" ];
-            modules-right = [ "mpris" "pulseaudio" "network" "battery" "clock" ];
-          };
-        };
+        settings = import ./waybar.nix;
       };
     };
 
     security.pam.services.swaylock = {};
+
+    xdg.portal = {
+      enable = true;
+      extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-hyprland ];
+    };
 
     fonts = {
       fontDir.enable = true;
