@@ -18,8 +18,8 @@ in {
         java11 = jdk11;
         java17 = jdk17;
         java20 = jdk20;
-        ruby_3_0 = ruby_3_0;
         ruby_3_1 = ruby_3_1;
+        ruby_3_2 = ruby_3_2;
         openjfx = openjfx;
         scenebuilder = scenebuilder;
         python = python3;

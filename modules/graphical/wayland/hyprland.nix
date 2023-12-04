@@ -78,7 +78,7 @@
     "$mod, Q, exit,"
     "$mod, E, exec, dolphin"
     "$mod, V, togglefloating,"
-    "$mod, R, exec, wofi --show drun"
+    "$mod, R, exec, kickoff"
     "$mod, P, pseudo, # dwindle"
     "$mod, J, togglesplit, # dwindle"
 
@@ -89,16 +89,28 @@
     "$mod, down, movefocus, d"
 
     # Switch workspaces with mainMod + [0-9]
+    "$mod, 1, moveworkspacetomonitor, 1 current"
     "$mod, 1, workspace, 1"
+    "$mod, 2, moveworkspacetomonitor, 2 current"
     "$mod, 2, workspace, 2"
+    "$mod, 3, moveworkspacetomonitor, 3 current"
     "$mod, 3, workspace, 3"
+    "$mod, 4, moveworkspacetomonitor, 4 current"
     "$mod, 4, workspace, 4"
+    "$mod, 5, moveworkspacetomonitor, 5 current"
     "$mod, 5, workspace, 5"
+    "$mod, 6, moveworkspacetomonitor, 6 current"
     "$mod, 6, workspace, 6"
+    "$mod, 7, moveworkspacetomonitor, 7 current"
     "$mod, 7, workspace, 7"
+    "$mod, 8, moveworkspacetomonitor, 8 current"
     "$mod, 8, workspace, 8"
+    "$mod, 9, moveworkspacetomonitor, 9 current"
     "$mod, 9, workspace, 9"
+    "$mod, 0, moveworkspacetomonitor, 10 current"
     "$mod, 0, workspace, 10"
+
+
 
     # Move active window to a workspace with mainMod + SHIFT + [0-9]
     "$mod SHIFT, 1, movetoworkspace, 1"
