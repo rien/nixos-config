@@ -4,12 +4,19 @@
   imports = [ ./hardware-configuration.nix ];
 
   age.identityPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  age.secrets."media-key".file = ./chaos_key.age;
+  age.secrets = {
+    "media-key".file = ./chaos_key.age;
+    "vpn-conf".file = ./vpn-conf.age;
+  };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
   networking.firewall.allowedTCPPorts = [ 10999 20595 8000 ];
   networking.firewall.allowedUDPPorts = [ 10999 20595 8000 ];
+
+  services.openvpn.servers = {
+    bagofholding = { config = ''config /run/agenix/vpn-conf''; };
+  };
 
   programs.steam = {
     enable = true;
@@ -95,22 +102,23 @@
     ];
 
     extraHomePackages = with pkgs; let
-      cura = stdenv.mkDerivation {
-        name = "curaWrapped";
-        nativeBuildInputs = [ glib wrapGAppsHook gtk3 ];
-        buildCommand = ''
-          gappsWrapperArgsHook
+      #cura = stdenv.mkDerivation {
+      #  name = "curaWrapped";
+      #  nativeBuildInputs = [ glib wrapGAppsHook gtk3 ];
+      #  buildCommand = ''
+      #    gappsWrapperArgsHook
 
-          makeWrapper ${pkgs.cura}/bin/cura $out/bin/cura \
-            ''${gappsWrapperArgs[@]}
-        '';
+      #    makeWrapper ${pkgs.cura}/bin/cura $out/bin/cura \
+      #      ''${gappsWrapperArgs[@]}
+      #  '';
 
-      };
+      #};
     in [
       protonup-qt
       hyperfine
       element-desktop
       prismlauncher
+      cura
       #orca-c
       #qsynth
       #retroarch

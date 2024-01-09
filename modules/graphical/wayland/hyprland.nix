@@ -13,6 +13,7 @@
     repeat_delay = "175";
 
     follow_mouse = "1";
+    mouse_refocus = false;
 
     touchpad = {
         middle_button_emulation = "true";
@@ -68,6 +69,10 @@
       workspace_swipe = true;
       workspace_swipe_fingers = 3;
   };
+
+  windowrule = [
+    "center, class: jetbrains-idea"
+  ];
 
   "$mod" = "SUPER";
   bind = [

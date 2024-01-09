@@ -17,7 +17,7 @@ in {
         rust-src = rust.packages.stable.rustPlatform.rustLibSrc;
         java11 = jdk11;
         java17 = jdk17;
-        java20 = jdk20;
+        java21 = jdk21;
         ruby_3_1 = ruby_3_1;
         ruby_3_2 = ruby_3_2;
         openjfx = openjfx;

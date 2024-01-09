@@ -39,6 +39,7 @@ in {
     services.mastodon = {
       enable = true;
       configureNginx = true;
+      streamingProcesses = 1;
 
       # Postfix should already be enabled
       smtp = {
