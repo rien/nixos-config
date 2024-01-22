@@ -32,7 +32,6 @@
   services.printing.drivers = [ pkgs.hplip ];
 
   virtualisation.virtualbox.host.enable = true;
-  #virtualisation.virtualbox.host.enableExtensionPack = true;
   users.extraGroups.vboxusers.members = [ "rien" ];
   system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
@@ -64,30 +63,19 @@
     gnupg.enable = true;
     sound.enable = true;
     graphical.hyprland.enable = true;
-    #graphical.enable = true;
     kitty.enable = true;
     neovim.enable = true;
     pass.enable = true;
     ssh.enable = true;
-    zeroad.enable = true;
     mail = {
       enable = true;
       thunderbird = true;
     };
-    #vpnc.enable = true;
     ugent-vpn.enable = true;
     tor.enable = true;
     intellij.enable = true;
     syncthing-client.enable = true;
     wireshark.enable = true;
-    #vscode.enable = false;
-
-    dodona-mailer.enable = true;
-
-    #minidlna = {
-    #  enable = false;
-    #  dirs = [ "/data/music/" "/mnt/media/transmission/complete/" ];
-    #};
 
     mounts.ugent.enable = true;
     mounts.media = {
@@ -101,43 +89,20 @@
       ntfs3g
     ];
 
-    extraHomePackages = with pkgs; let
-      #cura = stdenv.mkDerivation {
-      #  name = "curaWrapped";
-      #  nativeBuildInputs = [ glib wrapGAppsHook gtk3 ];
-      #  buildCommand = ''
-      #    gappsWrapperArgsHook
-
-      #    makeWrapper ${pkgs.cura}/bin/cura $out/bin/cura \
-      #      ''${gappsWrapperArgs[@]}
-      #  '';
-
-      #};
-    in [
+    extraHomePackages = with pkgs; [
       protonup-qt
       hyperfine
-      element-desktop
       prismlauncher
       cura
-      #orca-c
-      #qsynth
-      #retroarch
       lutris
       bitwig-studio
       feh
-      #wesnoth
       inkscape
       texlive.combined.scheme-full
       pandoc
-      #beancount
       wine-staging
-      #android-studio
-      weechat
       binutils
       python3Packages.binwalk
-      #citrix_workspace
-      #cura
-      #blender
       audacity
       discord
       ffmpeg-full
@@ -145,38 +110,18 @@
       gimp
       imagemagick
       libqalculate
-      minecraft
       mpv
-      #mumble
       obs-studio
       okular
-      #protontricks
       qview
-      qutebrowser
-      #remmina
-      sent
       signal-desktop
-      #spotify-tui
       steam-run
-      #krita
-      #remarkable-mouse
-      #teams
       teams-for-linux
-      #teeworlds
       yt-dlp
       zathura
-      #openttd
       zotero
-      openscad
       obsidian
       nmap
-      #freecad
-      #ncspot
-      #colmap
-      #python3Packages.ds4drv
-      #godot
-      #termdown
-      #zoom-us
       ungoogled-chromium
     ];
 
@@ -196,11 +141,6 @@
   # Required for ZFS
   networking.hostId = "04cdf13e";
   networking.timeServers = [ "ntp.ugent.be" "2.nixos.pool.ntp.org" ];
-
-  #networking.interfaces.enp0s13f0u3u2 = {
-  #  useDHCP = true;
-  #  neededForBoot = false;
-  #};
 
 }
 

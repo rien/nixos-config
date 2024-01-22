@@ -24,15 +24,11 @@ let
     name, address, host ? "", imapHost ? host, smtpHost ? host,
     useStartTls ? false, passFile, extraConfig ? { }, primary ? false,
     userName ? address, signature ? personal.defaultSignature, mbsync ? true,
-    folders ? null, oauth ? null, signByDefault ? true, extraFolderPatterns ? []
+    folders ? null, oauth ? null, extraFolderPatterns ? []
   }: (
     lib.recursiveUpdate
     {
       inherit address primary userName;
-      gpg = {
-        inherit signByDefault;
-        key = personal.gpgKey;
-      };
       imap = {
         host = imapHost;
         port = 993;

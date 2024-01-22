@@ -209,6 +209,7 @@ in {
       "electron-24.8.6"
       "electron-25.9.0"
       "zotero-6.0.27"
+      "qtwebkit-5.212.0-alpha4"
     ];
 
     boot.tmp.useTmpfs = true;
