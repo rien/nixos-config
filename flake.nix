@@ -2,14 +2,19 @@
   description = "Nixos configuration";
 
   inputs = {
-    #nixpkgs.url = "github:rien/nixpkgs/master";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs23.url = "github:NixOS/nixpkgs/5e4c2ada4fcd54b99d56d7bd62f384511a7e2593";
+    systems.url = "github:nix-systems/default";
     flake-utils = {
       url = "github:numtide/flake-utils/main";
+      inputs.systems.follows = "systems";
     };
     devshell = {
       url = "github:numtide/devshell";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -17,7 +22,11 @@
     };
     agenix = {
       url = "github:ryantm/agenix/main";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        systems.follows = "systems";
+      };
     };
     zeroad = {
       url = "github:chvp/0ad-flake";
@@ -28,10 +37,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, agenix, zeroad, devshell, hardware }:
+  outputs = { self, nixpkgs, nixpkgs23, home-manager, flake-utils, agenix, zeroad, devshell, hardware, systems }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
+        inherit system;
+      };
+      pkgsFor23 = system: import nixpkgs23 {
         inherit system;
       };
       mkSystem = system: hostname: extraModules: nixpkgs.lib.nixosSystem {
@@ -57,6 +69,9 @@
                       --set LEGO_DISABLE_CNAME_SUPPORT true
                   '';
                 };
+              })
+              (self: super: {
+                postgresql_11 = (pkgsFor23 system).postgresql_11;
               })
             ];
           })

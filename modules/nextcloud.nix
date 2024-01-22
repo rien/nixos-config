@@ -75,7 +75,7 @@ in {
       };
       postgresql = {
         enable = true;
-        package = pkgs.postgresql_12;
+        package = pkgs.postgresql_11;
         ensureDatabases = [ "nextcloud" ];
         ensureUsers = [{
           name = "nextcloud";
