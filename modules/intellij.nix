@@ -35,13 +35,19 @@ in {
       extraPath = lib.makeBinPath (builtins.attrValues devSDKs);
       idea-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-ultimate [ "github-copilot" ];
       clion-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.clion [ "github-copilot" ];
+      nix-ld-path = lib.makeLibraryPath [
+        pkgs.stdenv.cc.cc
+      ];
+      nix-ld = "$(cat '${pkgs.stdenv.cc}/nix-support/dynamic-linker')";
       intellij = pkgs.runCommand "intellij"
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
           mkdir -p $out/bin
           makeWrapper ${idea-with-copilot}/bin/idea-ultimate \
             $out/bin/intellij \
-            --prefix PATH : ${extraPath}
+            --prefix PATH : ${extraPath} \
+            --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
+            --set NIX_LD "${nix-ld}"
         '';
       clion = pkgs.runCommand "clion"
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
@@ -50,7 +56,9 @@ in {
           makeWrapper ${clion-with-copilot}/bin/clion \
             $out/bin/clion \
             --set NIX_CC ${devSDKs.c}/bin/cc \
-            --prefix PATH : ${extraPath}
+            --prefix PATH : ${extraPath} \
+            --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
+            --set NIX_LD "${nix-ld}"
         '';
     in { ... }: {
       home.packages = [ intellij clion ];
