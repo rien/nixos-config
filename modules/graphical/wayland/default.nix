@@ -87,6 +87,18 @@ in {
         };
       };
 
+      services.swayidle = let
+        lock = "${pkgs.swaylock}/bin/swaylock";
+      in {
+        enable = true;
+        systemdTarget = "hyprland-session.target";
+        events = [{ event = "before-sleep"; command = lock; }];
+        timeouts = [
+          { timeout = 150; command = "${pkgs.wlopm}/bin/wlopm --off '*'"; resumeCommand = "${pkgs.wlopm}/bin/wlopm --on '*'"; }
+          { timeout = 300; command = lock; }
+        ];
+      };
+
       systemd.user.services.swww = {
         Unit = {
           Description = "A Solution to your Wayland Wallpaper Woes";
