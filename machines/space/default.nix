@@ -26,6 +26,10 @@ in
       owner = "nginx";
       file = ./syncthing-auth.age;
     };
+    "static-sites-auth" = {
+      owner = "nginx";
+      file = ./static-sites-auth.age;
+    };
     "fava-auth"= {
       owner = "nginx";
       file = ./fava-auth.age;
