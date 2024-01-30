@@ -88,20 +88,11 @@ in
     neovim.enable = true;
     sshd.enable = true;
 
-    vaultwarden = {
+    postgres = {
       enable = true;
-      hostname = "vault.rxn.be";
-      backupDir = "/var/lib/vaultwarden-backups";
-      environmentFile = "/run/agenix/vaultwarden-env";
-    };
-
-    mastodon = {
-      enable = true;
-      localDomain = "toot.rxn.be";
-      vapidPublicKeyFile = "/run/agenix/mastodon-vapid-pubkey";
-      vapidPrivateKeyFile = "/run/agenix/mastodon-vapid-privkey";
-      secretKeyBaseFile = "/run/agenix/mastodon-secretkey";
-      otpSecretFile = "/run/agenix/mastodon-otpsecret";
+      # Important: run update script before changing this
+      package = pkgs.postgresql_16;
+      backupLocation = "/var/lib/postgres-backups/";
     };
 
     photoprism = {
@@ -144,7 +135,7 @@ in
     };
 
     nextcloud = {
-      enable = true;
+      enable = false;
       hostname = "cloud.rxn.be";
       adminpassFile = "/run/agenix/nextcloud-adminpass";
     };
@@ -166,16 +157,6 @@ in
       hostname = "sync.rxn.be";
       basicAuthFile = "/run/agenix/syncthing-auth";
     };
-    fava = {
-      enable = true;
-      hostname = "fin.rxn.be";
-      basicAuthFile = "/run/agenix/fava-auth";
-      journalFiles = [
-        "rien.beancount"
-        "gedeeld.beancount"
-      ];
-    };
-    #mail.fetcher.enable = true;
 
     extraSystemPackages = with pkgs; [
       htop

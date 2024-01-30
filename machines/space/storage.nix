@@ -165,17 +165,17 @@
       ];
     };
 
-    "/var/lib/vaultwarden-backups" = {
-      device = "/data/vaultwarden-backups";
+    "/var/lib/postgres-backups" = {
+      device = "/data/postgres-backups";
       fsType = "fuse.bindfs";
       options = [
         "multithreaded"
         "x-systemd.after=data.mount"
         "x-systemd.requires=data.mount"
-        "x-systemd.before=backup-vaultwarden.service"
-        "x-systemd.required-by=backup-vaultwarden.service"
-        "force-user=vaultwarden"
-        "force-group=vaultwarden"
+        "x-systemd.before=postgresqlBackup.service"
+        "x-systemd.required-by=postgresqlBackup.service"
+        "force-user=postgres"
+        "force-group=postgres"
         "_netdev"
       ];
     };

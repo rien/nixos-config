@@ -26,6 +26,7 @@ in {
     ./pass.nix
     ./photoprism.nix
     ./postfix
+    ./postgres.nix
     ./sound.nix
     ./ssh
     ./sshd.nix
