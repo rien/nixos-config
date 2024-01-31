@@ -13,6 +13,10 @@ in
     ];
 
   age.secrets = {
+    "actual-auth" = {
+      owner = "nginx";
+      file = ./actual-auth.age;
+    };
     "transmission-auth" = {
       owner = "nginx";
       file = ./transmission-auth.age;
@@ -87,6 +91,12 @@ in
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
+
+    actual = {
+      enable = true;
+      basicAuthFile = "/run/agenix/actual-auth";
+      hostname = "fin.rxn.be";
+    };
 
     postgres = {
       enable = true;

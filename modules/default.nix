@@ -4,6 +4,7 @@ let
 in {
 
   imports = [
+    ./actual.nix
     ./bash.nix
     ./docker.nix
     ./dodona-mailer

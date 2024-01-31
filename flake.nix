@@ -64,6 +64,10 @@
           ({
             nixpkgs.overlays = [
               (self: super: {
+
+                # Actual budgetting server
+                actual-server = self.callPackage ./packages/actual {};
+
                 # Agenix secrets
                 agenix = agenix.packages.${system}.default;
                 lego = self.symlinkJoin {
