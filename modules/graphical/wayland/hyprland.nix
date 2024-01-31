@@ -77,7 +77,7 @@
   bind = [
     "$mod, Return, exec, kitty"
     "$mod, F, exec, firefox"
-    "$mod, L, exec, swaylock -fF -c a6e3a1"
+    "$mod, L, exec, swaylock -fF -c 303446"
     "$mod, C, killactive,"
     "$mod, Q, exit,"
     "$mod, E, exec, dolphin"

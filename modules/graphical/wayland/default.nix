@@ -88,7 +88,7 @@ in {
       };
 
       services.swayidle = let
-        lock = "${pkgs.swaylock}/bin/swaylock";
+        lock = "${pkgs.swaylock}/bin/swaylock -fF -c 303446";
       in {
         enable = true;
         systemdTarget = "hyprland-session.target";
