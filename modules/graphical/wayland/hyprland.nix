@@ -2,7 +2,10 @@
   # State configured by nwg-displays
   source = "~/.config/hypr/monitors.conf";
 
-  env = "XCURSOR_SIZE,24";
+  env = [
+    "XCURSOR_SIZE,24"
+    "WLR_NO_HARDWARE_CURSORS,1"
+  ];
 
   input = {
     kb_layout = "us";

@@ -44,17 +44,7 @@
     pkgs.android-udev-rules
   ];
 
-  services.transmission = {
-    enable = true;
-    downloadDirPermissions = "775";
-    settings = {
-      download-dir = "/home/rien/Downloads/transmission/downloaded/";
-      incomplete-dir = "/home/rien/Downloads/transmission/incomplete/";
-      encryption = 2;
-      rpc-url = "/";
-      rpc-host-whitelist-enabled = false;
-    };
-  };
+  services.ollama.enable = true;
 
   custom = {
     sshd.enable = true;
@@ -91,7 +81,16 @@
       ntfs3g
     ];
 
+    permittedInsecurePackages = [
+      "electron-24.8.6"
+      "electron-25.9.0"
+      "zotero-6.0.27"
+      "qtwebkit-5.212.0-alpha4"
+    ];
+
     extraHomePackages = with pkgs; [
+      freecad
+      blender
       protonup-qt
       hyperfine
       prismlauncher
@@ -125,6 +124,7 @@
       obsidian
       nmap
       ungoogled-chromium
+      kdenlive
     ];
 
     wireless = {

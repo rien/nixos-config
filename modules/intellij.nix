@@ -49,6 +49,16 @@ in {
             --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
             --set NIX_LD "${nix-ld}"
         '';
+      pycharm = pkgs.runCommand "pycharm"
+        { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+        ''
+          mkdir -p $out/bin
+          makeWrapper ${pkgs.jetbrains.pycharm-professional}/bin/pycharm-professional \
+            $out/bin/pycharm \
+            --prefix PATH : ${extraPath} \
+            --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
+            --set NIX_LD "${nix-ld}"
+        '';
       clion = pkgs.runCommand "clion"
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
@@ -61,7 +71,7 @@ in {
             --set NIX_LD "${nix-ld}"
         '';
     in { ... }: {
-      home.packages = [ intellij clion ];
+      home.packages = [ intellij clion pycharm ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;

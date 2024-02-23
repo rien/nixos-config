@@ -67,11 +67,21 @@ in {
     stateVersion = lib.mkOption {
       example = "21.03";
     };
+
+
+    permittedInsecurePackages = lib.mkOption {
+      default = [];
+    };
   };
 
   config = let
     personal = import ./personal.secret.nix;
   in {
+
+    services.tailscale.enable = true;
+
+    networking.nameservers = [ "100.100.100.100" "9.9.9.9" "1.1.1.1" ];
+    networking.search = [ "elk-discus.ts.net" ];
 
     security.doas = {
       enable = true;
@@ -207,12 +217,7 @@ in {
       };
     };
 
-    nixpkgs.config.permittedInsecurePackages = [
-      "electron-24.8.6"
-      "electron-25.9.0"
-      "zotero-6.0.27"
-      "qtwebkit-5.212.0-alpha4"
-    ];
+    nixpkgs.config.permittedInsecurePackages = cfg.permittedInsecurePackages;
 
     boot.tmp.useTmpfs = true;
     boot.tmp.tmpfsSize = "75%";

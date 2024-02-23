@@ -76,6 +76,7 @@ in {
 
   config = mkIf cfg.enable {
     home-manager.users.${config.custom.user} = { ... }: {
+      home.packages = [ pkgs.protonmail-bridge ];
       accounts.email = {
         maildirBasePath = "/home/${config.custom.user}/mail";
         accounts = eachAccount makeAccount;

@@ -147,6 +147,7 @@ in {
         noto-fonts-emoji
         comic-relief
         nerdfonts
+        open-sans
         # corefonts
       ];
     };
