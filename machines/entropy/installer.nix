@@ -38,6 +38,17 @@ in {
 
   networking.interfaces."wlan0".useDHCP = true;
 
+  networking.hostName = "entropy";
+  networking.useDHCP = false;
+  networking.interfaces.eth0.useDHCP = true;
+  networking.dhcpcd.extraConfig = ''
+    interface eth0
+    inform 192.168.0.2
+
+    interface wlan0
+    inform 192.168.0.3
+  '';
+
   users.users.root = {
     openssh.authorizedKeys.keys = with personal.sshKeys; [ chaos ];
   };

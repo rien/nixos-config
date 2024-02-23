@@ -18,6 +18,14 @@ in
       file = ./hass-basic-auth.age;
       owner = "nginx";
     };
+    "cert.crt" = {
+      file = ./cert.crt.age;
+      owner = "nginx";
+    };
+    "cert.key" = {
+      file = ./cert.key.age;
+      owner = "nginx";
+    };
   };
 
   users.users.rien.extraGroups = [ "wheel" ];
@@ -26,22 +34,15 @@ in
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
-
     hostname = "entropy";
 
-    nginx = {
-      enable = true;
-      dnsCredentialsFile = "/run/agenix/hetzner-api-key";
-      certificateDomains = [{
-        domain = "entropy.rxn.be";
-        extra = [ "home.rxn.be" ];
-      }];
-    };
+    nginx.enable = true;
 
     home-assistant = {
       enable = true;
-      hostname = "entropy.rxn.be";
-      basicAuthFile = "/run/agenix/hass-basic-auth";
+      hostname = "entropy.elk-discus.ts.net";
+      sslCertificate = "/run/agenix/cert.crt";
+      sslCertificateKey = "/run/agenix/cert.key";
     };
 
     extraSystemPackages = with pkgs; [
@@ -55,6 +56,7 @@ in
     stateVersion = "23.11";
   };
 
+  networking.hostName = "entropy";
   networking.useDHCP = false;
   networking.interfaces.eth0.useDHCP = true;
   networking.dhcpcd.extraConfig = ''
