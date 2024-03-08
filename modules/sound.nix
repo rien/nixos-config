@@ -16,7 +16,7 @@ in {
 
     services.avahi = {
       enable = true;
-      nssmdns = true;
+      nssmdns4 = true;
     };
 
     services.pipewire = {
@@ -27,38 +27,43 @@ in {
       pulse.enable = true;
     };
 
-    environment.etc = {
-      "wireplumber/bluetooth.lua.d/51-bluez-config.lua".text = ''
+    services.pipewire.wireplumber.configPackages = [
+      (pkgs.writeTextDir "share/wireplumber/bluetooth.lua.d/51-bluez-config.lua" ''
         bluez_monitor.properties = {
           ["bluez5.enable-sbc-xq"] = true,
           ["bluez5.enable-msbc"] = true,
           ["bluez5.enable-hw-volume"] = true,
           ["bluez5.headset-roles"] = "[ hsp_hs hsp_ag hfp_hf hfp_ag ]"
         }
-      '';
+      '')
+    ];
 
-      "pipewire/pipewire.d/90-raop-airplay.conf".source = json.generate "90-raop-airplay.conf" {
-        context.modules = [{
-          name = "libpipewire-raop-discover";
-          args = {
-            stream.rules = [{
-              matches = [{
-                raop.ip = "~.*";
-              }];
-              actions = {
-                create-stream = {
-                   #raop.password = ""
-                   stream.props = {
-                     #target.object = ""
-                     #media.class = "Audio/Sink"
-                   };
+    services.pipewire.configPackages = [
+      (pkgs.writeTextDir
+        "pipewire/pipewire.d/90-raop-airplay.conf"
+        (json.generate "90-raop-airplay.conf" {
+          context.modules = [{
+            name = "libpipewire-raop-discover";
+            args = {
+              stream.rules = [{
+                matches = [{
+                  raop.ip = "~.*";
+                }];
+                actions = {
+                  create-stream = {
+                     #raop.password = ""
+                     stream.props = {
+                       #target.object = ""
+                       #media.class = "Audio/Sink"
+                     };
+                  };
                 };
-              };
-            }];
-          };
-        }];
-      };
-    };
+              }];
+            };
+          }];
+        })
+      )
+    ];
 
     security.rtkit.enable = true;
 

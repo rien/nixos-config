@@ -117,6 +117,10 @@ in {
 
     xdg.portal = {
       enable = true;
+      config.preferred = {
+        default = "gtk";
+        "org.freedesktop.impl.portal.Screencast" = "hyprland";
+      };
       extraPortals = with pkgs; [ xdg-desktop-portal-gtk xdg-desktop-portal-hyprland ];
     };
 
