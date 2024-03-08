@@ -99,15 +99,15 @@ in {
         ];
       };
 
-      systemd.user.services.swww = {
+      systemd.user.services.swaybg = {
         Unit = {
-          Description = "A Solution to your Wayland Wallpaper Woes";
+          Description = "A Simple background";
           After = [ "hyprland-session.target" ];
           PartOf = [ "hyprland-session.target" ];
         };
         Service = {
-          Environment = [ "PATH=${lib.makeBinPath [ pkgs.swww ]}" ];
-          ExecStart = "${ pkgs.swww }/bin/swww init --no-daemon";
+          Environment = [ "PATH=${lib.makeBinPath [ pkgs.swaybg ]}" ];
+          ExecStart = "${pkgs.swaybg}/bin/swaybg -m fill -i /home/rien/pictures/Sollee.png";
         };
         Install.WantedBy = [ "hyprland-session.target" ];
       };
