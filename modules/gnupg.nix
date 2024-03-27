@@ -19,7 +19,6 @@ in
         defaultCacheTtl = 7200;
         defaultCacheTtlSsh = 7200;
         maxCacheTtl = 99999;
-        pinentryFlavor = "qt";
       };
     };
   };

@@ -89,6 +89,7 @@
     ];
 
     extraHomePackages = with pkgs; [
+      brightnessctl
       freecad
       blender
       protonup-qt

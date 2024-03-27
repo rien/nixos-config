@@ -78,10 +78,9 @@ in {
     personal = import ./personal.secret.nix;
   in {
 
-    services.tailscale.enable = true;
-
-    networking.nameservers = [ "100.100.100.100" "9.9.9.9" "1.1.1.1" ];
-    networking.search = [ "elk-discus.ts.net" ];
+    # services.tailscale.enable = true;
+    # networking.nameservers = [ "100.100.100.100" "9.9.9.9" "1.1.1.1" ];
+    # networking.search = [ "elk-discus.ts.net" ];
 
     security.doas = {
       enable = true;

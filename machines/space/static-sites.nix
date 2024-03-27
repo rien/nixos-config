@@ -40,7 +40,7 @@ in {
         useACMEHost = "rxn.be";
         addSSL = true;
         locations."/" = {
-          return = "302 https://toot.rxn.be/@rien";
+          return = "302 https://ohai.social/@rien";
         };
       };
       "rien.maertens.io" = {

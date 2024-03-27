@@ -34,6 +34,7 @@ in {
         enable = true;
         systemd.enable = true;
         settings = import ./waybar.nix;
+        package = pkgs.waybar.override { wireplumberSupport = false; };
       };
 
       services.dunst = {
