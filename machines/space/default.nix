@@ -17,10 +17,6 @@ in
       owner = "nginx";
       file = ./actual-auth.age;
     };
-    "transmission-auth" = {
-      owner = "nginx";
-      file = ./transmission-auth.age;
-    };
     "postfix-sasl".file = ./postfix-sasl.age;
     "nextcloud-adminpass"= {
       owner = "nextcloud";
@@ -144,24 +140,11 @@ in
       ];
     };
 
-    nextcloud = {
-      enable = false;
-      hostname = "cloud.rxn.be";
-      adminpassFile = "/run/agenix/nextcloud-adminpass";
-    };
-
-    transmission = {
-      enable = true;
-      domain = "transmission.rxn.be";
-      download-dir = "/var/lib/transmission/data/complete";
-      incomplete-dir = "/var/lib/transmission/data/incomplete";
-      basicAuthFile = "/run/agenix/transmission-auth";
-      port = secret.transmission.port;
-    };
     postfix = {
       enable = true;
       loginFile = "/run/agenix/postfix-sasl";
     };
+
     syncthing-server = {
       enable = true;
       hostname = "sync.rxn.be";
@@ -171,6 +154,7 @@ in
     extraSystemPackages = with pkgs; [
       htop
     ];
+
     stateVersion = "20.03";
   };
 

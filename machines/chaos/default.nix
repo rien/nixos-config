@@ -89,6 +89,8 @@
     ];
 
     extraHomePackages = with pkgs; [
+      _1password-gui
+      _1password
       brightnessctl
       freecad
       blender

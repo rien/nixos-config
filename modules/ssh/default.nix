@@ -14,6 +14,7 @@ in
       programs.ssh = {
         enable = true;
         matchBlocks = import ./hosts.secret.nix;
+        extraConfig = "IdentityAgent ~/.1password/agent.sock";
       };
     };
   };
