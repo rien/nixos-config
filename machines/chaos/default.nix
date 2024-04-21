@@ -62,6 +62,10 @@
     mail = {
       enable = true;
       thunderbird = true;
+      protonbridge = {
+        enable = true;
+        certificate = builtins.readFile ./bridge.pem;
+      };
     };
     ugent-vpn.enable = true;
     tor.enable = true;

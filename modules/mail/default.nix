@@ -72,15 +72,39 @@ in {
       example = true;
       default = false;
     };
+
+    protonbridge = {
+      enable = mkOption {
+        example = true;
+        default = false;
+      };
+      certificate = mkOption {};
+    };
   };
 
   config = mkIf cfg.enable {
+
+    security.pki.certificates = mkIf cfg.protonbridge.enable [ cfg.protonbridge.certificate ];
+
     home-manager.users.${config.custom.user} = { ... }: {
       home.packages = [ pkgs.protonmail-bridge ];
       accounts.email = {
         maildirBasePath = "/home/${config.custom.user}/mail";
         accounts = eachAccount makeAccount;
       };
+
+      systemd.user.services.protonmail-bridgee = mkIf cfg.protonbridge {
+        Unit = {
+          Description = "Proton Mail Bridge";
+          After = [ "network.target" ];
+        };
+        Service = {
+          Restart = "always";
+          ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --no-window --noninteractive";
+        };
+        Install.WantedBy = [ "default.target" ];
+      };
+
       programs = {
         thunderbird = mkIf cfg.thunderbird {
           enable = true;
