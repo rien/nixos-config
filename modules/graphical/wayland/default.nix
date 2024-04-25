@@ -16,6 +16,11 @@ in {
 
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
 
+      services.gnome-keyring = {
+        enable = true;
+        components = [ "secrets" ];
+      };
+
       home.keyboard = {
         layout = "us";
         variant = "alt-intl";

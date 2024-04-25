@@ -21,7 +21,7 @@ let
   );
 
   makeAccount = {
-    name, address, host ? "", imapHost ? host, smtpHost ? host,
+    name, address, host ? "", imapHost ? host, imapPort ? 993, smtpHost ? host, smtpPort ? (lib.mkDefault 465),
     useStartTls ? false, passFile, extraConfig ? { }, primary ? false,
     userName ? address, signature ? personal.defaultSignature, mbsync ? true,
     folders ? null, oauth ? null, extraFolderPatterns ? []
@@ -31,12 +31,12 @@ let
       inherit address primary userName;
       imap = {
         host = imapHost;
-        port = 993;
+        port = imapPort;
         tls.enable = true;
       };
       smtp = {
         host = smtpHost;
-        port = if useStartTls then 587 else 465;
+        port = smtpPort;
         tls = {
           enable = true;
           inherit useStartTls;
@@ -93,14 +93,14 @@ in {
         accounts = eachAccount makeAccount;
       };
 
-      systemd.user.services.protonmail-bridgee = mkIf cfg.protonbridge {
+      systemd.user.services.protonmail-bridge = mkIf cfg.protonbridge.enable {
         Unit = {
           Description = "Proton Mail Bridge";
           After = [ "network.target" ];
         };
         Service = {
           Restart = "always";
-          ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --no-window --noninteractive";
+          ExecStart = "${pkgs.protonmail-bridge}/bin/protonmail-bridge --no-window --noninteractive --log-level debug";
         };
         Install.WantedBy = [ "default.target" ];
       };
