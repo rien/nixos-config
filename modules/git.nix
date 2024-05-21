@@ -14,17 +14,32 @@
         home.packages = with pkgs; [
           git-crypt
         ];
+
+        home.file.".config/git/allowed_signers".text = ''
+          ${personal.email} namespaces="git" ${personal.sshKeys.chaos}
+        '';
+
         programs.git = {
           enable = true;
+          userEmail = personal.email;
+          userName = "Rien Maertens";
           extraConfig = {
             init.defaultBranch = "main";
-            #url."ssh://git@github.com/".insteadOf = "https://github.com/";
             branch.autosetuprebase = "always";
             pull.rebase = true;
             rebase.autoStash = true;
             push.autoSetupRemote = true;
             core.autocrlf = "input";
             diff.external = "${pkgs.difftastic}/bin/difft";
+            user.signingkey = personal.sshKeys.chaos;
+            commit.gpgsign = true;
+            gpg = {
+              format = "ssh";
+              ssh = {
+                allowedSignersFile = "~/.config/git/allowed_signers";
+                program = "${pkgs._1password-gui}/bin/op-ssh-sign";
+              };
+            };
           };
           ignores = [
             ".data/"
@@ -43,12 +58,6 @@
             # syncthing
             ".stversions"
           ];
-          signing = {
-            key = personal.email;
-            signByDefault = true;
-          };
-          userEmail = personal.email;
-          userName = "Rien Maertens";
         };
       };
     in
