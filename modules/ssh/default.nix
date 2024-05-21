@@ -13,6 +13,7 @@ in
     home-manager.users.${config.custom.user} = { ... }: {
       programs.ssh = {
         enable = true;
+        forwardAgent = true;
         matchBlocks = import ./hosts.secret.nix;
         extraConfig = "IdentityAgent ~/.1password/agent.sock";
       };
