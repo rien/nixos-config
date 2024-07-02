@@ -128,6 +128,11 @@ in
           dns = hetzner;
         }
         {
+          domain = "maertens.gent";
+          extra = [ "*.maertens.gent" ];
+          dns = hetzner;
+        }
+        {
           domain = "rxn.be";
           extra = ["*.rxn.be"];
           dns = hetzner;

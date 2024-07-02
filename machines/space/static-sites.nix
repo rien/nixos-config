@@ -43,17 +43,31 @@ in {
           return = "302 https://ohai.social/@rien";
         };
       };
-      "rien.maertens.io" = {
-        useACMEHost = "maertens.io";
-        addSSL = true;
-        root = "/srv/webhost/maertens.io";
-      };
       "maertens.io" = {
         useACMEHost = "maertens.io";
         forceSSL = true;
         locations."/" = {
-          return = "302 https://rien.maertens.io";
+          return = "302 https://rien.maertens.gent";
         };
+      };
+      "rien.maertens.io" = {
+        useACMEHost = "maertens.io";
+        addSSL = true;
+        locations."/" = {
+          return = "302 https://rien.maertens.gent$request_uri";
+        };
+      };
+      "maertens.gent" = {
+        useACMEHost = "maertens.gent";
+        forceSSL = true;
+        locations."/" = {
+          return = "302 https://rien.maertens.gent";
+        };
+      };
+      "rien.maertens.gent" = {
+        useACMEHost = "maertens.gent";
+        addSSL = true;
+        root = "/srv/webhost/maertens.gent";
       };
       "theatervolta.be" = {
         serverAliases = [ "www.theatervolta.be" "voltaprojects.be" "www.voltaprojects.be" ];
