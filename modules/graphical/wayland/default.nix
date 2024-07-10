@@ -93,18 +93,6 @@ in {
         };
       };
 
-      services.swayidle = let
-        lock = "${pkgs.swaylock}/bin/swaylock -fF -c 303446";
-      in {
-        enable = true;
-        systemdTarget = "hyprland-session.target";
-        events = [{ event = "before-sleep"; command = lock; }];
-        timeouts = [
-          { timeout = 150; command = "${pkgs.wlopm}/bin/wlopm --off '*'"; resumeCommand = "${pkgs.wlopm}/bin/wlopm --on '*'"; }
-          { timeout = 300; command = lock; }
-        ];
-      };
-
       systemd.user.services.swaybg = {
         Unit = {
           Description = "A Simple background";
