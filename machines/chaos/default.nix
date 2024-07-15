@@ -96,12 +96,10 @@
       _1password-gui
       _1password
       brightnessctl
-      freecad
       blender
       protonup-qt
       hyperfine
       prismlauncher
-      cura
       lutris
       bitwig-studio
       feh

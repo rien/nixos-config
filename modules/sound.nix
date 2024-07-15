@@ -70,7 +70,7 @@ in {
     environment.systemPackages = with pkgs; [ sof-firmware ];
 
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
-      home.packages = with pkgs; [ pulseaudioFull pavucontrol patchage ];
+      home.packages = with pkgs; [ pulseaudioFull pavucontrol ];
 
       # bluetooth MIDI controls
       services.mpris-proxy.enable = true;

@@ -148,7 +148,7 @@ in {
 
     # Configure X session with Xmonad and Xmobar
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
-      home.packages = with pkgs; [ pavucontrol patchage dunst volumectl brightnessctl brightness slockWrapped screenshot gnome.adwaita-icon-theme adwaita-qt ];
+      home.packages = with pkgs; [ pavucontrol patchage dunst volumectl brightnessctl brightness slockWrapped screenshot adwaita-icon-theme adwaita-qt ];
       home.file.".xinitrc".text = "source ~/.xsession";
       home.keyboard = {
         layout = "us";
