@@ -43,8 +43,9 @@ in {
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
           mkdir -p $out/bin
+          ln -s ${idea-with-copilot}/share $out/share
           makeWrapper ${idea-with-copilot}/bin/idea-ultimate \
-            $out/bin/intellij \
+            $out/bin/intellij-ultimate \
             --prefix PATH : ${extraPath} \
             --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
             --set NIX_LD "${nix-ld}"
@@ -53,8 +54,9 @@ in {
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
           mkdir -p $out/bin
+          ln -s ${pkgs.jetbrains.pycharm-professional}/share $out/share
           makeWrapper ${pkgs.jetbrains.pycharm-professional}/bin/pycharm-professional \
-            $out/bin/pycharm \
+            $out/bin/pycharm-professional \
             --prefix PATH : ${extraPath} \
             --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
             --set NIX_LD "${nix-ld}"
@@ -63,6 +65,7 @@ in {
         { nativeBuildInputs = [ pkgs.makeWrapper ]; }
         ''
           mkdir -p $out/bin
+          ln -s ${clion-with-copilot}/share $out/share
           makeWrapper ${clion-with-copilot}/bin/clion \
             $out/bin/clion \
             --set NIX_CC ${devSDKs.c}/bin/cc \

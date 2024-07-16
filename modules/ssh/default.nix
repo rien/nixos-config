@@ -22,14 +22,14 @@ in
       systemd.user.services._1password = {
         Unit = {
           Description = "1Password system tray";
-          After = [ "hyprland-session.target" ];
-          PartOf = [ "hyprland-session.target" ];
+          After = [ "graphical-session.target" ];
+          PartOf = [ "graphical-session.target" ];
         };
         Service = {
           Environment = [ "PATH=${lib.makeBinPath [ pkgs._1password-gui ]}" ];
           ExecStart = "${pkgs._1password-gui}/bin/1password --silent";
         };
-        Install.WantedBy = [ "hyprland-session.target" ];
+        Install.WantedBy = [ "graphical-session.target" ];
       };
     };
   };

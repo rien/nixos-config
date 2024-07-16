@@ -54,7 +54,7 @@
     git.enable = true;
     gnupg.enable = true;
     sound.enable = true;
-    graphical.hyprland.enable = true;
+    graphical.plasma.enable = true;
     kitty.enable = true;
     neovim.enable = true;
     pass.enable = true;

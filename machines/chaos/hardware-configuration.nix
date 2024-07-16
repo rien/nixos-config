@@ -58,7 +58,7 @@
   hardware = {
     steam-hardware.enable = true;
     bluetooth.enable = true;
-    opengl = {
+    graphics = {
       enable = true;
       extraPackages = with pkgs; [
         vaapiIntel

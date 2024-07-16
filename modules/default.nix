@@ -14,6 +14,7 @@ in {
     ./gnupg.nix
     ./graphical
     ./graphical/wayland
+    ./graphical/plasma
     ./home-assistant.nix
     ./intellij.nix
     ./kitty.nix

@@ -12,8 +12,6 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-    sound.enable = true;
-
     services.avahi = {
       enable = true;
       nssmdns4 = true;
