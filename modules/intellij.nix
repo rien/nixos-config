@@ -45,7 +45,7 @@ in {
           mkdir -p $out/bin
           ln -s ${idea-with-copilot}/share $out/share
           makeWrapper ${idea-with-copilot}/bin/idea-ultimate \
-            $out/bin/intellij-ultimate \
+            $out/bin/idea-ultimate \
             --prefix PATH : ${extraPath} \
             --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
             --set NIX_LD "${nix-ld}"

@@ -3,17 +3,16 @@
   environment.systemPackages = with pkgs; [ sshfs bindfs ];
   fileSystems = {
     "/data" = {
-      device = "u239266@u239266.your-storagebox.de:/";
-      fsType = "fuse.sshfs";
+      device = "//u239266.your-storagebox.de/backup";
+      fsType = "cifs";
       options = [
-        "umask=0077"
-        "transform_symlinks"
         "_netdev"
-        "reconnect"
-        "identityfile=/etc/nixos/machines/space/storage/ssh_key.secret"
-        "idmap=user"
-        "x-systemd.after=network-addresses-ens3.service"
-        "x-systemd.requires=network-addresses-ens3.service"
+        "credentials=/run/agenix/storagebox-credentials"
+        "rsize=65546"
+        "wsize=126976"
+        "vers=3"
+        "iocharset=utf8"
+        "seal"
       ];
     };
 

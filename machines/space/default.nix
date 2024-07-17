@@ -71,6 +71,9 @@ in
       file = ./vaultwarden-env.age;
       owner = "vaultwarden";
     };
+    "storagebox-credentials" = {
+      file = ./storagebox-credentials.age;
+    };
   };
 
   system.activationScripts.linkDKIMtxt = {
