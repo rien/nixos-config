@@ -18,10 +18,6 @@ in
       file = ./actual-auth.age;
     };
     "postfix-sasl".file = ./postfix-sasl.age;
-    "nextcloud-adminpass"= {
-      owner = "nextcloud";
-      file = ./nextcloud-adminpass.age;
-    };
     "syncthing-auth"= {
       owner = "nginx";
       file = ./syncthing-auth.age;
@@ -47,29 +43,9 @@ in
       path = "/var/lib/opendkim/keys/opendkim.private";
       owner = "opendkim";
     };
-    "mastodon-vapid-privkey" = {
-      file = ./mastodon-vapid-privkey.age;
-      owner = "mastodon";
-    };
-    "mastodon-vapid-pubkey" = {
-      file = ./mastodon-vapid-pubkey.age;
-      owner = "mastodon";
-    };
-    "mastodon-secretkey" = {
-      file = ./mastodon-secretkey.age;
-      owner = "mastodon";
-    };
-    "mastodon-otpsecret" = {
-      file = ./mastodon-otpsecret.age;
-      owner = "mastodon";
-    };
     "photoprism-admin-password" = {
       file = ./photoprism-admin-password.age;
       owner = "photoprism";
-    };
-    "vaultwarden-env" = {
-      file = ./vaultwarden-env.age;
-      owner = "vaultwarden";
     };
     "storagebox-credentials" = {
       file = ./storagebox-credentials.age;

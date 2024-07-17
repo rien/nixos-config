@@ -1,6 +1,19 @@
 { pkgs, ... }:
 {
-  environment.systemPackages = with pkgs; [ sshfs bindfs ];
+  environment.systemPackages = with pkgs; [ bindfs ];
+
+  systemd.services.storagebox-reachable = {
+    enable = true;
+    after = [ "network-online.target" ];
+    wantedBy = [ "multi-user.target" ];
+    description = "Wait for DNS to reach storagebox";
+    serviceConfig = {
+      Type = "oneshot";
+      TimeoutStartSec="15s";
+      ExecStart="${pkgs.bash}/bin/bash -c 'until ${pkgs.dig.host}/bin/host u239266.your-storagebox.de; do sleep 1; done'";
+    };
+  };
+
   fileSystems = {
     "/data" = {
       device = "//u239266.your-storagebox.de/backup";
@@ -13,6 +26,8 @@
         "vers=3"
         "iocharset=utf8"
         "seal"
+        "x-systemd.after=storagebox-reachable.service"
+        "x-systemd.requires=storagebox-reachable.service"
       ];
     };
 
