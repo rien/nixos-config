@@ -4,6 +4,7 @@ let
 in {
 
   imports = [
+    ./autoupgrade.nix
     ./actual.nix
     ./bash.nix
     ./docker.nix

@@ -46,7 +46,10 @@
         inherit system;
         modules = [
           # Add extra input arguments to modules
-          ({ config._module.args = { util = import ./util.nix; }; })
+          ({ config._module.args = {
+            inherit self;
+            util = import ./util.nix; };
+          })
 
           # Secrets management
           agenix.nixosModules.default

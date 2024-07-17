@@ -4,6 +4,7 @@
 
   systemd.services.storagebox-reachable = {
     enable = true;
+    requires = [ "network-online.target" ];
     after = [ "network-online.target" ];
     wantedBy = [ "multi-user.target" ];
     description = "Wait for DNS to reach storagebox";

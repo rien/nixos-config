@@ -63,6 +63,9 @@ in
   networking.firewall.allowedUDPPorts = [ 3478 ];
 
   custom = {
+    autoupgrade.enable = true;
+    autoupgrade.allowReboot = true;
+
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
