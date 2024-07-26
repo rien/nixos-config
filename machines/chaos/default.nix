@@ -118,6 +118,7 @@
       imagemagick
       libqalculate
       mpv
+      nmap
       obs-studio
       okular
       qview

@@ -53,6 +53,8 @@ in {
       default = "rien";
     };
 
+    tailscale.enabled = lib.mkEnableOption "Whether to enable tailscale";
+
     hostname = lib.mkOption {
       type = lib.types.str;
     };
@@ -81,9 +83,9 @@ in {
     personal = import ./personal.secret.nix;
   in {
 
-    # services.tailscale.enable = true;
-    # networking.nameservers = [ "100.100.100.100" "9.9.9.9" "1.1.1.1" ];
-    # networking.search = [ "elk-discus.ts.net" ];
+    services.tailscale.enable = cfg.tailscale.enabled;
+    networking.nameservers = (if cfg.tailscale.enabled then [ "100.100.100.100" ] else []) ++ [ "9.9.9.9" "1.1.1.1" ];
+    networking.search = lib.mkIf cfg.tailscale.enabled [ "elk-discus.ts.net" ];
 
     security.doas = {
       enable = true;

@@ -14,6 +14,10 @@ in
       type = types.str;
       example = "wlan0";
     };
+
+    dhcp = mkOption {
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -23,6 +27,6 @@ in
       interfaces = [ cfg.device ];
       userControlled.enable = true;
     };
-    networking.interfaces."${cfg.device}".useDHCP = true;
+    networking.interfaces."${cfg.device}".useDHCP = cfg.dhcp;
   };
 }

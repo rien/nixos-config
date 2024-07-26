@@ -9,28 +9,26 @@ in
       ./hardware-configuration.nix
     ];
 
-#  age.secrets = {
-#    "hetzner-api-key" = {
-#      file = ./hetzner-api-key.age;
-#      owner = "acme";
-#    };
-#    "hass-basic-auth" = {
-#      file = ./hass-basic-auth.age;
-#      owner = "nginx";
-#    };
-#    "cert.crt" = {
-#      file = ./cert.crt.age;
-#      owner = "nginx";
-#    };
-#    "cert.key" = {
-#      file = ./cert.key.age;
-#      owner = "nginx";
-#    };
-#  };
+  age.secrets = {
+    #"hetzner-api-key" = {
+    #  file = ./hetzner-api-key.age;
+    #  owner = "acme";
+    #};
+    "hass-basic-auth" = {
+      file = ./hass-basic-auth.age;
+      owner = "nginx";
+    };
+    "cert.crt" = {
+      file = ./cert.crt.age;
+      owner = "nginx";
+    };
+    "cert.key" = {
+      file = ./cert.key.age;
+      owner = "nginx";
+    };
+  };
 
-  users.users.rien.extraGroups = [ "wheel" "networkmanager" ];
-
-  networking.networkmanager.enable = true;
+  users.users.rien.extraGroups = [ "wheel" ];
 
   programs.steam.enable = true;
 
@@ -50,19 +48,22 @@ in
     graphical.tv.enable = true;
     sound.enable = true;
 
-    # home-assistant = {
-    #  enable = true;
-    #  hostname = "entropy.elk-discus.ts.net";
-    #  sslCertificate = "/run/agenix/cert.crt";
-    #  sslCertificateKey = "/run/agenix/cert.key";
-    # };
+    home-assistant = {
+     enable = false;
+     bridgedInterface = "wlp2s0";
+     hostname = "entropy.elk-discus.ts.net";
+     sslCertificate = "/run/agenix/cert.crt";
+     sslCertificateKey = "/run/agenix/cert.key";
+    };
 
     extraSystemPackages = with pkgs; [ ungoogled-chromium ];
 
     wireless = {
-      enable = false;
+      enable = true;
       device = "wlp2s0";
     };
+
+    tailscale.enabled = true;
 
     stateVersion = "24.05";
   };
@@ -70,6 +71,7 @@ in
   networking.hostId = "39a9e79d";
   networking.hostName = "entropy";
   networking.useDHCP = false;
+
   networking.interfaces.eno0.useDHCP = true;
   networking.dhcpcd.extraConfig = ''
     interface eno0

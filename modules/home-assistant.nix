@@ -32,6 +32,10 @@ in {
     configDir = mkOption {
       default = "/var/lib/home-assistant/config";
     };
+
+    bridgedInterface = mkOption {
+      example = "eno0";
+    };
   };
 
   config = mkIf cfg.enable{
@@ -40,23 +44,27 @@ in {
       "d ${cfg.configDir} - - - - -"
     ];
 
-
-    # Enable writing to /dev/ttyUSB0
-    # users.users.hass.extraGroups = [ "dialout" ];
-    virtualisation.oci-containers = {
-      backend = "podman";
-      containers.homeassistant = {
-        autoStart = true;
-        volumes = [ "${cfg.configDir}:/config" ];
-        environment.TZ = "Europe/Brussels";
-        image = "ghcr.io/home-assistant/home-assistant:stable";
-        extraOptions = [
-          "--network=host"
-          # "--device=/dev/ttyACM0:/dev/ttyACM0"
-        ];
+    # Virtualisation with Libvirtd
+    virtualisation = {
+      libvirtd = {
+        enable = true;
+        qemuOvmf = true;
       };
     };
+    environment.systemPackages = with pkgs; [
+      virt-manager usbutils
+    ];
+    users.users.${config.custom.user}.extraGroups = [ "libvirtd" ];
 
+    # Bridged network
+    networking.bridges.br0.interfaces = [ cfg.bridgedInterface ];
+    networking.interfaces.br0 = {
+      useDHCP = false;
+      ipv4.addresses = [{
+        address = "10.0.0.2";
+        prefixLength = 24;
+      }];
+    };
 
     services.nginx.virtualHosts.${cfg.hostname} = {
       inherit (cfg) sslCertificate sslCertificateKey;
