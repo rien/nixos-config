@@ -16,6 +16,7 @@ in {
     ./graphical
     ./graphical/wayland
     ./graphical/plasma
+    ./graphical/tv.nix
     ./home-assistant.nix
     ./intellij.nix
     ./kitty.nix

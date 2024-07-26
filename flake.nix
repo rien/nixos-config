@@ -116,8 +116,7 @@
       nixosConfigurations = {
         chaos = mkSystem "x86_64-linux" "chaos" [];
         space = mkSystem "x86_64-linux" "space" [];
-        living = mkSystem "aarch64-linux" "living" [];
-        entropy = mkSystem "aarch64-linux" "entropy" [ hardware.nixosModules.raspberry-pi-4 ];
+        entropy = mkSystem "x86_64-linux" "entropy" [];
       };
     };
 }

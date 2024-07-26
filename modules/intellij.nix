@@ -25,7 +25,6 @@ in {
         python = python3;
         node = nodejs;
         yarn = yarn;
-        vuecli = nodePackages."@vue/cli";
         c = clang_14;
         make = gnumake;
         valgrind = valgrind;

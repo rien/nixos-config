@@ -9,28 +9,37 @@ in
       ./hardware-configuration.nix
     ];
 
-  age.secrets = {
-    "hetzner-api-key" = {
-      file = ./hetzner-api-key.age;
-      owner = "acme";
-    };
-    "hass-basic-auth" = {
-      file = ./hass-basic-auth.age;
-      owner = "nginx";
-    };
-    "cert.crt" = {
-      file = ./cert.crt.age;
-      owner = "nginx";
-    };
-    "cert.key" = {
-      file = ./cert.key.age;
-      owner = "nginx";
-    };
-  };
+#  age.secrets = {
+#    "hetzner-api-key" = {
+#      file = ./hetzner-api-key.age;
+#      owner = "acme";
+#    };
+#    "hass-basic-auth" = {
+#      file = ./hass-basic-auth.age;
+#      owner = "nginx";
+#    };
+#    "cert.crt" = {
+#      file = ./cert.crt.age;
+#      owner = "nginx";
+#    };
+#    "cert.key" = {
+#      file = ./cert.key.age;
+#      owner = "nginx";
+#    };
+#  };
 
-  users.users.rien.extraGroups = [ "wheel" ];
+  users.users.rien.extraGroups = [ "wheel" "networkmanager" ];
+
+  networking.networkmanager.enable = true;
+
+  programs.steam.enable = true;
 
   custom = {
+    autoupgrade = {
+      enable = true;
+      allowReboot = true;
+    };
+
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
@@ -38,33 +47,48 @@ in
 
     nginx.enable = true;
 
-    home-assistant = {
-      enable = true;
-      hostname = "entropy.elk-discus.ts.net";
-      sslCertificate = "/run/agenix/cert.crt";
-      sslCertificateKey = "/run/agenix/cert.key";
-    };
+    graphical.tv.enable = true;
+    sound.enable = true;
 
-    extraSystemPackages = with pkgs; [
-    ];
+    # home-assistant = {
+    #  enable = true;
+    #  hostname = "entropy.elk-discus.ts.net";
+    #  sslCertificate = "/run/agenix/cert.crt";
+    #  sslCertificateKey = "/run/agenix/cert.key";
+    # };
+
+    extraSystemPackages = with pkgs; [ ungoogled-chromium ];
 
     wireless = {
-      enable = true;
-      device = "wlan0";
+      enable = false;
+      device = "wlp2s0";
     };
 
-    stateVersion = "23.11";
+    stateVersion = "24.05";
   };
 
+  networking.hostId = "39a9e79d";
   networking.hostName = "entropy";
   networking.useDHCP = false;
-  networking.interfaces.eth0.useDHCP = true;
+  networking.interfaces.eno0.useDHCP = true;
   networking.dhcpcd.extraConfig = ''
-    interface eth0
+    interface eno0
     inform 192.168.0.2
 
-    interface wlan0
+    interface wlp2s0
     inform 192.168.0.3
   '';
+
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "daily";
+      options = "--delete-older-than 7d";
+    };
+    optimise = {
+      automatic = true;
+      dates = [ "daily" ];
+    };
+  };
 }
 

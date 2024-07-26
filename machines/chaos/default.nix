@@ -34,6 +34,7 @@
   services.printing.drivers = [ pkgs.hplip ];
 
   virtualisation.virtualbox.host.enable = true;
+  virtualisation.waydroid.enable = true;
   users.extraGroups.vboxusers.members = [ "rien" ];
   system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
