@@ -32,10 +32,6 @@ in {
     configDir = mkOption {
       default = "/var/lib/home-assistant/config";
     };
-
-    bridgedInterface = mkOption {
-      example = "eno0";
-    };
   };
 
   config = mkIf cfg.enable{
@@ -44,31 +40,53 @@ in {
       "d ${cfg.configDir} - - - - -"
     ];
 
-    # Virtualisation with Libvirtd
-    virtualisation = {
-      libvirtd = {
-        enable = true;
-        qemuOvmf = true;
+    # Enable writing to /dev/ttyUSB0
+    # users.users.hass.extraGroups = [ "dialout" ];
+    virtualisation.oci-containers = {
+      backend = "podman";
+      containers.homeassistant = {
+        autoStart = true;
+        volumes = [
+          "${cfg.configDir}:/config"
+          "/run/dbus:/run/dbus:ro"
+          "/etc/localtime:/etc/localtime:ro"
+        ];
+        environment.TZ = "Europe/Brussels";
+        labels."io.containers.autoupdate" = "registry";
+        image = "ghcr.io/home-assistant/home-assistant:stable";
+        extraOptions = [
+          "--network=host"
+        ];
       };
     };
-    environment.systemPackages = with pkgs; [
-      virt-manager usbutils
-    ];
-    users.users.${config.custom.user}.extraGroups = [ "libvirtd" ];
 
-    # Bridged network
-    networking.bridges.br0.interfaces = [ cfg.bridgedInterface ];
-    networking.interfaces.br0 = {
-      useDHCP = false;
-      ipv4.addresses = [{
-        address = "10.0.0.2";
-        prefixLength = 24;
-      }];
+    systemd.services.podman-update = {
+      description = "Update and prune podman containers";
+
+      restartIfChanged = false;
+      unitConfig.X-StopOnRemoval = false;
+
+      serviceConfig.Type = "oneshot";
+
+      script = ''
+        ${pkgs.podman}/bin/podman auto-update
+        ${pkgs.podman}/bin/podman system prune -f --filter until="300h"
+      '';
+
+      startAt = "daily";
+      after = [ "podman.service" ];
+      requires = [ "podman.service" ];
     };
 
+    systemd.timers.podman-update.timerConfig = {
+      Persistent = true;
+      RandomizedDelaySec = 1800;
+    };
+
+
     services.nginx.virtualHosts.${cfg.hostname} = {
-      inherit (cfg) sslCertificate sslCertificateKey;
       forceSSL = true;
+      useACMEHost = cfg.hostname;
 
       extraConfig = ''
         proxy_buffering off;

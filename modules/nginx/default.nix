@@ -39,7 +39,7 @@ in
           name = item.domain;
           value = {
             inherit (item.dns) dnsProvider environmentFile;
-            extraDomainNames = item.extra;
+            extraDomainNames = item.extra or [];
           };
         })
         cfg.certificateDomains
