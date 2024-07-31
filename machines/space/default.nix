@@ -84,7 +84,7 @@ in
     };
 
     photoprism = {
-      enable = true;
+      enable = false;
       domain = "foto.rxn.be";
       importPath = "/var/lib/photoprism/data-import";
       originalsPath = "/var/lib/photoprism/data-originals";
