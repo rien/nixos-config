@@ -68,7 +68,7 @@ in
           device = "wlp2s0";
         };
 
-        tailscale.enabled = true;
+        tailscale.enable = true;
 
         stateVersion = "24.05";
       };

@@ -51,15 +51,15 @@ in {
 
   config = let
     repo = "${pkgs.actual-server}/lib/node_modules/actual-sync";
+    linkRepo = pkgs.writeShellScript "actual-link-repo" ''
+      ln -sf ${repo}/migrations ${repo}/src ${repo}/package.json ${cfg.stateDir}/
+    '';
   in lib.mkIf cfg.enable {
     environment.systemPackages = [ pkgs.actual-server ];
 
     systemd.tmpfiles.rules = [
       "d ${cfg.stateDir}/user       - - - - -"
       "d ${cfg.stateDir}/server     - - - - - -"
-      "L ${cfg.stateDir}/migrations - - - - ${repo}/migrations"
-      "L ${cfg.stateDir}/src - - - - ${repo}/src"
-      "L ${cfg.stateDir}/package.json - - - - ${repo}/package.json"
     ];
 
     systemd.services.actual-server = let
@@ -84,6 +84,7 @@ in {
       };
       serviceConfig = {
         WorkingDirectory = cfg.stateDir;
+        ExecStartPre = linkRepo;
         ExecStart = "${pkgs.actual-server}/bin/actual-server";
         Restart = "always";
         StateDirectory = "actual-server";

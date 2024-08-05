@@ -70,6 +70,8 @@ in
     neovim.enable = true;
     sshd.enable = true;
 
+    tailscale.enable = true;
+
     actual = {
       enable = true;
       basicAuthFile = "/run/agenix/actual-auth";

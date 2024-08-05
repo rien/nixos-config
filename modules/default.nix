@@ -40,7 +40,6 @@ in {
     ./transmission.nix
     ./ugent-vpn.nix
     ./vaultwarden.nix
-    ./vscode.nix
     ./wireless
     ./wireshark.nix
     ./wireguard.nix
@@ -53,7 +52,7 @@ in {
       default = "rien";
     };
 
-    tailscale.enabled = lib.mkEnableOption "Whether to enable tailscale";
+    tailscale.enable = lib.mkEnableOption "Whether to enable tailscale";
 
     hostname = lib.mkOption {
       type = lib.types.str;
@@ -83,9 +82,9 @@ in {
     personal = import ./personal.secret.nix;
   in {
 
-    services.tailscale.enable = cfg.tailscale.enabled;
-    networking.nameservers = (if cfg.tailscale.enabled then [ "100.100.100.100" ] else []) ++ [ "9.9.9.9" "1.1.1.1" ];
-    networking.search = lib.mkIf cfg.tailscale.enabled [ "elk-discus.ts.net" ];
+    services.tailscale.enable = cfg.tailscale.enable;
+    networking.nameservers = (if cfg.tailscale.enable then [ "100.100.100.100" ] else []) ++ [ "9.9.9.9" "1.1.1.1" ];
+    networking.search = lib.mkIf cfg.tailscale.enable [ "elk-discus.ts.net" ];
 
     security.doas = {
       enable = true;

@@ -34,6 +34,7 @@ in {
       extraPath = lib.makeBinPath (builtins.attrValues devSDKs);
       idea-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-ultimate [ "github-copilot" ];
       clion-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.clion [ "github-copilot" ];
+      rust-rover-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.rust-rover [ "github-copilot" ];
       nix-ld-path = lib.makeLibraryPath [
         pkgs.stdenv.cc.cc
       ];
@@ -72,8 +73,20 @@ in {
             --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
             --set NIX_LD "${nix-ld}"
         '';
+      rust-rover = pkgs.runCommand "rust-rover"
+        { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+        ''
+          mkdir -p $out/bin
+          ln -s ${rust-rover-with-copilot}/share $out/share
+          makeWrapper ${rust-rover-with-copilot}/bin/rust-rover \
+            $out/bin/rust-rover \
+            --set NIX_CC ${devSDKs.c}/bin/cc \
+            --prefix PATH : ${extraPath} \
+            --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
+            --set NIX_LD "${nix-ld}"
+        '';
     in { ... }: {
-      home.packages = [ intellij clion pycharm ];
+      home.packages = [ intellij clion pycharm rust-rover ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;

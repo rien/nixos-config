@@ -8,16 +8,16 @@
 }:
 buildNpmPackage rec {
   pname = "actual-server";
-  version = "24.7.0";
+  version = "24.8.0";
 
   src = fetchFromGitHub {
     owner = "actualbudget";
     repo = pname;
     rev = "refs/tags/v${version}";
-    hash = "sha256-WpHjXrofOHYr7CiodWzoE688R1pbDPbVCA4aSXMolNM=";
+    hash = "sha256-0AiUsO+jK3F+ClBVSzngKSHanQO5w+DQfDKvWVHCnSo=";
   };
 
-  npmDepsHash = "sha256-fF9cE5rBt9MAnPFdMPCRbDo1jIhyOg15B5IXlZuqoTY=";
+  npmDepsHash = "sha256-ROicjrzSZi8yGAsEL12og5ZuRW+URBGbrHWBl6xykX0=";
 
   nativeBuildInputs = [
     python3

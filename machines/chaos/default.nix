@@ -73,7 +73,7 @@
     intellij.enable = true;
     syncthing-client.enable = true;
     wireshark.enable = true;
-
+    tailscale.enable = true;
     mounts.ugent.enable = true;
     mounts.media = {
       enable = true;
