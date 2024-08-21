@@ -13,21 +13,17 @@ in {
     home-manager.users.${config.custom.user} = let
       overrideWithGApps = (pkg: pkg.overrideAttrs (oldAttrs: {nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook ];}));
       devSDKs = with pkgs; {
+        inherit pkg-config ruby_3_1 ruby_3_2 yarn valgrind;
+        openssl = symlinkJoin { name = openssl.pname; paths = [ openssl.dev openssl.debug ]; };
         rustc = symlinkJoin { name = rustc.pname; paths = [ rustc cargo gcc ]; };
         rust-src = rust.packages.stable.rustPlatform.rustLibSrc;
         java11 = jdk11;
         java17 = jdk17;
         java21 = jdk21;
-        ruby_3_1 = ruby_3_1;
-        ruby_3_2 = ruby_3_2;
-        openjfx = openjfx;
-        scenebuilder = scenebuilder;
         python = python3;
         node = nodejs;
-        yarn = yarn;
         c = clang_14;
         make = gnumake;
-        valgrind = valgrind;
         perf = linuxPackages.perf;
         dutch = hunspellDicts.nl_nl;
       };
@@ -36,7 +32,7 @@ in {
       clion-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.clion [ "github-copilot" ];
       rust-rover-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.rust-rover [ "github-copilot" ];
       nix-ld-path = lib.makeLibraryPath [
-        pkgs.stdenv.cc.cc
+        pkgs.stdenv.cc.cc pkgs.pkg-config pkgs.openssl.dev
       ];
       nix-ld = "$(cat '${pkgs.stdenv.cc}/nix-support/dynamic-linker')";
       intellij = pkgs.runCommand "intellij"
