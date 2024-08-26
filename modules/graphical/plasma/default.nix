@@ -29,7 +29,7 @@ in {
     };
 
     # autotiler
-    environment.systemPackages = [ pkgs.libsForQt5.polonium ];
+    environment.systemPackages = [ pkgs.polonium ];
 
     services.desktopManager.plasma6.enable = true;
 
