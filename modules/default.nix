@@ -83,7 +83,7 @@ in {
   in {
 
     services.tailscale.enable = cfg.tailscale.enable;
-    networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
+    #networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
     networking.search = lib.mkIf cfg.tailscale.enable [ "elk-discus.ts.net" ];
 
     security.doas = {

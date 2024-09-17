@@ -94,10 +94,13 @@
     ];
 
     extraHomePackages = with pkgs; [
+      heroic
+      libreoffice
       _1password-gui
       _1password
       brightnessctl
       blender
+      protonvpn-gui
       protonup-qt
       hyperfine
       prismlauncher
