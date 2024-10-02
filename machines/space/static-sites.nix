@@ -30,10 +30,7 @@ in {
           alias = "/srv/webhost/rxn.be/";
         };
         locations."/brief" = {
-          return = "302 https://drive.google.com/file/d/14m9oOKiqOiBpkv1RzPFtqxegl1DkndL5/view";
-        };
-        locations."/elementen" = {
-          return = "302 https://forms.gle/hefCh45VvBkJitGo8";
+          return = "302 https://theatervolta.be/weekend/brief";
         };
       };
       "rien.rxn.be" = {
@@ -75,10 +72,13 @@ in {
         forceSSL = true;
         root = "/srv/webhost/volta";
         locations."/brief" = {
-          return = "302 https://drive.google.com/file/d/14m9oOKiqOiBpkv1RzPFtqxegl1DkndL5/view";
+          return = "302 https://drive.google.com/file/d/18QN07EKUBFHQrQINFj-5nEweMVgohnjh/view";
         };
-        locations."/elementen" = {
-          return = "302 https://forms.gle/hefCh45VvBkJitGo8";
+        locations."/weekend/brief" = {
+          return = "302 https://drive.google.com/file/d/18QN07EKUBFHQrQINFj-5nEweMVgohnjh/view";
+        };
+        locations."/weekend/inschrijven" = {
+          return = "302 https://forms.gle/nTKDNnvZNjh5y5sJ7";
         };
       };
       "tryout.theatervolta.be" = {
