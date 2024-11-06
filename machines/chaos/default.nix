@@ -18,6 +18,11 @@
     bagofholding = { config = ''config /run/agenix/vpn-conf''; };
   };
 
+  services.pcscd = {
+    enable = true;
+    plugins = [ pkgs.ccid pkgs.acsccid ];
+  };
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -82,6 +87,7 @@
     };
 
     extraSystemPackages = with pkgs; [
+      eid-mw
       cntr
       ntfs3g
     ];
@@ -116,7 +122,7 @@
       audacity
       discord
       ffmpeg-full
-      firefox
+      (firefox.override { pkcs11Modules = [ eid-mw ]; })
       gimp
       imagemagick
       libqalculate
