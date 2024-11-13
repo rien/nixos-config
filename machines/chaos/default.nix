@@ -103,9 +103,9 @@
       heroic
       libreoffice
       _1password-gui
-      _1password
+      _1password-cli
       brightnessctl
-      blender
+      # blender
       protonvpn-gui
       protonup-qt
       hyperfine
