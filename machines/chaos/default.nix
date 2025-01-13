@@ -50,8 +50,6 @@
     pkgs.android-udev-rules
   ];
 
-  services.ollama.enable = true;
-
   custom = {
     sshd.enable = true;
     bash.enable = true;
@@ -118,7 +116,7 @@
       pandoc
       wine-staging
       binutils
-      python3Packages.binwalk
+      binwalk
       audacity
       discord
       ffmpeg-full

@@ -76,7 +76,7 @@ in {
         symbola
         noto-fonts-emoji
         comic-relief
-        nerdfonts
+        nerd-fonts
         open-sans
         # corefonts
       ];
