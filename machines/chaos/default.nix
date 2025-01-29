@@ -139,6 +139,7 @@
       nmap
       ungoogled-chromium
       kdenlive
+      sonic-pi
     ];
 
     wireless = {

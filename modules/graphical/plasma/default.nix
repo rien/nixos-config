@@ -61,11 +61,11 @@ in {
           serif = [ "Source Serif Pro" ];
         };
       };
-      packages = with pkgs; [
+      packages = with pkgs; with nerd-fonts; [
         orbitron
         roboto
-        roboto-mono
         roboto-slab
+        roboto-mono
         source-serif
         source-sans-pro
         source-serif-pro
@@ -76,7 +76,6 @@ in {
         symbola
         noto-fonts-emoji
         comic-relief
-        nerd-fonts
         open-sans
         # corefonts
       ];

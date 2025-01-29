@@ -13,7 +13,7 @@ in {
     home-manager.users.${config.custom.user} = let
       overrideWithGApps = (pkg: pkg.overrideAttrs (oldAttrs: {nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook ];}));
       devSDKs = with pkgs; {
-        inherit pkg-config ruby_3_1 ruby_3_2 yarn valgrind;
+        inherit pkg-config ruby_3_1 ruby_3_2 yarn valgrind vale;
         openssl = symlinkJoin { name = openssl.pname; paths = [ openssl.dev openssl.debug ]; };
         rustc = symlinkJoin { name = rustc.pname; paths = [ rustc cargo gcc ]; };
         rust-src = rust.packages.stable.rustPlatform.rustLibSrc;
