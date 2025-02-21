@@ -106,6 +106,7 @@ in {
       dnsutils
       nmap
       binutils
+      qsv
     ] ++ cfg.extraSystemPackages;
 
     systemd.extraConfig = ''
@@ -161,7 +162,7 @@ in {
         ranger
         screen
         bat
-        xsv
+        xan
       ] ++ cfg.extraHomePackages;
 
       xdg = {
