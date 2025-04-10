@@ -30,7 +30,7 @@ in {
     };
 
     configDir = mkOption {
-      default = "/var/lib/home-assistant/config";
+      default = "/var/lib/home-assistant";
     };
   };
 
@@ -44,22 +44,39 @@ in {
     # users.users.hass.extraGroups = [ "dialout" ];
     virtualisation.oci-containers = {
       backend = "podman";
-      containers.homeassistant = {
-        autoStart = true;
-        volumes = [
-          "${cfg.configDir}:/config"
-          "/run/dbus:/run/dbus:ro"
-          "/etc/localtime:/etc/localtime:ro"
-        ];
-        environment.TZ = "Europe/Brussels";
-        labels."io.containers.autoupdate" = "registry";
-        image = "ghcr.io/home-assistant/home-assistant:stable";
-        extraOptions = [
-          "--network=host"
-          "--privileged"
-        ];
+      containers = {
+        homeassistant = {
+          autoStart = true;
+          volumes = [
+            "${cfg.configDir}/config:/config"
+            "/run/dbus:/run/dbus:ro"
+            "/etc/localtime:/etc/localtime:ro"
+            ];
+            environment.TZ = "Europe/Brussels";
+            labels."io.containers.autoupdate" = "registry";
+            image = "ghcr.io/home-assistant/home-assistant:stable";
+            extraOptions = [
+              "--network=host"
+              "--privileged"
+            ];
+        };
       };
     };
+
+    networking.firewall.allowedTCPPorts = [ 1883 ];
+    networking.firewall.allowedUDPPorts = [ 1883 ];
+
+    services.mosquitto.enable = true;
+    services.zigbee2mqtt = {
+      enable = true;
+      settings = {
+        permit_join = true;
+        homeassistant = true;
+        availability.enabled = true;
+        serial.port = "/dev/serial/by-id/usb-Nabu_Casa_Home_Assistant_Connect_ZBT-1_327f6fcbf338ef11b197e1d154516304-if00-port0";
+      };
+    };
+
 
     systemd.services.podman-update = {
       description = "Update and prune podman containers";

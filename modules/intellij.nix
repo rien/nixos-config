@@ -82,7 +82,7 @@ in {
             --set NIX_LD "${nix-ld}"
         '';
     in { ... }: {
-      home.packages = [ intellij clion pycharm rust-rover ];
+      home.packages = [ intellij clion pycharm rust-rover pkgs.jetbrains.gateway ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;

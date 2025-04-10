@@ -3,23 +3,23 @@ let
   customPlugins = {
     darcula = pkgs.vimUtils.buildVimPlugin {
         pname = "darcula";
-        version = "92e8f51d82b36fc6cca148eb98dd3e4cfacc92cd";
+        version = "faf8dbab27bee0f27e4f1c3ca7e9695af9b1242b";
         src = pkgs.fetchFromGitHub {
-          owner = "blueshirts";
+          owner = "doums";
           repo = "darcula";
-          rev = "92e8f51d82b36fc6cca148eb98dd3e4cfacc92cd";
-          sha256 = "sha256-mq5Ahj1yc6s9ekHY03ztInHasNXceTeC3Em6HBT800k=";
+          rev = "faf8dbab27bee0f27e4f1c3ca7e9695af9b1242b";
+          sha256 = "sha256-Gn+lmlYxSIr91Bg3fth2GAQou2Nd1UjrLkIFbBYlmF8=";
         };
     };
-    vim-beancount = pkgs.vimUtils.buildVimPlugin {
-        pname = "vim-beancount";
-        version = "2f970a0c826275f7d07fa145ba9a35c15b15232d";
-        src = pkgs.fetchFromGitHub {
-          owner = "nathangrigg";
-          repo = "vim-beancount";
-          rev = "2f970a0c826275f7d07fa145ba9a35c15b15232d";
-          sha256 = "sha256-fn38ISg/19E6OVsmltqjx1Iw41w16DuDLN6h7Ghm6js=";
-        };
+    vim-slim = pkgs.vimUtils.buildVimPlugin {
+      pname = "vim-slim";
+      version = "a0a57f75f20a03d5fa798484743e98f4af623926";
+      src = pkgs.fetchFromGitHub {
+        owner = "slim-template";
+        repo = "vim-slim";
+        rev = "a0a57f75f20a03d5fa798484743e98f4af623926";
+        sha256 = "sha256-mPv0tiggGExEZNshDlHtT4ipv/5Q0ahkcVw4irJ8l3o=";
+      };
     };
   };
   base = home: {
@@ -159,6 +159,7 @@ let
         editorconfig-vim
         goyo-vim
         vim-markdown
+        vim-slim
       ];
     };
   };

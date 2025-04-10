@@ -98,6 +98,9 @@
     ];
 
     extraHomePackages = with pkgs; [
+      unityhub
+      tutanota-desktop
+      vscode
       heroic
       libreoffice
       _1password-gui
@@ -127,7 +130,7 @@
       mpv
       nmap
       obs-studio
-      okular
+      kdePackages.okular
       qview
       signal-desktop
       steam-run
@@ -138,8 +141,9 @@
       obsidian
       nmap
       ungoogled-chromium
-      kdenlive
+      kdePackages.kdenlive
       sonic-pi
+      zoom-us
     ];
 
     wireless = {

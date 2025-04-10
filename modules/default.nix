@@ -106,6 +106,7 @@ in {
       dnsutils
       nmap
       binutils
+      usbutils
       qsv
     ] ++ cfg.extraSystemPackages;
 
