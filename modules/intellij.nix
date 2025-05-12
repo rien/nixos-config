@@ -13,7 +13,8 @@ in {
     home-manager.users.${config.custom.user} = let
       overrideWithGApps = (pkg: pkg.overrideAttrs (oldAttrs: {nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook ];}));
       devSDKs = with pkgs; {
-        inherit pkg-config ruby_3_1 ruby_3_2 yarn valgrind vale;
+        inherit pkg-config ruby_3_1 ruby_3_2 yarn valgrind vale mono;
+        dotnet = dotnet-sdk;
         openssl = symlinkJoin { name = openssl.pname; paths = [ openssl.dev openssl.debug ]; };
         rustc = symlinkJoin { name = rustc.pname; paths = [ rustc cargo gcc ]; };
         rust-src = rust.packages.stable.rustPlatform.rustLibSrc;
@@ -32,57 +33,26 @@ in {
       clion-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.clion [ "github-copilot" ];
       rust-rover-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.rust-rover [ "github-copilot" ];
       nix-ld-path = lib.makeLibraryPath [
-        pkgs.stdenv.cc.cc pkgs.pkg-config pkgs.openssl.dev
+        pkgs.stdenv.cc.cc pkgs.pkg-config pkgs.openssl.dev pkgs.dotnet-sdk pkgs.mono
       ];
       nix-ld = "$(cat '${pkgs.stdenv.cc}/nix-support/dynamic-linker')";
-      intellij = pkgs.runCommand "intellij"
-        { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-        ''
+      mkEditor = (editor: let
+          name = editor.pname;
+          withCopilot = pkgs.jetbrains.plugins.addPlugins editor [ "github-copilot" ];
+        in pkgs.runCommand name
+          { nativeBuildInputs = [ pkgs.makeWrapper ]; }
+          ''
           mkdir -p $out/bin
-          ln -s ${idea-with-copilot}/share $out/share
-          makeWrapper ${idea-with-copilot}/bin/idea-ultimate \
-            $out/bin/idea-ultimate \
+          ln -s ${withCopilot}/share $out/share
+          makeWrapper ${withCopilot}/bin/${name} \
+            $out/bin/${name} \
             --prefix PATH : ${extraPath} \
             --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
             --set NIX_LD "${nix-ld}"
-        '';
-      pycharm = pkgs.runCommand "pycharm"
-        { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-        ''
-          mkdir -p $out/bin
-          ln -s ${pkgs.jetbrains.pycharm-professional}/share $out/share
-          makeWrapper ${pkgs.jetbrains.pycharm-professional}/bin/pycharm-professional \
-            $out/bin/pycharm-professional \
-            --prefix PATH : ${extraPath} \
-            --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
-            --set NIX_LD "${nix-ld}"
-        '';
-      clion = pkgs.runCommand "clion"
-        { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-        ''
-          mkdir -p $out/bin
-          ln -s ${clion-with-copilot}/share $out/share
-          makeWrapper ${clion-with-copilot}/bin/clion \
-            $out/bin/clion \
-            --set NIX_CC ${devSDKs.c}/bin/cc \
-            --prefix PATH : ${extraPath} \
-            --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
-            --set NIX_LD "${nix-ld}"
-        '';
-      rust-rover = pkgs.runCommand "rust-rover"
-        { nativeBuildInputs = [ pkgs.makeWrapper ]; }
-        ''
-          mkdir -p $out/bin
-          ln -s ${rust-rover-with-copilot}/share $out/share
-          makeWrapper ${rust-rover-with-copilot}/bin/rust-rover \
-            $out/bin/rust-rover \
-            --set NIX_CC ${devSDKs.c}/bin/cc \
-            --prefix PATH : ${extraPath} \
-            --set NIX_LD_LIBRARY_PATH "${nix-ld-path}" \
-            --set NIX_LD "${nix-ld}"
-        '';
+          ''
+      );
     in { ... }: {
-      home.packages = [ intellij clion pycharm rust-rover pkgs.jetbrains.gateway ];
+      home.packages = with pkgs.jetbrains; map mkEditor [ idea-ultimate pycharm-professional rust-rover rider ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;
