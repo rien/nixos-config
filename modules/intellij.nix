@@ -38,7 +38,7 @@ in {
       nix-ld = "$(cat '${pkgs.stdenv.cc}/nix-support/dynamic-linker')";
       mkEditor = (editor: let
           name = editor.pname;
-          withCopilot = pkgs.jetbrains.plugins.addPlugins editor [ "github-copilot" ];
+          withCopilot = editor; # pkgs.jetbrains.plugins.addPlugins editor [ "github-copilot" ];
         in pkgs.runCommand name
           { nativeBuildInputs = [ pkgs.makeWrapper ]; }
           ''
@@ -52,7 +52,7 @@ in {
           ''
       );
     in { ... }: {
-      home.packages = with pkgs.jetbrains; map mkEditor [ idea-ultimate pycharm-professional rust-rover rider ];
+      home.packages = with pkgs.jetbrains; map mkEditor [ idea-ultimate pycharm-professional rust-rover rider webstorm ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;

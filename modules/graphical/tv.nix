@@ -24,7 +24,7 @@ in {
         options = [ "caps:none" ];
       };
 
-      home.packages = with pkgs; [ pamixer playerctl adwaita-icon-theme adwaita-qt wl-clipboard ];
+      home.packages = with pkgs; [ pamixer playerctl adwaita-icon-theme adwaita-qt wl-clipboard moonlight-qt ];
 
     };
 
@@ -55,7 +55,7 @@ in {
           serif = [ "Source Serif Pro" ];
         };
       };
-      packages = with pkgs; [
+      packages = with pkgs; with nerd-fonts; [
         orbitron
         roboto
         roboto-mono
@@ -70,7 +70,6 @@ in {
         symbola
         noto-fonts-emoji
         comic-relief
-        nerdfonts
         open-sans
         # corefonts
       ];

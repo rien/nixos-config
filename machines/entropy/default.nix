@@ -19,6 +19,7 @@ in
       users.users.rien.extraGroups = [ "wheel" ];
 
       programs.steam.enable = false;
+      services.flatpak.enable = true;
 
       custom = {
         autoupgrade = {
@@ -51,8 +52,8 @@ in
           ];
         };
 
-        graphical.tv.enable = false;
-        sound.enable = false;
+        graphical.tv.enable = true;
+        sound.enable = true;
 
         home-assistant = {
           enable = true;
