@@ -73,7 +73,7 @@ in
     tailscale.enable = true;
 
     actual = {
-      enable = true;
+      enable = false;
       basicAuthFile = "/run/agenix/actual-auth";
       hostname = "fin.rxn.be";
     };

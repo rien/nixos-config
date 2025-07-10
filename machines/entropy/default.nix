@@ -62,7 +62,7 @@ in
           sslCertificateKey = "/run/agenix/cert.key";
         };
 
-        extraSystemPackages = with pkgs; [ ungoogled-chromium ];
+        extraSystemPackages = with pkgs; [ ungoogled-chromium moonlight-qt ];
 
         wireless = {
           enable = true;

@@ -98,7 +98,6 @@
     ];
 
     extraHomePackages = with pkgs; [
-      unityhub
       tutanota-desktop
       vscode
       heroic
