@@ -25,21 +25,6 @@ in {
         locations."/" = {
           return = "200 \"\\n███████╗    ██████╗      █████╗      ██████╗    ███████╗\\n██╔════╝    ██╔══██╗    ██╔══██╗    ██╔════╝    ██╔════╝\\n███████╗    ██████╔╝    ███████║    ██║         █████╗\\n╚════██║    ██╔═══╝     ██╔══██║    ██║         ██╔══╝\\n███████║    ██║         ██║  ██║    ╚██████╗    ███████╗\\n╚══════╝    ╚═╝         ╚═╝  ╚═╝     ╚═════╝    ╚══════╝\\n\"";
         };
-        locations."/hupseflupse/" = {
-          basicAuthFile = "/run/agenix/static-sites-auth";
-          alias = "/srv/webhost/rxn.be/";
-        };
-        locations."/weday" = {
-          return = "302 https://ugent.qualtrics.com/jfe/form/SV_1zUwuxySVuSntfU";
-        };
-        locations."/iticse" = {
-          return = "302 https://drive.google.com/file/d/1_PJbr7Lq8MfSSTcYtjkxxf3M0QPoCdfW/view?usp=sharing
-";
-        };
-        locations."/wedaypres".return = "302 https://ugentbe-my.sharepoint.com/:p:/g/personal/rien_maertens_ugent_be/EXWlCsoB6rZEgaa5qeSYU3MBgb4lsNIhaYsCLgqmWWMgJQ?e=6AARfM";
-        locations."/brief" = {
-          return = "302 https://theatervolta.be/weekend/brief";
-        };
       };
       "rien.rxn.be" = {
         useACMEHost = "rxn.be";

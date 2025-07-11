@@ -6,6 +6,7 @@ in {
   imports = [
     ./autoupgrade.nix
     ./actual.nix
+    ./affine
     ./bash.nix
     ./docker.nix
     ./dodona-mailer

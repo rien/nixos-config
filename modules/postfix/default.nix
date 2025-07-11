@@ -74,11 +74,12 @@ in
       domain = host;
       networksStyle = "host";
 
-      sslCert = "/var/lib/acme/${ util.baseDomain host }/fullchain.pem";
-      sslKey = "/var/lib/acme/${ util.baseDomain host }/key.pem";
-
       config = {
         smtp_tls_security_level = "may";
+        smtpd_tls_chain_files = [
+          "/var/lib/acme/${ util.baseDomain host }/key.pem"
+          "/var/lib/acme/${ util.baseDomain host }/fullchain.pem"
+        ];
       };
 
       enableSmtp = true;        # Receiving mail from other mail servers

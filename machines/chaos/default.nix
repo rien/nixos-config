@@ -53,7 +53,10 @@
   custom = {
     sshd.enable = true;
     bash.enable = true;
-    docker.enable = true;
+    docker = {
+      enable = true;
+      storageDriver = "zfs";
+    };
     dwarffortress.enable = false;
     git.enable = true;
     gnupg.enable = true;

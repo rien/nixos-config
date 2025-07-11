@@ -4,7 +4,7 @@ if [[ -n "$1" && ! "$1" =~ ^-.* ]]; then
     shift
 fi
 if [ -z "$host" ]; then
-    sudo nixos-rebuild switch -v --flake '.#' "$@"
+    sudo nixos-rebuild switch --flake '.#' "$@"
 else
-    nixos-rebuild -v --flake ".#$host" --target-host "root@$host" switch "$@"
+    nixos-rebuild --flake ".#$host" --target-host "root@$host" switch "$@"
 fi

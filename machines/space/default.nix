@@ -66,11 +66,19 @@ in
     autoupgrade.enable = true;
     autoupgrade.allowReboot = true;
 
+    docker.enable = true;
     bash.enable = true;
     neovim.enable = true;
     sshd.enable = true;
 
     tailscale.enable = true;
+
+    affine = {
+      enable = true;
+      hostname = "affine.rxn.be";
+      version = "v0.22.4";
+      hash = "sha256-0P4ARWXejLshpgIuTKR/BSAGKG0DDz4dxboCyGOaH7A=";
+    };
 
     actual = {
       enable = false;
