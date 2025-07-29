@@ -18,6 +18,7 @@ in {
   services.nginx = {
     virtualHosts = {
       "rxn.be" = {
+        default = true;
         serverAliases = [ "www.rxn.be" "space.rxn.be" "49.12.7.126" ];
         useACMEHost = "rxn.be";
         addSSL = true;

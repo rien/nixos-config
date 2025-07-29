@@ -101,6 +101,8 @@
     ];
 
     extraHomePackages = with pkgs; [
+      godot
+      affine
       tutanota-desktop
       vscode
       heroic

@@ -22,7 +22,7 @@ let
 
   makeAccount = {
     name, address, host ? "", imapHost ? host, imapPort ? 993, smtpHost ? host, smtpPort ? (lib.mkDefault 465),
-    useStartTls ? false, passFile, extraConfig ? { }, primary ? false,
+    useStartTls ? false, passFile ? null, extraConfig ? { }, primary ? false,
     userName ? address, signature ? personal.defaultSignature, mbsync ? true,
     folders ? null, oauth ? null, extraFolderPatterns ? []
   }: (
