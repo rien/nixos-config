@@ -86,22 +86,6 @@
       ];
     };
 
-    "/var/lib/photoprism/data-import" = {
-      device = "/data/syncthing/fp3-photos";
-      fsType = "fuse.bindfs";
-      options = [
-        "multithreaded"
-        "ro"
-        "x-systemd.after=data.mount"
-        "x-systemd.requires=data.mount"
-        "x-systemd.before=photoprism.service"
-        "x-systemd.required-by=photoprism.service"
-        "force-user=photoprism"
-        "force-group=photoprism"
-        "_netdev"
-      ];
-    };
-
     "/var/lib/postgres-backups" = {
       device = "/data/postgres-backups";
       fsType = "fuse.bindfs";

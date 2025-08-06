@@ -55,6 +55,22 @@ in {
           return = "302 https://rien.maertens.gent";
         };
       };
+      "doctoraat.maertens.gent" = {
+        useACMEHost = "maertens.gent";
+        forceSSL = true;
+        locations."/" = {
+          return = "302 https://rien.maertens.gent";
+        };
+        locations."/rsvp" = {
+          return = "302 https://cloud.maertens.gent/apps/forms/s/aP5FRpzPi2iH5AjoNraJZ998";
+        };
+        locations."/invitation" = {
+          return = "302 https://cloud.maertens.gent/s/DnZSbZiQ2GGFcn7";
+        };
+        locations."/uitnodiging" = {
+          return = "302 https://cloud.maertens.gent/s/pzsmmMYeiPFmYnS";
+        };
+      };
       "rien.maertens.gent" = {
         useACMEHost = "maertens.gent";
         addSSL = true;

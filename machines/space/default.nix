@@ -38,14 +38,14 @@ in
       file = ./ovh-api-key.age;
       owner = "acme";
     };
+    "nextcloud-adminpass" = {
+      file = ./nextcloud-adminpass.age;
+      owner = "nextcloud";
+    };
     "opendkim.private" = {
       file = ./opendkim.private.age;
       path = "/var/lib/opendkim/keys/opendkim.private";
       owner = "opendkim";
-    };
-    "photoprism-admin-password" = {
-      file = ./photoprism-admin-password.age;
-      owner = "photoprism";
     };
     "storagebox-credentials" = {
       file = ./storagebox-credentials.age;
@@ -93,13 +93,10 @@ in
       backupLocation = "/var/lib/postgres-backups/";
     };
 
-    photoprism = {
-      enable = false;
-      domain = "foto.rxn.be";
-      importPath = "/var/lib/photoprism/data-import";
-      originalsPath = "/var/lib/photoprism/data-originals";
-      adminUser = "rien";
-      adminPasswordFile = "/run/agenix/photoprism-admin-password";
+    nextcloud = {
+      enable = true;
+      hostname = "cloud.maertens.gent";
+      adminpassFile = "/run/agenix/nextcloud-adminpass";
     };
 
     nginx = {

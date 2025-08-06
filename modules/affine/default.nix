@@ -70,6 +70,8 @@ in {
         WorkingDirectory = "${cfg.stateDir}/compose";
         ExecStart = "${pkgs.docker}/bin/docker compose up --pull always";
         Restart = "always";
+        #RuntimeMaxSec = "23h";
+        #RuntimeRandomizedExtraSec = "1h";
         StateDirectory = "affine";
         DynamicUser = true;
         SupplementaryGroups="docker";

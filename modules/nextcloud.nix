@@ -18,7 +18,6 @@ in {
 
   config = lib.mkIf cfg.enable {
 
-
     services = {
       nextcloud = {
         maxUploadSize = "4G";
@@ -26,38 +25,21 @@ in {
         hostName = cfg.hostname;
         enable = true;
         autoUpdateApps.enable = true;
-        package = pkgs.nextcloud28;
+        package = pkgs.nextcloud31;
         config = {
-          dbuser = "nextcloud";
-          dbname = "nextcloud";
-          dbtype = "pgsql";
-          dbhost = "/run/postgresql";
+          dbtype = "sqlite";
           adminuser = "rien";
           adminpassFile = cfg.adminpassFile;
-          overwriteProtocol = "https";
         };
-        extraOptions = {
-          calendar = {
-            calendarSubscriptionRefreshRate = "PT1H";
-          };
+        settings.overwriteprotocol = "https";
+        phpOptions = {
+          "opcache.interned_strings_buffer" = "16";
         };
       };
       nginx.virtualHosts.${cfg.hostname} = {
         useACMEHost = util.baseDomain cfg.hostname;
         forceSSL = true;
       };
-      postgresql = {
-        ensureDatabases = [ "nextcloud" ];
-        ensureUsers = [{
-          name = "nextcloud";
-          ensureDBOwnership = true;
-          # ensurePermissions = { "DATABASE nextcloud" = "ALL PRIVILEGES"; };
-        }];
-      };
-    };
-    systemd.services."nextcloud-setup" = {
-      requires = [ "postgresql.service" ];
-      after = [ "postgresql.service" ];
     };
   };
 }

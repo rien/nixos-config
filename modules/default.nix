@@ -111,9 +111,9 @@ in {
       qsv
     ] ++ cfg.extraSystemPackages;
 
-    systemd.extraConfig = ''
-      DefaultTimeoutStopSec=5s
-    '';
+    systemd.settings.Manager = {
+      DefaultTimeoutStopSec = "5s";
+    };
 
 
     # Don't wait for dhcpd when booting
