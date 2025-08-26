@@ -18,10 +18,10 @@
     bagofholding = { config = ''config /run/agenix/vpn-conf''; };
   };
 
-  services.pcscd = {
-    enable = true;
-    plugins = [ pkgs.ccid pkgs.acsccid ];
-  };
+  #services.pcscd = {
+  #  enable = true;
+  #  plugins = [ pkgs.ccid pkgs.acsccid ];
+  #};
 
   programs.steam = {
     enable = true;
@@ -148,6 +148,7 @@
       kdePackages.kdenlive
       sonic-pi
       zoom-us
+      scribus
     ];
 
     wireless = {

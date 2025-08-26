@@ -72,7 +72,7 @@ in
       enable = true;
       hostname = host;
       domain = host;
-      networksStyle = "host";
+      #networksStyle = "host";
 
       config = {
         smtp_tls_security_level = "may";

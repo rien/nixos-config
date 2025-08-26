@@ -61,8 +61,10 @@ in {
         locations."/" = {
           return = "302 https://rien.maertens.gent";
         };
+
+        extraConfig = "default_type \"text/plain; charset=utf-8\";";
         locations."/rsvp" = {
-          return = "302 https://cloud.maertens.gent/apps/forms/s/aP5FRpzPi2iH5AjoNraJZ998";
+          return = "200 \"\\nOei! De inschrijvingen voor mijn verdediging zijn gesloten.\\nAls je toch nog wil komen, stuur mij een berichtje.\\n\"";
         };
         locations."/invitation" = {
           return = "302 https://cloud.maertens.gent/s/DnZSbZiQ2GGFcn7";
