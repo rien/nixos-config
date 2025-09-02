@@ -2,8 +2,8 @@
   description = "Nixos configuration";
 
   inputs = {
+    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
     systems.url = "github:nix-systems/default";
     flake-utils = {
       url = "github:numtide/flake-utils/main";
@@ -36,13 +36,13 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, flake-utils, agenix, zeroad, devshell, hardware, systems }:
+  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, agenix, zeroad, devshell, hardware, systems }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
         inherit system;
       };
-      stablePkgsFor = system: import nixpkgs-stable {
+      unstablePkgsFor = system: import unstable {
         inherit system;
       };
       mkSystem = system: hostname: extraModules: nixpkgs.lib.nixosSystem {
@@ -60,10 +60,9 @@
           ({
             nixpkgs.overlays = [
               (self: super: {
-                inkscape = (stablePkgsFor system).inkscape;
-
                 # Actual budgetting server
                 actual-server = self.callPackage ./packages/actual {};
+                tailscale = (unstablePkgsFor system).tailscale;
 
                 # Agenix secrets
                 agenix = agenix.packages.${system}.default;
