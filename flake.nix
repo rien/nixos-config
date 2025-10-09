@@ -41,9 +41,16 @@
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
         inherit system;
+        config.allowUnfree = true;
       };
       unstablePkgsFor = system: import unstable {
         inherit system;
+        config = {
+          allowUnfree = true;
+          permittedInsecurePackages = [
+            "libsoup-2.74.3" # required for citrix workspace
+          ];
+        };
       };
       mkSystem = system: hostname: extraModules: nixpkgs.lib.nixosSystem {
         inherit system;
@@ -62,7 +69,8 @@
               (self: super: {
                 # Actual budgetting server
                 actual-server = self.callPackage ./packages/actual {};
-                tailscale = (unstablePkgsFor system).tailscale;
+                #tailscale = (unstablePkgsFor system).tailscale;
+                citrix_workspace = (unstablePkgsFor system).citrix_workspace;
 
                 # Agenix secrets
                 agenix = agenix.packages.${system}.default;

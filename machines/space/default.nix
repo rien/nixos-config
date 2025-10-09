@@ -76,8 +76,8 @@ in
     affine = {
       enable = true;
       hostname = "affine.rxn.be";
-      version = "v0.22.4";
-      hash = "sha256-0P4ARWXejLshpgIuTKR/BSAGKG0DDz4dxboCyGOaH7A=";
+      version = "v0.24.1";
+      hash = "sha256-5cWkgKb3uG8+a7q1A02MD/N1KTLMOKgss10kHOfUi3Q=";
     };
 
     actual = {

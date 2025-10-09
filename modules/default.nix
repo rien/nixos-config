@@ -222,12 +222,13 @@ in {
       };
     };
 
-    nixpkgs.config.permittedInsecurePackages = cfg.permittedInsecurePackages;
+    nixpkgs.config = {
+      permittedInsecurePackages = cfg.permittedInsecurePackages;
+      allowUnfree = true;
+    };
 
     boot.tmp.useTmpfs = true;
     boot.tmp.tmpfsSize = "75%";
-    nixpkgs.config.allowUnfree = true;
-
 
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions

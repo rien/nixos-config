@@ -84,13 +84,13 @@ in {
         forceSSL = true;
         root = "/srv/webhost/volta";
         locations."/brief" = {
-          return = "302 https://drive.google.com/file/d/18QN07EKUBFHQrQINFj-5nEweMVgohnjh/view";
+          return = "302 https://drive.google.com/file/d/13ZWEsFTKRL1EEbayNe69sVs4qvXzSIrU/view";
         };
         locations."/weekend/brief" = {
-          return = "302 https://drive.google.com/file/d/18QN07EKUBFHQrQINFj-5nEweMVgohnjh/view";
+          return = "302 https://drive.google.com/file/d/13ZWEsFTKRL1EEbayNe69sVs4qvXzSIrU/view";
         };
         locations."/weekend/inschrijven" = {
-          return = "302 https://forms.gle/nTKDNnvZNjh5y5sJ7";
+          return = "302 https://forms.gle/5wHEuv1qb1QGAZ8PA";
         };
       };
       "tryout.theatervolta.be" = {

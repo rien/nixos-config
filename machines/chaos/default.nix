@@ -98,6 +98,7 @@
       "electron-25.9.0"
       "zotero-6.0.27"
       "qtwebkit-5.212.0-alpha4"
+      "libsoup-2.74.3"
     ];
 
     extraHomePackages = with pkgs; [
@@ -105,7 +106,6 @@
       affine
       tutanota-desktop
       vscode
-      heroic
       libreoffice
       _1password-gui
       _1password-cli
@@ -115,7 +115,6 @@
       protonup-qt
       hyperfine
       prismlauncher
-      lutris
       bitwig-studio
       feh
       inkscape
@@ -124,7 +123,6 @@
       wine-staging
       binutils
       binwalk
-      audacity
       discord
       ffmpeg-full
       (firefox.override { pkcs11Modules = [ eid-mw ]; })

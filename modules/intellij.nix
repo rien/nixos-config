@@ -52,7 +52,8 @@ in {
           ''
       );
     in { ... }: {
-      home.packages = with pkgs.jetbrains; map mkEditor [ idea-ultimate pycharm-professional rust-rover rider webstorm ];
+      #home.packages = with pkgs.jetbrains; (map mkEditor [ idea-ultimate ]) ++ [ pkgs.jetbrains-toolbox ];
+      home.packages = [ pkgs.jetbrains-toolbox ];
       home.file.".local/dev".source = let
           mkEntry = name: value: { inherit name; path = value; };
           entries = lib.mapAttrsToList mkEntry devSDKs;
