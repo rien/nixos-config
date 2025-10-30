@@ -15,9 +15,6 @@ in {
     ./git.nix
     ./gnupg.nix
     ./graphical
-    ./graphical/wayland
-    ./graphical/plasma
-    ./graphical/tv.nix
     ./home-assistant.nix
     ./intellij.nix
     ./kitty.nix
@@ -37,6 +34,7 @@ in {
     ./sshd.nix
     ./syncthing-client.nix
     ./syncthing-server.nix
+    ./tailscale.nix
     ./tor.nix
     ./transmission.nix
     ./ugent-vpn.nix
@@ -52,8 +50,6 @@ in {
       example = "rien";
       default = "rien";
     };
-
-    tailscale.enable = lib.mkEnableOption "Whether to enable tailscale";
 
     hostname = lib.mkOption {
       type = lib.types.str;
@@ -82,10 +78,6 @@ in {
   config = let
     personal = import ./personal.secret.nix;
   in {
-
-    services.tailscale.enable = cfg.tailscale.enable;
-    #networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
-    networking.search = lib.mkIf cfg.tailscale.enable [ "elk-discus.ts.net" ];
 
     security.doas = {
       enable = true;

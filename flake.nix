@@ -42,19 +42,11 @@
       pkgsFor = system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        permittedInsecurePackages = [
-          "libsoup-2.74.3" # required for citrix workspace
-          "electron-35.7.5"
-        ];
       };
       unstablePkgsFor = system: import unstable {
         inherit system;
         config = {
           allowUnfree = true;
-          permittedInsecurePackages = [
-            "libsoup-2.74.3" # required for citrix workspace
-            "electron-35.7.5"
-          ];
         };
       };
       mkSystem = system: hostname: extraModules: nixpkgs.lib.nixosSystem {

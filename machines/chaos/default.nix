@@ -1,4 +1,4 @@
-{ lib, config, pkgs, custompkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -18,10 +18,11 @@
     bagofholding = { config = ''config /run/agenix/vpn-conf''; };
   };
 
-  #services.pcscd = {
-  #  enable = true;
-  #  plugins = [ pkgs.ccid pkgs.acsccid ];
-  #};
+  # Ignore power key and lid events
+  services.logind.extraConfig = ''
+    HandlePowerKey=ignore
+    HandleLidSwitch=ignore
+  '';
 
   programs.steam = {
     enable = true;
@@ -61,7 +62,10 @@
     git.enable = true;
     gnupg.enable = true;
     sound.enable = true;
-    graphical.plasma.enable = true;
+    graphical = {
+      enable = true;
+      flavour = "plasma";
+    };
     kitty.enable = true;
     neovim.enable = true;
     pass.enable = true;
@@ -103,52 +107,46 @@
     ];
 
     extraHomePackages = with pkgs; [
-      rustdesk-flutter
-      remmina
-      godot
-      tutanota-desktop
-      vscode
-      libreoffice
-      _1password-gui
-      _1password-cli
-      brightnessctl
       # blender
-      protonvpn-gui
-      protonup-qt
-      hyperfine
-      prismlauncher
-      bitwig-studio
-      feh
-      inkscape
-      texlive.combined.scheme-full
-      pandoc
-      wine-staging
+      (firefox.override { pkcs11Modules = [ eid-mw ]; })
+      (ungoogled-chromium.override { enableWideVine = true; })
+      _1password-cli
+      _1password-gui
       binutils
       binwalk
+      bitwig-studio
+      brightnessctl
       discord
+      feh
       ffmpeg-full
-      (firefox.override { pkcs11Modules = [ eid-mw ]; })
       gimp
+      ghostty
+      godot
+      hyperfine
       imagemagick
+      inkscape
+      kdePackages.kdenlive
+      kdePackages.okular
       libqalculate
+      libreoffice
       mpv
       nmap
       obs-studio
-      kdePackages.okular
+      obsidian
+      pandoc
+      prismlauncher
       qview
+      remmina
+      scribus
       signal-desktop
       steam-run
       teams-for-linux
+      texlive.combined.scheme-full
+      trayscale
+      vscode
+      wine-staging
       yt-dlp
-      zathura
-      zotero
-      obsidian
-      nmap
-      (ungoogled-chromium.override { enableWideVine = true; })
-      kdePackages.kdenlive
-      sonic-pi
       zoom-us
-      scribus
     ];
 
     wireless = {

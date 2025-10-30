@@ -21,12 +21,8 @@ in
   };
 
   config = mkIf cfg.enable {
-    networking.wireless = {
-      enable = true;
-      networks = import ./networks.secret.nix;
-      interfaces = [ cfg.device ];
-      userControlled.enable = true;
-    };
-    networking.interfaces."${cfg.device}".useDHCP = cfg.dhcp;
+    networking.networkmanager.enable = true;
+
+    users.users.${config.custom.user}.extraGroups = [ "networkmanager" ];
   };
 }
