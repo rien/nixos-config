@@ -11,9 +11,9 @@
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
 
-  networking.firewall.allowedTCPPorts = [ 10999 20595 8000 ];
-  networking.firewall.allowedUDPPorts = [ 10999 20595 8000 ];
-
+  networking.firewall.allowedTCPPorts = [ 10999 20595 8000 2350 3450 ];
+  networking.firewall.allowedUDPPorts = [ 10999 20595 8000 2350 3450];
+  
   services.openvpn.servers = {
     bagofholding = { config = ''config /run/agenix/vpn-conf''; };
   };
@@ -94,6 +94,7 @@
     ];
 
     permittedInsecurePackages = [
+      "electron-35.7.5"
       "electron-24.8.6"
       "electron-25.9.0"
       "zotero-6.0.27"
@@ -102,8 +103,9 @@
     ];
 
     extraHomePackages = with pkgs; [
+      rustdesk-flutter
+      remmina
       godot
-      affine
       tutanota-desktop
       vscode
       libreoffice
@@ -142,7 +144,7 @@
       zotero
       obsidian
       nmap
-      ungoogled-chromium
+      (ungoogled-chromium.override { enableWideVine = true; })
       kdePackages.kdenlive
       sonic-pi
       zoom-us

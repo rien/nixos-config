@@ -62,6 +62,22 @@ in
   networking.firewall.allowedTCPPorts = [ 3478 ];
   networking.firewall.allowedUDPPorts = [ 3478 ];
 
+  services.changedetection-io = {
+    enable = true;
+    behindProxy = true;
+    baseURL = "https://change.rxn.be";
+  };
+
+  services.nginx.virtualHosts."change.rxn.be" = {
+    forceSSL = true;
+    useACMEHost = "rxn.be";
+    basicAuthFile = "/run/agenix/syncthing-auth";
+    locations."/" = {
+      proxyPass = "http://localhost:5000";
+    };
+  };
+
+
   custom = {
     autoupgrade.enable = true;
     autoupgrade.allowReboot = true;
@@ -147,6 +163,10 @@ in
 
     extraSystemPackages = with pkgs; [
       htop
+    ];
+
+    extraHomePackages = [
+      pkgs.protonmail-export
     ];
 
     stateVersion = "20.03";
