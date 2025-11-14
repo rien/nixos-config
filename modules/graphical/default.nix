@@ -30,16 +30,18 @@ in {
         options = [ "caps:none" ];
       };
       home.packages = with pkgs; [ pamixer playerctl adwaita-icon-theme adwaita-qt wl-clipboard moonlight-qt ];
+      gtk.gtk2.force = true;
     };
+
 
     fonts = {
       fontDir.enable = true;
       fontconfig = {
         enable = true;
         defaultFonts = {
-          emoji = [ "Symbola" "Noto Emoji" ];
-          monospace = [ "Fira Code" ];
-          sansSerif = [ "Fira Sans" ];
+          emoji = [ "Noto Color Emoji" ];
+          monospace = [ "Source Code Pro" ];
+          sansSerif = [ "Source Serif Sans" ];
           serif = [ "Source Serif Pro" ];
         };
       };

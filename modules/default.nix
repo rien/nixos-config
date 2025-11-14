@@ -134,6 +134,8 @@ in {
       openssh.authorizedKeys.keys = with personal.sshKeys; [ octothorn phone chaos euphoria ];
     };
 
+    home-manager.backupFileExtension = "hm-bak";
+
     home-manager.users.root = { ... }: {
       home.stateVersion = cfg.stateVersion;
     };

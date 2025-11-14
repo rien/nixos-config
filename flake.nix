@@ -5,6 +5,10 @@
     unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
     systems.url = "github:nix-systems/default";
+    stylix = {
+      url = "github:nix-community/stylix/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-utils = {
       url = "github:numtide/flake-utils/main";
       inputs.systems.follows = "systems";
@@ -36,7 +40,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, agenix, zeroad, devshell, hardware, systems }:
+  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, stylix, agenix, zeroad, devshell, hardware, systems }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -57,6 +61,9 @@
             inherit self;
             util = import ./util.nix; };
           })
+
+          # Style management
+          stylix.nixosModules.stylix
 
           # Secrets management
           agenix.nixosModules.default

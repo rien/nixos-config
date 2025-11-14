@@ -81,8 +81,6 @@ let
         set undodir=~/.vimundo/
 
         syntax enable
-        set background=light
-        colorscheme darcula
         set number
         set showcmd
         set autoread
@@ -153,7 +151,6 @@ let
       '';
 
     plugins = with pkgs.vimPlugins // customPlugins; [
-        darcula
         vim-beancount
         vim-nix
         editorconfig-vim

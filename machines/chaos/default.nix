@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... }:
+{ lib, config, pkgs, stylix, ... }:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -7,6 +7,29 @@
   age.secrets = {
     "media-key".file = ./chaos_key.age;
     "vpn-conf".file = ./vpn-conf.age;
+  };
+
+  stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    fonts = {
+      serif = {
+        package = pkgs.source-serif-pro; 
+        name = "Source Serif Pro";
+      };
+      sansSerif = {
+        package = pkgs.source-sans-pro;
+        name = "Source Serif Sans";
+      };
+      monospace = {
+        package = pkgs.source-code-pro;
+        name = "Source Code Pro";
+      };
+      emoji = {
+        package = pkgs.noto-fonts-emoji;
+        name = "Noto Color Emoji";
+      };
+    };
   };
 
   boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
