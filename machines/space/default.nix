@@ -50,6 +50,10 @@ in
     "storagebox-credentials" = {
       file = ./storagebox-credentials.age;
     };
+    "transmission-auth" = {
+      owner = "nginx";
+      file = ./transmission-auth.age;
+    };
   };
 
   system.activationScripts.linkDKIMtxt = {
@@ -159,6 +163,14 @@ in
       enable = true;
       hostname = "sync.rxn.be";
       basicAuthFile = "/run/agenix/syncthing-auth";
+    };
+
+    transmission = {
+      enable = true;
+      domain = "transmission.rxn.be";
+      download-dir = "/var/lib/transmission/data/complete";
+      incomplete-dir = "/var/lib/transmission/data/incomplete";
+      basicAuthFile = "/run/agenix/transmission-auth";
     };
 
     extraSystemPackages = with pkgs; [

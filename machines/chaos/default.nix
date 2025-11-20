@@ -132,7 +132,7 @@
     extraHomePackages = with pkgs; [
       # blender
       (firefox.override { pkcs11Modules = [ eid-mw ]; })
-      (ungoogled-chromium.override { enableWideVine = true; })
+      #(ungoogled-chromium.override { enableWideVine = true; })
       _1password-cli
       _1password-gui
       binutils

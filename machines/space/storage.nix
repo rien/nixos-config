@@ -71,6 +71,22 @@
       ];
     };
 
+    "/var/lib/transmission/data" = {
+      device = "/data/transmission/";
+      fsType = "fuse.bindfs";
+      options = [
+        "multithreaded"
+        "x-systemd.after=data.mount"
+        "x-systemd.requires=data.mount"
+        "x-systemd.before=transmission.service"
+        "x-systemd.required-by=transmission.service"
+        "force-user=transmission"
+        "force-group=nginx"
+        "perms=u=rwD:g=rD"
+        "_netdev"
+      ];
+    };
+
     "/var/lib/photoprism/data-originals" = {
       device = "/data/photoprism/originals";
       fsType = "fuse.bindfs";
