@@ -15,9 +15,12 @@
 
       services.tailscale = {
         enable = true;
+        extraSetFlags = [
+          "--advertise-exit-node"
+        ];
       };
 
-      #networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
+      networking.nameservers = [ "9.9.9.9" "1.1.1.1" ];
       networking.search = [ "elk-discus.ts.net" ];
 
 
