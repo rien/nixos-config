@@ -13,7 +13,7 @@ in {
     home-manager.users.${config.custom.user} = let
       overrideWithGApps = (pkg: pkg.overrideAttrs (oldAttrs: {nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook ];}));
       devSDKs = with pkgs; {
-        inherit pkg-config ruby_3_1 ruby_3_2 yarn valgrind vale mono;
+        inherit pkg-config ruby_3_4 yarn valgrind vale mono perf;
         dotnet = dotnet-sdk;
         openssl = symlinkJoin { name = openssl.pname; paths = [ openssl.dev openssl.debug ]; };
         rustc = symlinkJoin { name = rustc.pname; paths = [ rustc cargo gcc ]; };
@@ -23,9 +23,8 @@ in {
         java21 = jdk21;
         python = python3;
         node = nodejs;
-        c = clang_14;
+        c = clang_21;
         make = gnumake;
-        perf = linuxPackages.perf;
         dutch = hunspellDicts.nl_nl;
       };
       extraPath = lib.makeBinPath (builtins.attrValues devSDKs);

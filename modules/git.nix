@@ -21,9 +21,11 @@
 
         programs.git = {
           enable = true;
-          userEmail = personal.email;
-          userName = "Rien Maertens";
-          extraConfig = {
+          settings = {
+            user = {
+              email = personal.email;
+              name = "Rien Maertens";
+            };
             init.defaultBranch = "main";
             branch.autosetuprebase = "always";
             pull.rebase = true;

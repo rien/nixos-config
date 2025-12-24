@@ -5,6 +5,7 @@ let
 
 in {
   imports = [
+    ./gnome.nix
     ./plasma.nix
     ./tv.nix
   ];
@@ -59,7 +60,7 @@ in {
         fira-code
         fira
         symbola
-        noto-fonts-emoji
+        noto-fonts-color-emoji
         comic-relief
         open-sans
       ];

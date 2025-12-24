@@ -62,11 +62,12 @@
     graphics = {
       enable = true;
       extraPackages = with pkgs; [
-        vaapiIntel
+        vaapi-intel-hybrid
+        intel-vaapi-driver
         intel-media-driver
         libva
         libvdpau-va-gl
-        vaapiVdpau
+        libva-vdpau-driver
         intel-compute-runtime
         ocl-icd
       ];
@@ -76,7 +77,7 @@
     enableRedistributableFirmware = true;
   };
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override {
+    intel-vaapi-driver = pkgs.intel-vaapi-driver.override {
       enableHybridCodec = true;
     };
   };

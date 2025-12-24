@@ -26,7 +26,7 @@
         name = "Source Code Pro";
       };
       emoji = {
-        package = pkgs.noto-fonts-emoji;
+        package = pkgs.noto-fonts-color-emoji;
         name = "Noto Color Emoji";
       };
     };
@@ -42,10 +42,10 @@
   };
 
   # Ignore power key and lid events
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandleLidSwitch=ignore
-  '';
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+    HandleLidSwitch = "ignore";
+  };
 
   programs.steam = {
     enable = true;
@@ -70,9 +70,6 @@
 
   programs.adb.enable = true;
   users.users.rien.extraGroups = [ "adbusers" "cdemu" ];
-  services.udev.packages = [
-    pkgs.android-udev-rules
-  ];
 
   custom = {
     sshd.enable = true;
@@ -130,6 +127,7 @@
     ];
 
     extraHomePackages = with pkgs; [
+      prusa-slicer
       # blender
       (firefox.override { pkcs11Modules = [ eid-mw ]; })
       #(ungoogled-chromium.override { enableWideVine = true; })
