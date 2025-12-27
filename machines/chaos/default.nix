@@ -11,7 +11,12 @@
 
   stylix = {
     enable = true;
-    base16Scheme = "${pkgs.base16-schemes}/share/themes/gruvbox-dark-hard.yaml";
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
+    cursor = {
+      name = "BreezeX-RosePine-Linux";
+      size = 32;
+      package = pkgs.rose-pine-cursor;
+    };
     fonts = {
       serif = {
         package = pkgs.source-serif-pro; 
@@ -63,7 +68,7 @@
   services.printing.drivers = [ pkgs.hplip ];
 
   virtualisation.virtualbox.host.enable = true;
-  virtualisation.waydroid.enable = true;
+  virtualisation.waydroid.enable = false;
   users.extraGroups.vboxusers.members = [ "rien" ];
   system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
@@ -84,7 +89,7 @@
     sound.enable = true;
     graphical = {
       enable = true;
-      flavour = "plasma";
+      flavour = "gnome";
     };
     kitty.enable = true;
     neovim.enable = true;

@@ -18,7 +18,7 @@ in {
 
     flavour = mkOption {
       example = "plasma";
-      type = lib.types.enum [ "plasma" "tv" ];
+      type = lib.types.enum [ "plasma" "tv" "gnome" ];
     };
   };
 
@@ -31,7 +31,7 @@ in {
         options = [ "caps:none" ];
       };
       home.packages = with pkgs; [ pamixer playerctl adwaita-icon-theme adwaita-qt wl-clipboard moonlight-qt ];
-      gtk.gtk2.force = true;
+      # gtk.gtk2.force = true;
     };
 
 
