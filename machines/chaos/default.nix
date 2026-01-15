@@ -41,10 +41,14 @@
 
   networking.firewall.allowedTCPPorts = [ 10999 20595 8000 2350 3450 ];
   networking.firewall.allowedUDPPorts = [ 10999 20595 8000 2350 3450];
-  
+
   services.openvpn.servers = {
     bagofholding = { config = ''config /run/agenix/vpn-conf''; };
   };
+
+  networking.networkmanager.plugins = [ pkgs.networkmanager-openconnect ];
+
+  services.mullvad-vpn.enable = true;
 
   # Ignore power key and lid events
   services.logind.settings.Login = {
@@ -74,7 +78,6 @@
 
 
   programs.adb.enable = true;
-  users.users.rien.extraGroups = [ "adbusers" "cdemu" ];
 
   custom = {
     sshd.enable = true;
@@ -103,7 +106,6 @@
         certificate = builtins.readFile ./bridge.pem;
       };
     };
-    ugent-vpn.enable = true;
     tor.enable = true;
     intellij.enable = true;
     syncthing-client.enable = true;
@@ -132,6 +134,9 @@
     ];
 
     extraHomePackages = with pkgs; [
+      openconnect
+      networkmanager-openconnect
+      mullvad-vpn
       prusa-slicer
       # blender
       (firefox.override { pkcs11Modules = [ eid-mw ]; })
@@ -175,13 +180,13 @@
       zoom-us
     ];
 
-    wireless = {
-      enable = true;
-      device = "wlp114s0";
-    };
-
     stateVersion = "21.03";
   };
+
+
+  # enable NetworkManager
+  networking.networkmanager.enable = true;
+  users.users.rien.extraGroups = [ "networkmanager" ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

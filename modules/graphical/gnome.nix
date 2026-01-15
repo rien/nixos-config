@@ -7,8 +7,10 @@ in {
 
   config = mkIf (cfg.enable && cfg.flavour == "gnome") {
 
-    environment.systemPackages = [
-      pkgs.rose-pine-cursor
+    environment.systemPackages = with pkgs; [
+      rose-pine-cursor
+      rose-pine-icon-theme
+      gnome-tweaks
     ];
 
 

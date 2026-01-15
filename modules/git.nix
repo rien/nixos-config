@@ -32,6 +32,7 @@
             rebase.autoStash = true;
             push.autoSetupRemote = true;
             core.autocrlf = "input";
+            core.editor = "vim";
             diff.external = "${pkgs.difftastic}/bin/difft";
             user.signingkey = personal.sshKeys.chaos;
             commit.gpgsign = true;

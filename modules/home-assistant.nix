@@ -71,9 +71,20 @@ in {
       enable = true;
       settings = {
         permit_join = true;
-        homeassistant = true;
         availability.enabled = true;
         serial.port = "/dev/serial/by-id/usb-Nabu_Casa_Home_Assistant_Connect_ZBT-1_327f6fcbf338ef11b197e1d154516304-if00-port0";
+        serial.adapter = "ember";
+        homeassistant = {
+          enabled = true;
+          legacy_action_sensor = true;
+        };
+        advanced = {
+          homeassistant_legacy_entity_attributes = false;
+          homeassistant_legacy_triggers = false;
+          legacy_api = false;
+          legacy_availability_payload = false;
+        };
+        device_options.legacy = false;
       };
     };
 

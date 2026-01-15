@@ -52,7 +52,10 @@ in
           ];
         };
 
-        graphical.tv.enable = true;
+        graphical = {
+          enable = true;
+          flavour = "kodi";
+        };
         sound.enable = true;
 
         home-assistant = {
