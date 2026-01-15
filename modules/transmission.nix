@@ -2,7 +2,7 @@
 with lib;
 let
   cfg = config.custom.transmission;
-  staticFiles = "${pkgs.transmission}/share/transmission/web/";
+  staticFiles = "${pkgs.transmission_4}/share/transmission/web/";
 in
 {
   options.custom.transmission = {
@@ -48,6 +48,7 @@ in
 
     services.transmission = {
       enable = true;
+      package = pkgs.transmission_4;
       settings = {
         peer-port = cfg.port;
         download-dir = cfg.download-dir;
