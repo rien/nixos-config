@@ -134,13 +134,14 @@
     ];
 
     extraHomePackages = with pkgs; [
+      antigravity-fhs
       openconnect
       networkmanager-openconnect
       mullvad-vpn
       prusa-slicer
       # blender
       (firefox.override { pkcs11Modules = [ eid-mw ]; })
-      #(ungoogled-chromium.override { enableWideVine = true; })
+      chromium
       _1password-cli
       _1password-gui
       binutils

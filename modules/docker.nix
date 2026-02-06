@@ -18,6 +18,9 @@ in {
     virtualisation.docker = {
       enable = true;
       storageDriver = cfg.storageDriver;
+      daemon.settings = {
+        dns = [ "100.100.100.100" ];
+      };
     };
     programs.criu.enable = true;
     systemd.services.docker.path = [ pkgs.gzip pkgs.gnutar pkgs.criu ];
