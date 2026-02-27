@@ -134,6 +134,8 @@
     ];
 
     extraHomePackages = with pkgs; [
+      opencode
+      copilot
       antigravity-fhs
       openconnect
       networkmanager-openconnect

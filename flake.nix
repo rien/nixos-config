@@ -73,6 +73,9 @@
               (self: super: {
                 # Actual budgetting server
                 actual-server = self.callPackage ./packages/actual {};
+                # Copilot CLI
+                copilot = self.callPackage ./packages/copilot {};
+
                 #tailscale = (unstablePkgsFor system).tailscale;
                 citrix_workspace = (unstablePkgsFor system).citrix_workspace;
 

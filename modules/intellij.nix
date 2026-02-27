@@ -18,8 +18,7 @@ in {
         openssl = symlinkJoin { name = openssl.pname; paths = [ openssl.dev openssl.debug ]; };
         rustc = symlinkJoin { name = rustc.pname; paths = [ rustc cargo gcc ]; };
         rust-src = rust.packages.stable.rustPlatform.rustLibSrc;
-        java11 = jdk11;
-        java17 = jdk17;
+        java25 = jdk25;
         java21 = jdk21;
         python = python3;
         node = nodejs;
