@@ -1,0 +1,7 @@
+{
+  "name": "copilot-cli",
+  "version": "0.0.409",
+  "dependencies": {
+    "@github/copilot": "0.0.409"
+  }
+}
