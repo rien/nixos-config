@@ -134,12 +134,14 @@
     ];
 
     extraHomePackages = with pkgs; [
+      vscodium-fhs
+      citrix_workspace
       opencode
       copilot
+      zed-editor-fhs
       antigravity-fhs
       openconnect
       networkmanager-openconnect
-      mullvad-vpn
       prusa-slicer
       # blender
       (firefox.override { pkcs11Modules = [ eid-mw ]; })
@@ -149,14 +151,12 @@
       binutils
       binwalk
       bitwig-studio
+      ardour
       brightnessctl
       discord
-      feh
       ffmpeg-full
       gimp
-      ghostty
       godot
-      hyperfine
       imagemagick
       inkscape
       kdePackages.kdenlive
@@ -165,13 +165,9 @@
       libreoffice
       mpv
       nmap
-      obs-studio
       obsidian
       pandoc
-      prismlauncher
       qview
-      remmina
-      scribus
       signal-desktop
       steam-run
       teams-for-linux
@@ -180,7 +176,6 @@
       vscode
       wine-staging
       yt-dlp
-      zoom-us
     ];
 
     stateVersion = "21.03";
