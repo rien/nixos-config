@@ -137,7 +137,7 @@
       vscodium-fhs
       citrix_workspace
       opencode
-      copilot
+      #copilot
       zed-editor-fhs
       antigravity-fhs
       openconnect

@@ -51,6 +51,9 @@
         inherit system;
         config = {
           allowUnfree = true;
+          permittedInsecurePackages = [
+            "libsoup-2.74.3"
+          ];
         };
       };
       mkSystem = system: hostname: extraModules: nixpkgs.lib.nixosSystem {
