@@ -51,9 +51,10 @@
       fsType = "zfs";
     };
 
-  #swapDevices = [{
-  #  device = "pool/swap";
-  #}];
+  swapDevices = [
+    { device = "/dev/zvol/pool/local/swap"; priority = 10; }
+  ];
+
 
   hardware = {
     steam-hardware.enable = true;

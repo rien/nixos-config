@@ -139,7 +139,7 @@
       opencode
       #copilot
       zed-editor-fhs
-      antigravity-fhs
+      #antigravity-fhs
       openconnect
       networkmanager-openconnect
       prusa-slicer
@@ -150,7 +150,7 @@
       _1password-gui
       binutils
       binwalk
-      bitwig-studio
+      #bitwig-studio
       ardour
       brightnessctl
       discord
