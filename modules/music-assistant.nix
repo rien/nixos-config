@@ -60,7 +60,7 @@ in {
 
     services.nginx.virtualHosts.${cfg.hostname} = {
       forceSSL = true;
-      useACMEHost = cfg.hostname;
+      useACMEHost = cfg.acmeHost or cfg.hostname;
 
       extraConfig = ''
         proxy_buffering off;

@@ -47,6 +47,7 @@ in
             }
             {
               domain = "thuis.maertens.gent";
+              extra = [ "music.maertens.gent" ];
               dns = hetzner;
             }
           ];
@@ -61,8 +62,12 @@ in
         home-assistant = {
           enable = true;
           hostname = "thuis.maertens.gent";
-          sslCertificate = "/run/agenix/cert.crt";
-          sslCertificateKey = "/run/agenix/cert.key";
+        };
+
+        music-assistant = {
+          enable = true;
+          hostname = "music.maertens.gent";
+          acmeHost = "thuis.maertens.gent";
         };
 
         extraSystemPackages = with pkgs; [ ungoogled-chromium moonlight-qt ];

@@ -16,6 +16,7 @@ in {
     ./gnupg.nix
     ./graphical
     ./home-assistant.nix
+    ./music-assistant.nix
     ./intellij.nix
     ./kitty.nix
     ./mastodon.nix
