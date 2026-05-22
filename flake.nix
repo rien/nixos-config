@@ -135,6 +135,7 @@
           };
         }) // {
       nixosConfigurations = {
+        chronos = mkSystem "x86_64-linux" "chronos" [];
         chaos = mkSystem "x86_64-linux" "chaos" [];
         space = mkSystem "x86_64-linux" "space" [];
         entropy = mkSystem "x86_64-linux" "entropy" [];

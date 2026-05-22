@@ -129,7 +129,6 @@
     ];
 
     extraHomePackages = with pkgs; [
-      citrix_workspace
       openconnect
       networkmanager-openconnect
       (firefox.override { pkcs11Modules = [ eid-mw ]; })
