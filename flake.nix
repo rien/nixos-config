@@ -8,6 +8,7 @@
     stylix = {
       url = "github:nix-community/stylix/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
     };
     flake-utils = {
       url = "github:numtide/flake-utils/main";
