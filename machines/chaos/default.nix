@@ -37,18 +37,6 @@
     };
   };
 
-  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
-
-  networking.firewall.allowedTCPPorts = [ 10999 20595 8000 2350 3450 ];
-  networking.firewall.allowedUDPPorts = [ 10999 20595 8000 2350 3450];
-
-  services.openvpn.servers = {
-    bagofholding = { config = ''config /run/agenix/vpn-conf''; };
-  };
-
-  networking.networkmanager.plugins = [ pkgs.networkmanager-openconnect ];
-
-  services.mullvad-vpn.enable = true;
 
   # Ignore power key and lid events
   services.logind.settings.Login = {
@@ -61,23 +49,8 @@
     remotePlay.openFirewall = true;
   };
 
-  programs.cdemu = {
-    enable = true;
-    gui = true;
-  };
-
   programs.nix-ld.enable = true;
 
-  services.printing.enable = true;
-  services.printing.drivers = [ pkgs.hplip ];
-
-  virtualisation.virtualbox.host.enable = true;
-  virtualisation.waydroid.enable = false;
-  users.extraGroups.vboxusers.members = [ "rien" ];
-  system.activationScripts.users.supportsDryActivation = lib.mkForce false;
-
-
-  programs.adb.enable = true;
 
   custom = {
     sshd.enable = true;
@@ -86,32 +59,17 @@
       enable = true;
       storageDriver = "zfs";
     };
-    dwarffortress.enable = false;
     git.enable = true;
     gnupg.enable = true;
     sound.enable = true;
     graphical = {
-      enable = true;
+      enable = false;
       flavour = "gnome";
     };
     kitty.enable = true;
     neovim.enable = true;
-    pass.enable = true;
     ssh.enable = true;
-    mail = {
-      enable = true;
-      thunderbird = true;
-      protonbridge = {
-        enable = true;
-        certificate = builtins.readFile ./bridge.pem;
-      };
-    };
-    tor.enable = true;
-    intellij.enable = true;
-    syncthing-client.enable = true;
-    wireshark.enable = true;
     tailscale.enable = true;
-    mounts.ugent.enable = true;
     mounts.media = {
       enable = true;
       mountPoint = "/mnt/media";
@@ -119,66 +77,28 @@
     };
 
     extraSystemPackages = with pkgs; [
-      eid-mw
       cntr
       ntfs3g
     ];
 
-    permittedInsecurePackages = [
-      "electron-35.7.5"
-      "electron-24.8.6"
-      "electron-25.9.0"
-      "zotero-6.0.27"
-      "qtwebkit-5.212.0-alpha4"
-      "libsoup-2.74.3"
-    ];
-
     extraHomePackages = with pkgs; [
-      vscodium-fhs
-      citrix_workspace
-      opencode
-      #copilot
-      zed-editor-fhs
-      #antigravity-fhs
-      openconnect
-      networkmanager-openconnect
-      prusa-slicer
-      # blender
       (firefox.override { pkcs11Modules = [ eid-mw ]; })
-      chromium
       _1password-cli
       _1password-gui
       binutils
       binwalk
-      #bitwig-studio
-      ardour
       brightnessctl
-      discord
       ffmpeg-full
-      gimp
-      godot
       imagemagick
-      inkscape
-      kdePackages.kdenlive
-      kdePackages.okular
       libqalculate
-      libreoffice
       mpv
       nmap
-      obsidian
-      pandoc
-      qview
-      signal-desktop
       steam-run
-      teams-for-linux
-      texlive.combined.scheme-full
-      trayscale
-      vscode
       wine-staging
       yt-dlp
     ];
 
-    stateVersion = "21.03";
+    stateVersion = "25.11";
   };
 
 
@@ -192,8 +112,8 @@
 
   networking.hostName = "chaos"; # Define your hostname.
   # Required for ZFS
-  networking.hostId = "04cdf13e";
-  networking.timeServers = [ "ntp.ugent.be" "2.nixos.pool.ntp.org" ];
+  networking.hostId = "12345678";
+  networking.timeServers = [ "2.nixos.pool.ntp.org" ];
 
 }
 
