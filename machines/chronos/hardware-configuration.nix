@@ -13,6 +13,8 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  services.fwupd.enable = true;
+
   fileSystems."/" =
     { device = "zpool/root";
       fsType = "zfs";
