@@ -129,6 +129,7 @@
     ];
 
     extraHomePackages = with pkgs; [
+      opencode
       openconnect
       networkmanager-openconnect
       (firefox.override { pkcs11Modules = [ eid-mw ]; })

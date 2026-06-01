@@ -138,7 +138,7 @@
       nixosConfigurations = {
         chronos = mkSystem "x86_64-linux" "chronos" [
           hardware.nixosModules.dell-xps-15-9510
-          hardware.nixosModules.dell-xps-15-9510-nvidia
+          #hardware.nixosModules.dell-xps-15-9510-nvidia
         ];
         chaos = mkSystem "x86_64-linux" "chaos" [];
         space = mkSystem "x86_64-linux" "space" [];
