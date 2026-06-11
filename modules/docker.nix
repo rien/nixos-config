@@ -9,21 +9,25 @@ in {
       example = true;
     };
     storageDriver = mkOption {
-      default = "overlay2";
+      default = "overlay";
     };
   };
 
 
   config = mkIf cfg.enable {
-    virtualisation.docker = {
+    virtualisation.podman = {
       enable = true;
-      storageDriver = cfg.storageDriver;
-      daemon.settings = {
+      dockerCompat = true;
+      dockerSocket.enable = true;
+      defaultNetwork.settings = {
         dns = [ "100.100.100.100" ];
       };
     };
+    virtualisation.containers.storage.settings = {
+      storage.driver = cfg.storageDriver;
+    };
     programs.criu.enable = true;
-    systemd.services.docker.path = [ pkgs.gzip pkgs.gnutar pkgs.criu ];
-    users.users.${config.custom.user}.extraGroups = [ "docker" ];
+    systemd.services.podman.path = [ pkgs.gzip pkgs.gnutar pkgs.criu ];
+    users.users.${config.custom.user}.extraGroups = [ "docker" "podman" ];
   };
 }

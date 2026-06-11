@@ -2,29 +2,44 @@
 with lib;
 let
   cfg = config.custom.graphical;
+  kodi = pkgs.kodi-gbm.withPackages (p: with p; [
+    joystick
+    vfs-sftp
+    steam-launcher
+  ]);
 
 in {
 
   config = mkIf (cfg.enable && cfg.flavour == "kodi") {
 
-    services.xserver.desktopManager.kodi = {
+
+    hardware.bluetooth.enable = true;
+    services.blueman.enable = true;
+    services.libinput.enable = true;
+
+    users.users.${config.custom.user}.extraGroups = [ "input" "video" "audio" ];
+
+    networking.firewall = {
+      allowedTCPPorts = [ 8080 ];
+      allowedUDPPorts = [ 8080 ];
+    };
+
+    nixpkgs.config.kodi.enableAdvancedLauncher = true;
+
+    systemd.services.kodi = {
       enable = true;
-      package = pkgs.kodi.withPackages (p: with p; [ jellyfin vfs-sftp ]);
-    };
-
-    services.xserver.enable = true;
-    services.displayManager = {
-      autoLogin = {
-        enable = true;
-        user = config.custom.user;
+      wantedBy = [ "multi-user.target" ];
+      conflicts = [ "getty@tty1.service" ];
+      serviceConfig = {
+        User = config.custom.user;
+        Group = "users";
+        SupplementaryGroups = [ "video" "input" ];
+        TTYPath = "/dev/tty1";
+        StandardInput = "tty";
+        StandardOutput = "journal";
+        ExecStart = "${kodi}/bin/kodi-standalone";
       };
-      defaultSession = "kodi";
-      sddm.enable = true;
     };
-
-    xdg.portal.enable = true;
-    xdg.portal.extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-
 
   };
 }

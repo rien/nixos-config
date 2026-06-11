@@ -45,6 +45,8 @@
             };
           };
           ignores = [
+            ".claude/"
+            "result/"
             ".data/"
             ".direnv"
             ".envrc"

@@ -61,10 +61,10 @@
     };
     git.enable = true;
     gnupg.enable = true;
-    sound.enable = true;
+    sound.enable = false;
     graphical = {
-      enable = false;
-      flavour = "gnome";
+      enable = true;
+      flavour = "kodi";
     };
     kitty.enable = true;
     neovim.enable = true;

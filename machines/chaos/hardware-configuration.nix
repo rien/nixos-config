@@ -31,6 +31,32 @@
 
   swapDevices = [ ];
 
+  hardware = {
+    steam-hardware.enable = true;
+    bluetooth.enable = true;
+    bluetooth.powerOnBoot = true;
+    graphics = {
+      enable = true;
+      extraPackages = with pkgs; [
+        vaapi-intel-hybrid
+        intel-vaapi-driver
+        intel-media-driver
+        libva
+        libvdpau-va-gl
+        libva-vdpau-driver
+        intel-compute-runtime
+        ocl-icd
+      ];
+      extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
+    };
+    cpu.intel.updateMicrocode = true;
+    enableRedistributableFirmware = true;
+  };
+  nixpkgs.config.packageOverrides = pkgs: {
+    intel-vaapi-driver = pkgs.intel-vaapi-driver.override {
+      enableHybridCodec = true;
+    };
+  };
+
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-  hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

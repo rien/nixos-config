@@ -129,6 +129,7 @@
     ];
 
     extraHomePackages = with pkgs; [
+      claude-code
       opencode
       openconnect
       networkmanager-openconnect
