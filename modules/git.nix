@@ -45,6 +45,7 @@
             };
           };
           ignores = [
+            "CLAUDE.md"
             ".claude/"
             "result/"
             ".data/"

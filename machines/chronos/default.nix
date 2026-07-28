@@ -76,8 +76,6 @@
   system.activationScripts.users.supportsDryActivation = lib.mkForce false;
 
 
-  programs.adb.enable = true;
-
   custom = {
     sshd.enable = true;
     bash.enable = true;
@@ -129,8 +127,9 @@
     ];
 
     extraHomePackages = with pkgs; [
+      darktable
+      gh
       claude-code
-      opencode
       openconnect
       networkmanager-openconnect
       (firefox.override { pkcs11Modules = [ eid-mw ]; })

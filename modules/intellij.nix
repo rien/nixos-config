@@ -25,6 +25,7 @@ in {
         c = clang_21;
         make = gnumake;
         dutch = hunspellDicts.nl_nl;
+        cmake = cmake;
       };
       extraPath = lib.makeBinPath (builtins.attrValues devSDKs);
       idea-with-copilot = pkgs.jetbrains.plugins.addPlugins pkgs.jetbrains.idea-ultimate [ "github-copilot" ];

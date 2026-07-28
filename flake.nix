@@ -2,11 +2,11 @@
   description = "Nixos configuration";
 
   inputs = {
-    unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    unstable.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
+    nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-26.05-chilled/0.1";
     systems.url = "github:nix-systems/default";
     stylix = {
-      url = "github:nix-community/stylix/release-25.11";
+      url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.systems.follows = "systems";
     };
@@ -21,7 +21,7 @@
       };
     };
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix = {
@@ -83,6 +83,8 @@
                 #tailscale = (unstablePkgsFor system).tailscale;
                 citrix_workspace = (unstablePkgsFor system).citrix_workspace;
 
+                claude-code = (unstablePkgsFor system).claude-code;
+
                 # Agenix secrets
                 agenix = agenix.packages.${system}.default;
                 lego = self.symlinkJoin {
@@ -138,7 +140,7 @@
       nixosConfigurations = {
         chronos = mkSystem "x86_64-linux" "chronos" [
           hardware.nixosModules.dell-xps-15-9510
-          #hardware.nixosModules.dell-xps-15-9510-nvidia
+          hardware.nixosModules.dell-xps-15-9510-nvidia
         ];
         chaos = mkSystem "x86_64-linux" "chaos" [];
         space = mkSystem "x86_64-linux" "space" [];

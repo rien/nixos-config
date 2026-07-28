@@ -49,6 +49,7 @@
     remotePlay.openFirewall = true;
   };
 
+
   programs.nix-ld.enable = true;
 
 

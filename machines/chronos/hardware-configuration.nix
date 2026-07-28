@@ -13,6 +13,8 @@
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
 
+  boot.zfs.forceImportRoot = false;
+
   services.fwupd.enable = true;
 
   fileSystems."/" =
