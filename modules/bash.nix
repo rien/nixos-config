@@ -10,6 +10,11 @@ with lib;
 
   config = mkIf config.custom.bash.enable {
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
+      home.sessionVariables = {
+        LANG = "en_US.UTF-8";
+        LC_ALL = "en_US.UTF-8";
+      };
+      programs.starship.enable = true;
       programs.bash = {
         enable = true;
         historyFileSize = 1000000000;

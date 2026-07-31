@@ -22,12 +22,12 @@ let
       };
     };
   };
-  base = home: {
+  base = {
     home.sessionVariables = { EDITOR = "nvim"; };
     programs.neovim = {
       enable = true;
       vimAlias = true;
-      extraPackages = [ pkgs.xclip ];
+      extraPackages = lib.optionals pkgs.stdenv.isLinux [ pkgs.xclip ];
       extraConfig = ''
         set nocompatible
         filetype off	
@@ -170,7 +170,7 @@ in
   };
 
   config = lib.mkIf config.custom.neovim.enable {
-    home-manager.users.${config.custom.user} = { ... }: (base "/home/${config.custom.user}");
-    home-manager.users.root = { ... }: (base "/root");
+    home-manager.users.${config.custom.user} = { ... }: base;
+    home-manager.users.root = { ... }: base;
   };
 }

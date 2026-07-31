@@ -39,9 +39,13 @@
     hardware = {
       url = "github:NixOS/nixos-hardware";
     };
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, stylix, agenix, zeroad, devshell, hardware, systems }:
+  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, stylix, agenix, zeroad, devshell, hardware, systems, nix-darwin }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -126,6 +130,21 @@
           (./. + "/machines/${hostname}")
         ] ++ extraModules;
       };
+      mkDarwinSystem = hostname: extraModules: nix-darwin.lib.darwinSystem {
+        modules = [
+          # Enable home-manager
+          home-manager.darwinModules.home-manager
+
+          # Set global home-manager options
+          ({
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          })
+
+          # Load the config for our current machine
+          (./. + "/machines/${hostname}")
+        ] ++ extraModules;
+      };
     in
     flake-utils.lib.eachDefaultSystem
       (system:
@@ -145,6 +164,9 @@
         chaos = mkSystem "x86_64-linux" "chaos" [];
         space = mkSystem "x86_64-linux" "space" [];
         entropy = mkSystem "x86_64-linux" "entropy" [];
+      };
+      darwinConfigurations = {
+        aether = mkDarwinSystem "aether" [];
       };
     };
 }
