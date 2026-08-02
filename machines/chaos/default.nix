@@ -56,6 +56,10 @@
   custom = {
     sshd.enable = true;
     bash.enable = true;
+    wireless = {
+      enable = true;
+      device = "wlp114s0";
+    };
     docker = {
       enable = true;
       storageDriver = "zfs";
@@ -104,8 +108,8 @@
 
 
   # enable NetworkManager
-  networking.networkmanager.enable = true;
-  users.users.rien.extraGroups = [ "networkmanager" ];
+  # networking.networkmanager.enable = true;
+  # users.users.rien.extraGroups = [ "networkmanager" ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
