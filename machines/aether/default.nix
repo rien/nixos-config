@@ -10,6 +10,7 @@
   ];
 
   nixpkgs.hostPlatform = "aarch64-darwin";
+  nixpkgs.config.allowUnfree = true;
 
   # nix-darwin manages the Nix installation itself.
   nix.package = pkgs.lix;
@@ -22,6 +23,7 @@
   security.pam.services.sudo_local.touchIdAuth = true;
 
   environment.shells = [ pkgs.bashInteractive ];
+  environment.systemPackages = [ pkgs.claude-code ];
 
   system.primaryUser = "rien";
   users.users.rien.home = "/Users/rien";

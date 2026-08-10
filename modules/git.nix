@@ -17,6 +17,7 @@
 
         home.file.".config/git/allowed_signers".text = ''
           ${personal.email} namespaces="git" ${personal.sshKeys.chaos}
+          ${personal.work.email} namespaces="git" ${personal.sshKeys.work}
         '';
 
         programs.git = {
