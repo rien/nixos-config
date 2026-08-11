@@ -1,4 +1,15 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
+let
+  claude-code = pkgs.symlinkJoin {
+    name = "claude-code-with-node";
+    paths = [ pkgs.claude-code ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/claude \
+        --prefix PATH : ${lib.makeBinPath [ pkgs.nodejs ]}
+    '';
+  };
+in
 {
   imports = [
     ../../modules/home-base.nix
@@ -23,7 +34,7 @@
   security.pam.services.sudo_local.touchIdAuth = true;
 
   environment.shells = [ pkgs.bashInteractive ];
-  environment.systemPackages = [ pkgs.claude-code ];
+  environment.systemPackages = [ claude-code ];
 
   system.primaryUser = "rien";
   users.users.rien.home = "/Users/rien";
