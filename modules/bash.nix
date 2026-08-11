@@ -19,7 +19,7 @@ with lib;
         enable = true;
         historyFileSize = 1000000000;
         shellAliases = let
-          eza = "${pkgs.eza}/bin/eza --colour-scale";
+          eza = "${pkgs.eza}/bin/eza --color-scale=all";
         in {
           ".." = "cd ..";
           "..." = "cd ../..";

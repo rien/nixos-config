@@ -10,7 +10,7 @@
   };
 
   stylix = {
-    enable = true;
+    enable = false;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/rose-pine.yaml";
     cursor = {
       name = "BreezeX-RosePine-Linux";
@@ -38,12 +38,6 @@
   };
 
 
-  # Ignore power key and lid events
-  services.logind.settings.Login = {
-    HandlePowerKey = "ignore";
-    HandleLidSwitch = "ignore";
-  };
-
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
@@ -56,10 +50,6 @@
   custom = {
     sshd.enable = true;
     bash.enable = true;
-    wireless = {
-      enable = true;
-      device = "wlp114s0";
-    };
     docker = {
       enable = true;
       storageDriver = "zfs";
@@ -69,7 +59,7 @@
     sound.enable = false;
     graphical = {
       enable = true;
-      flavour = "kodi";
+      flavour = "jovian";
     };
     kitty.enable = true;
     neovim.enable = true;
@@ -108,8 +98,8 @@
 
 
   # enable NetworkManager
-  # networking.networkmanager.enable = true;
-  # users.users.rien.extraGroups = [ "networkmanager" ];
+  networking.networkmanager.enable = true;
+  users.users.rien.extraGroups = [ "networkmanager" ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;

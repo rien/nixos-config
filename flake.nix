@@ -5,6 +5,10 @@
     unstable.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-weekly/0.1";
     nixpkgs.url = "https://flakehub.com/f/DeterminateSystems/nixpkgs-26.05-chilled/0.1";
     systems.url = "github:nix-systems/default";
+    jovian = {
+      url = "github:Jovian-Experiments/Jovian-NixOS";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     stylix = {
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -44,8 +48,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-
-  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, stylix, agenix, zeroad, devshell, hardware, systems, nix-darwin }:
+  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, stylix, agenix, zeroad, devshell, hardware, systems, jovian, nix-darwin }:
     let
       version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
@@ -69,6 +72,9 @@
             inherit self;
             util = import ./util.nix; };
           })
+
+          # Jovian Experiments
+          jovian.nixosModules.default
 
           # Style management
           stylix.nixosModules.stylix

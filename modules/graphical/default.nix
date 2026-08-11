@@ -9,6 +9,7 @@ in {
     ./plasma.nix
     ./tv.nix
     ./kodi.nix
+    ./jovian.nix
   ];
 
   options.custom.graphical = {
@@ -19,7 +20,7 @@ in {
 
     flavour = mkOption {
       example = "plasma";
-      type = lib.types.enum [ "plasma" "tv" "gnome" "kodi" ];
+      type = lib.types.enum [ "plasma" "tv" "gnome" "kodi" "jovian" ];
     };
   };
 
