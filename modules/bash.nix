@@ -18,6 +18,9 @@ with lib;
       programs.bash = {
         enable = true;
         historyFileSize = 1000000000;
+        initExtra = ''
+          [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+        '';
         shellAliases = let
           eza = "${pkgs.eza}/bin/eza --color-scale=all";
         in {

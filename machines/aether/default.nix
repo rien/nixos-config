@@ -48,6 +48,16 @@ in
   home-manager.users.rien.home.stateVersion = "25.11";
   home-manager.users.root.home.stateVersion = "25.11";
 
+  homebrew = {
+    enable = true;
+    casks = [ "unity-cli" ];
+    onActivation = {
+      cleanup = "zap";
+      autoUpdate = true;
+      upgrade = true;
+    };
+  };
+
   custom = {
     git.enable = true;
     bash.enable = true;
