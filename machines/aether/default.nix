@@ -45,7 +45,10 @@ in
   system.stateVersion = 7;
 
   home-manager.backupFileExtension = "hmbak";
-  home-manager.users.rien.home.stateVersion = "25.11";
+  home-manager.users.rien.home = {
+    stateVersion = "25.11";
+    sessionPath = [ "/usr/local/share/dotnet" "$HOME/.dotnet/tools" ];
+  };
   home-manager.users.root.home.stateVersion = "25.11";
 
   homebrew = {
