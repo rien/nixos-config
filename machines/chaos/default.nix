@@ -105,6 +105,9 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.initrd.kernelModules = [ "i915" ];
+  services.fwupd.enable = true;
+
   networking.hostName = "chaos"; # Define your hostname.
   # Required for ZFS
   networking.hostId = "12345678";

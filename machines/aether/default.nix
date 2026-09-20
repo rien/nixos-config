@@ -34,7 +34,7 @@ in
   security.pam.services.sudo_local.touchIdAuth = true;
 
   environment.shells = [ pkgs.bashInteractive ];
-  environment.systemPackages = with pkgs; [ claude-code gh libpq ];
+  environment.systemPackages = with pkgs; [ claude-code gh libpq nixos-rebuild ];
 
   system.primaryUser = "rien";
   users.users.rien.home = "/Users/rien";

@@ -7,11 +7,16 @@
     systems.url = "github:nix-systems/default";
     jovian = {
       url = "github:Jovian-Experiments/Jovian-NixOS";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "unstable";
     };
     stylix = {
       url = "github:nix-community/stylix/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.systems.follows = "systems";
+    };
+    stylix-unstable = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "unstable";
       inputs.systems.follows = "systems";
     };
     flake-utils = {
@@ -27,6 +32,10 @@
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    home-manager-unstable = {
+      url = "github:nix-community/home-manager/master";
+      inputs.nixpkgs.follows = "unstable";
     };
     agenix = {
       url = "github:ryantm/agenix/main";
@@ -48,9 +57,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  outputs = { self, nixpkgs, unstable, home-manager, flake-utils, stylix, agenix, zeroad, devshell, hardware, systems, jovian, nix-darwin }:
+  outputs = { self, nixpkgs, unstable, home-manager, home-manager-unstable, flake-utils, stylix, stylix-unstable, agenix, zeroad, devshell, hardware, systems, jovian, nix-darwin }:
     let
-      version-suffix = nixpkgs.rev or (builtins.toString nixpkgs.lastModified);
       pkgsFor = system: import nixpkgs {
         inherit system;
         config.allowUnfree = true;
@@ -64,7 +72,7 @@
           ];
         };
       };
-      mkSystem = system: hostname: extraModules: nixpkgs.lib.nixosSystem {
+      mkSystemWith = { pkgsInput, hmInput, stylixInput }: system: hostname: extraModules: pkgsInput.lib.nixosSystem {
         inherit system;
         modules = [
           # Add extra input arguments to modules
@@ -77,7 +85,7 @@
           jovian.nixosModules.default
 
           # Style management
-          stylix.nixosModules.stylix
+          stylixInput.nixosModules.stylix
 
           # Secrets management
           agenix.nixosModules.default
@@ -111,7 +119,7 @@
           })
 
           # Enable home-manager
-          home-manager.nixosModules.home-manager
+          hmInput.nixosModules.home-manager
 
           # Set global home-manager options
           ({
@@ -125,9 +133,9 @@
           # Expose the currently deployed nixpkgs in /etc/nixpkgs/
           ({ pkgs, ... }: {
             environment.etc."nixpkgs".source = (pkgs.runCommand "nixpkgs" { } ''
-              cp -r ${nixpkgs} $out
+              cp -r ${pkgsInput} $out
               chmod 700 $out
-              echo "${version-suffix}" > $out/.version-suffix
+              echo "${pkgsInput.rev or (builtins.toString pkgsInput.lastModified)}" > $out/.version-suffix
             '');
             nix.nixPath = [ "nixpkgs=/etc/nixpkgs" ];
           })
@@ -135,6 +143,16 @@
           # Load the config for our current machine
           (./. + "/machines/${hostname}")
         ] ++ extraModules;
+      };
+      mkSystem = mkSystemWith {
+        pkgsInput = nixpkgs;
+        hmInput = home-manager;
+        stylixInput = stylix;
+      };
+      mkUnstableSystem = mkSystemWith {
+        pkgsInput = unstable;
+        hmInput = home-manager-unstable;
+        stylixInput = stylix-unstable;
       };
       mkDarwinSystem = hostname: extraModules: nix-darwin.lib.darwinSystem {
         modules = [
@@ -167,7 +185,7 @@
           hardware.nixosModules.dell-xps-15-9510
           hardware.nixosModules.dell-xps-15-9510-nvidia
         ];
-        chaos = mkSystem "x86_64-linux" "chaos" [];
+        chaos = mkUnstableSystem "x86_64-linux" "chaos" [];
         space = mkSystem "x86_64-linux" "space" [];
         entropy = mkSystem "x86_64-linux" "entropy" [];
       };

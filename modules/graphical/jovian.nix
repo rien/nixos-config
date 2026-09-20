@@ -12,6 +12,10 @@ in {
       autoStart = true;
       user = user;
       desktopSession = "plasma";
+      environment = {
+        STEAM_GAMESCOPE_TEARING_SUPPORTED = "0";
+        STEAM_GAMESCOPE_VRR_SUPPORTED = "0";
+      };
     };
 
     services.desktopManager.plasma6.enable = true;
