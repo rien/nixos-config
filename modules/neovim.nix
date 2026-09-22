@@ -27,6 +27,8 @@ let
     programs.neovim = {
       enable = true;
       vimAlias = true;
+      withPython3 = false;
+      withRuby = false;
       extraPackages = lib.optionals pkgs.stdenv.isLinux [ pkgs.xclip ];
       extraConfig = ''
         set nocompatible

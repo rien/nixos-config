@@ -13,13 +13,13 @@ in
     home-manager.users.${config.custom.user} = { pkgs, ... }: {
       programs.ssh = {
         enable = true;
-        matchBlocks = lib.recursiveUpdate (import ./hosts.secret.nix) {
-          "*".identityAgent =
+        settings = lib.recursiveUpdate (import ./hosts.secret.nix) {
+          "*".IdentityAgent =
             if pkgs.stdenv.isDarwin
             then "~/Library/Group\\ Containers/2BUA8C4S2C.com.1password/t/agent.sock"
             else "~/.1password/agent.sock";
         };
-        enableDefaultConfig = true;
+        enableDefaultConfig = false;
       };
 
       systemd.user.services = mkIf pkgs.stdenv.isLinux {
