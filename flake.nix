@@ -154,8 +154,11 @@
         hmInput = home-manager-unstable;
         stylixInput = stylix-unstable;
       };
-      mkDarwinSystem = hostname: extraModules: nix-darwin.lib.darwinSystem {
+      mkDarwinSystem = system: hostname: extraModules: nix-darwin.lib.darwinSystem {
         modules = [
+          # Add extra input arguments to modules
+          ({ config._module.args.unstable = unstablePkgsFor system; })
+
           # Enable home-manager
           home-manager.darwinModules.home-manager
 
@@ -190,7 +193,7 @@
         entropy = mkSystem "x86_64-linux" "entropy" [];
       };
       darwinConfigurations = {
-        aether = mkDarwinSystem "aether" [];
+        aether = mkDarwinSystem "aarch64-darwin" "aether" [];
       };
     };
 }

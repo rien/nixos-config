@@ -1,8 +1,8 @@
-{ pkgs, lib, ... }:
+{ pkgs, unstable, lib, ... }:
 let
   claude-code = pkgs.symlinkJoin {
     name = "claude-code-with-node";
-    paths = [ pkgs.claude-code ];
+    paths = [ unstable.claude-code ];
     buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram $out/bin/claude \
@@ -34,7 +34,7 @@ in
   security.pam.services.sudo_local.touchIdAuth = true;
 
   environment.shells = [ pkgs.bashInteractive ];
-  environment.systemPackages = with pkgs; [ claude-code gh libpq nixos-rebuild python3 ];
+  environment.systemPackages = with pkgs; [ android-tools gh libpq nixos-rebuild python3 ];
 
   system.primaryUser = "rien";
   users.users.rien.home = "/Users/rien";
@@ -47,7 +47,7 @@ in
   home-manager.backupFileExtension = "hmbak";
   home-manager.users.rien.home = {
     stateVersion = "25.11";
-    sessionPath = [ "/usr/local/share/dotnet" "$HOME/.dotnet/tools" ];
+    sessionPath = [ "/usr/local/share/dotnet" "$HOME/.dotnet/tools" "$HOME/.local/bin" ];
   };
   home-manager.users.root.home.stateVersion = "25.11";
 
