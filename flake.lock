@@ -508,12 +508,12 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1789344334,
-        "narHash": "sha256-vdhpDJ3Lr24lkZ+fDCjmBRRtw9/vcSzkqGJOJyF5h2U=",
-        "rev": "c3eea5b2156db11c7eeeada3dc737711255b253e",
-        "revCount": 1014020,
+        "lastModified": 1793865203,
+        "narHash": "sha256-/cpdPHaySDIyCgZI6EWngiM6jK3YLUNzv1b7lTzy6Bk=",
+        "rev": "c56a87d8e41ce69bd2af57eb35dcc117a9dfca33",
+        "revCount": 1017918,
         "type": "tarball",
-        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nixpkgs-26.05-chilled/0.1.1014020%2Brev-c3eea5b2156db11c7eeeada3dc737711255b253e/01a0c79f-7191-7dd2-9350-e179b9baa302/source.tar.gz?rev=c3eea5b2156db11c7eeeada3dc737711255b253e&revCount=1014020"
+        "url": "https://api.flakehub.com/f/pinned/DeterminateSystems/nixpkgs-26.05-chilled/0.1.1017918%2Brev-c56a87d8e41ce69bd2af57eb35dcc117a9dfca33/01a1e7ff-603c-7131-a503-bf45d4c5c752/source.tar.gz?rev=c56a87d8e41ce69bd2af57eb35dcc117a9dfca33&revCount=1017918"
       },
       "original": {
         "type": "tarball",

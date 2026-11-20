@@ -94,7 +94,7 @@ in
     tailscale.enable = true;
 
     affine = {
-      enable = true;
+      enable = false;
       hostname = "affine.rxn.be";
       version = "v0.25.7";
       hash = "sha256-5cWkgKb3uG8+a7q1A02MD/N1KTLMOKgss10kHOfUi3Q=";

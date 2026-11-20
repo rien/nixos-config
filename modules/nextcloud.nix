@@ -25,7 +25,7 @@ in {
         hostName = cfg.hostname;
         enable = true;
         autoUpdateApps.enable = true;
-        package = pkgs.nextcloud32;
+        package = pkgs.nextcloud33;
         config = {
           dbtype = "sqlite";
           adminuser = "rien";
